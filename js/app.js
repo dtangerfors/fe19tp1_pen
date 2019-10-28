@@ -1,4 +1,7 @@
-var options = {
+/**
+ * Options to apply for Quill
+ */
+const options = {
   modules: {
     toolbar: '#toolbar'
   },
@@ -6,9 +9,24 @@ var options = {
   readOnly: false,
   theme: 'snow'
 };
-
-document.addEventListener('')
-
+/**
+ * Quill Editor
+ */
 const editor = new Quill('#editor-code', options);
-let item = localStorage.getItem('abc');
-editor.setContents(JSON.parse(item));
+
+/**
+ * Save Button Element
+ */
+const save_btn = document.getElementById('save-btn');
+save_btn.addEventListener('click', (event) => {
+  const content = JSON.stringify(editor.getContents());
+  localStorage.setItem('notes', content);
+});
+
+/**
+ * Localstorage content
+ */
+const content = localStorage.getItem('notes');
+if(content) {
+  editor.setContents(JSON.parse(content));
+}
