@@ -3,10 +3,6 @@
     box-sizing: border-box;
 }
 
-
-#editor-code {
-    border: 1px solid black;
-}
 #save-btn{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 20px;
@@ -14,4 +10,29 @@
 }
 #save-btn:hover{
 background-color: lightgray;
+}
+
+#sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+#editor-main {
+  width: 50%;
+}
+.container {
+  margin-top: 50px;
+  display: flex;
+}
+.container > div {
+  margin-left: 25px;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #editor-code * {
+    visibility: visible;
+  }
 }
