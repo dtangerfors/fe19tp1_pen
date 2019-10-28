@@ -9,23 +9,26 @@
     <title>Quire - Home Page</title>
 </head>
 <body>
-    <div id="toolbar">
-      <!-- Add font size dropdown -->
-      <select class="ql-size">
-          <option value="small"></option>
-          <!-- Note a missing, thus falsy value, is used to reset to default -->
-          <option selected></option>
-          <option value="large"></option>
-          <option value="huge"></option>
-      </select>
-      <!-- Add a bold button -->
-      <button class="ql-bold"></button>
-      <!-- Add subscript and superscript buttons -->
-      <button class="ql-script" value="sub"></button>
-      <button class="ql-script" value="super"></button>
-      </div>
-    <div id="editor-code"></div>
-    <button id="save-btn">Save</button>
+    <div id="sidebar"></div>
+    <div id="editor-main">
+        <div id="toolbar">
+            <!-- Add font size dropdown -->
+            <select class="ql-size">
+                <option value="small"></option>
+                <!-- Note a missing, thus falsy value, is used to reset to default -->
+                <option selected></option>
+                <option value="large"></option>
+                <option value="huge"></option>
+            </select>
+            <!-- Add a bold button -->
+            <button class="ql-bold"></button>
+            <!-- Add subscript and superscript buttons -->
+            <button class="ql-script" value="sub"></button>
+            <button class="ql-script" value="super"></button>
+        </div>
+        <div id="editor-code"></div>
+        <button id="save-btn">Save</button>
+    </div>
     <script src="js/quill.js"></script>
     <script src="js/app.js"></script>
 </body>
