@@ -18,7 +18,8 @@ background-color: lightgray;
   justify-content: flex-start;
 }
 #editor-main {
-  width: 50%;
+  width: 594px;
+  height: 842px;
 }
 .container {
   margin-top: 50px;
@@ -34,5 +35,8 @@ background-color: lightgray;
   }
   #editor-code * {
     visibility: visible;
+  }
+  @page { 
+    margin: 0;
   }
 }
