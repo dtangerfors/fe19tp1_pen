@@ -35,6 +35,8 @@ background-color: lightgray;
   }
   #editor-code * {
     visibility: visible;
+    height: auto;
+    overflow: hidden;
   }
   @page { 
     margin: 0;
