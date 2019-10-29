@@ -14,6 +14,9 @@ const toolbarOptions = [
   [{ 'align': [] }],
   ['clean']
 ];
+
+let auto_save = false;
+
 const options = {
   modules: {
     toolbar: toolbarOptions
@@ -27,13 +30,19 @@ const options = {
  */
 const editor = new Quill('#editor-code', options);
 
+
+editor.on('text-change', function(delta, source) {
+  if(auto_save) {
+    saveDocument();
+  }
+});
+
 /**
  * Save Button Element
  */
 const save_btn = document.getElementById('save-btn');
 save_btn.addEventListener('click', (event) => {
-  const content = JSON.stringify(editor.getContents());
-  localStorage.setItem('notes', content);
+  saveDocument();
 });
 
 /**
@@ -42,4 +51,9 @@ save_btn.addEventListener('click', (event) => {
 const content = localStorage.getItem('notes');
 if(content) {
   editor.setContents(JSON.parse(content));
+}
+
+function saveDocument() {
+  const content = JSON.stringify(editor.getContents());
+  localStorage.setItem('notes', content);
 }
