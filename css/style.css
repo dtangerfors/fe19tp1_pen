@@ -19,7 +19,7 @@ background-color: lightgray;
 }
 #editor-main {
   width: 594px;
-  height: 842px;
+  max-height: 842px;
 }
 .container {
   margin-top: 50px;
