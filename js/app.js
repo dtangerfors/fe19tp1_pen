@@ -1,13 +1,26 @@
 /**
  * Options to apply for Quill
  */
+const toolbarOptions = [
+  ['bold', 'italic', 'underline', 'strike'],
+  ['blockquote', 'code-block'],
+  [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+  [{ 'script': 'sub'}, { 'script': 'super' }],
+  [{ 'indent': '-1'}, { 'indent': '+1' }],
+  [{ 'direction': 'rtl' }],
+  [{ 'color': [] }, { 'background': [] }],
+  [{ 'font': [] }],
+  [{ 'align': [] }],
+  ['clean']
+];
 const options = {
   modules: {
-    toolbar: '#toolbar'
+    toolbar: toolbarOptions
   },
-  placeholder: 'Compose an epic...',
   readOnly: false,
-  theme: 'snow'
+  theme: 'snow',
+  
 };
 /**
  * Quill Editor
