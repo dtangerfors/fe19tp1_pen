@@ -15,24 +15,18 @@
   background-color: lightgray;
 }
 
-#sidebar {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
 #editor-main {
   width: 594px;
   max-height: 842px;
 }
 
+#editor-code {}
+
 .container {
   margin-top: 50px;
   display: flex;
-}
-
-.container>div {
-  margin-left: 25px;
+  flex: 1 1 auto;
+  margin-left: 5px;
 }
 
 @media print {
@@ -51,43 +45,52 @@
   }
 }
 
-/* ------------- NAVBAR DESIGN -------------           */
+/* ------------- NAVBAR DESIGN ------------- */
 
 /* the nav bar */
 * {
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
+
 }
 
 /* inside the navbar*/
-nav {
+.sidebar {
   display: flex;
+  flex-direction: column;
+
+  /* display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: center; */
   min-height: 8vh;
   font-family: 'Poppins', sans-serif;
   background-color: paleturquoise;
+  width: 7%;
 }
 
 /* The logo "MENU" in the navbar */
-.logo {
+/* .logo {
   color: white;
   text-transform: uppercase;
   letter-spacing: 5px;
   font-size: 20px;
-}
+  display: flex;
+  justify-content: center;
+} */
 
 /* links in the navbar (the buttons/logos) */
 .nav-links {
   display: flex;
-  justify-content: space-around;
-  width: 40%;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 50%;
+  height: 20%;
 }
 
-.nav-links li {
+/* .nav-links li {
   list-style: none;
-}
+} */
 
 .nav-links a {
   color: white;
@@ -110,6 +113,11 @@ nav {
   transition: all 0.3s ease;
 }
 
+img {
+  width: 5em;
+  height: 5em;
+}
+
 @media screen and (max-width:1024px) {
   .nav-links {
     width: 60%;
@@ -123,16 +131,17 @@ nav {
 
   .nav-links {
     position: absolute;
-    right: 0px;
+    left: 0px;
     height: 92vh;
     top: 8vh;
     background-color: paleturquoise;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 50%;
-    transform: translateX(100%);
+    width: 30%;
+    transform: translateX(-100%);
     transition: transform 0.5s ease-in;
+    list-style: none;
   }
 
   .nav-links li {
@@ -159,6 +168,8 @@ nav {
     transform: translateX(0px);
   }
 }
+
+/* Rotation of the Hamburger */
 
 .burgertoggle .line1 {
   transform: rotate(-45deg) translate(-5px, 6px);
