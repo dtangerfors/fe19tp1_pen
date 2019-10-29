@@ -13,31 +13,29 @@
 </head>
 
 <body>
-  <nav>
-    <div class="logo">
-      <h4>Menu</h4>
+  <div class="container">
+    <nav class="sidebar">
+      <ul class="nav-links">
+        <li>
+          <a href="#"><img src="assets/home.svg" /></a>
+        </li>
+        <li> <a href="#"><img src="assets/notes.svg" /></a>
+        </li>
+        <li> <a href="#"><img src="assets/search.svg" /></a>
+        </li>
+        <li> <a href="#"><img src="assets/setting.svg" /></a>
+        </li>
+      </ul>
+      <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
+    </nav>
+    <div id="editor-main">
+      <div id="editor-code"></div>
+      <button id="save-btn">Save</button>
     </div>
-    <ul class="nav-links">
-      <li>
-        <a href="#">Home</a>
-      </li>
-      <li> <a href="#">About</a>
-      </li>
-      <li> <a href="#">Projects</a>
-      </li>
-      <li> <a href="#">Contact me</a>
-      </li>
-    </ul>
-    <div class="burger">
-      <div class="line1"></div>
-      <div class="line2"></div>
-      <div class="line3"></div>
-    </div>
-  </nav>
-  <div id="editor-main">
-    <div id="editor-code">
-    </div>
-    <button id="save-btn">Save</button>
   </div>
   </div>
   <script src="js/quill.js"></script>
