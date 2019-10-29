@@ -1,15 +1,18 @@
-*, *::before, *::after {
-    margin: 0;
-    box-sizing: border-box;
+*,
+*::before,
+*::after {
+  margin: 0;
+  box-sizing: border-box;
 }
 
-#save-btn{
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 20px;
-    border: 1px solid black;
+#save-btn {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 20px;
+  border: 1px solid black;
 }
-#save-btn:hover{
-background-color: lightgray;
+
+#save-btn:hover {
+  background-color: lightgray;
 }
 
 #sidebar {
@@ -17,15 +20,18 @@ background-color: lightgray;
   flex-direction: column;
   justify-content: flex-start;
 }
+
 #editor-main {
   width: 594px;
   max-height: 842px;
 }
+
 .container {
   margin-top: 50px;
   display: flex;
 }
-.container > div {
+
+.container>div {
   margin-left: 25px;
 }
 
@@ -33,12 +39,137 @@ background-color: lightgray;
   body * {
     visibility: hidden;
   }
+
   #editor-code * {
     visibility: visible;
     height: auto;
     overflow: hidden;
   }
-  @page { 
+
+  @page {
     margin: 0;
   }
 }
+
+/* ------------- NAVBAR DESIGN -------------           */
+
+/* the nav bar */
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+/* inside the navbar*/
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 8vh;
+  font-family: 'Poppins', sans-serif;
+  background-color: paleturquoise;
+}
+
+/* The logo "MENU" in the navbar */
+.logo {
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: 20px;
+}
+
+/* links in the navbar (the buttons/logos) */
+.nav-links {
+  display: flex;
+  justify-content: space-around;
+  width: 40%;
+}
+
+.nav-links li {
+  list-style: none;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  letter-spacing: 3px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.burger {
+  display: none;
+  cursor: pointer;
+}
+
+.burger div {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  margin: 5px;
+  transition: all 0.3s ease;
+}
+
+@media screen and (max-width:1024px) {
+  .nav-links {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width:768px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  .nav-links {
+    position: absolute;
+    right: 0px;
+    height: 92vh;
+    top: 8vh;
+    background-color: paleturquoise;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    transform: translateX(100%);
+    transition: transform 0.5s ease-in;
+  }
+
+  .nav-links li {
+    opacity: 0;
+  }
+
+  .burger {
+    display: block;
+  }
+}
+
+.nav-active {
+  transform: translateX(0%)
+}
+
+@keyframes navLinkFade {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+.burgertoggle .line1 {
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.burgertoggle .line2 {
+  opacity: 0;
+}
+
+.burgertoggle .line3 {
+  transform: rotate(45deg) translate(-5px, -6px);
+}
+
+/* ------------- NAVBAR DESIGN ENDS -------------*/
