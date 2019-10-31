@@ -127,10 +127,7 @@ function saveFunction(){
   }
   */
  /*
-  if (arr.some(IfsomeHaveText)=== false) {
-    return console.log("no text");
-    
-  }
+ 
   */
   titleOfText="text"//+loadVal.length;
     loadVal.push(edidtorText);
@@ -183,10 +180,6 @@ window.addEventListener("DOMContentLoaded",function () {
   makeLi();
 })
 
-
-function IfsomeHaveText(params) {
-  return params != "";
-}
 
 function saveDocument() {
   const content = JSON.stringify(editor.getContents());
