@@ -57,3 +57,30 @@ function saveDocument() {
   const content = JSON.stringify(editor.getContents());
   localStorage.setItem('notes', content);
 }
+// Navbar
+
+const navSlide = () => {
+  const burger = document.querySelector('.burger');
+  const nav = document.querySelector('.nav-links');
+  const navLinks = document.querySelectorAll('.nav-links li');
+ 
+ 
+  burger.addEventListener('click',()=>{
+       //Toggle nav
+      nav.classList.toggle('nav-active');
+         
+      //Animate Links
+  navLinks.forEach((link, index) => {
+      if (link.style.animation){
+          link.style.animation = ''
+      } else {
+          link.style.animation = `navLinkFade 0.5s ease backwards ${index / 7 + 0.2}s`;
+      }
+  });
+  //burger animation
+  burger.classList.toggle('burgertoggle')
+  });
+
+}
+
+navSlide();
