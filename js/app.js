@@ -36,6 +36,14 @@ editor.on('text-change', function(delta, source) {
     saveDocument();
   }
 });
+/*
+class Note{
+  constructor(text){
+    this.text = text;
+    this.date= new Date().now;
+  }
+}
+*/
 
 /**
  * Save Button Element
@@ -66,13 +74,13 @@ function loadNew(){
 function makeLi() {
   for (let i = 0; i < loadVal.length; i++) {
     console.log(i);
-    navSideBut.insertAdjacentHTML("beforeend", `<div><h1>${loadVal[i].title}</h1><button class="delete-btn">X</button>
-  <button class="edit">Edit</button></div>`)
+    navSideBut.insertAdjacentHTML("beforeend", `<div><h1>text</h1><button class="delete-btn">X</button>
+  <button class="edit-btn">Edit</button></div>`)
   }
   //delete1
-  var deletebtns;
+  var deletebtns; 
   if (document.querySelectorAll(".delete-btn").length !== 0) {
-    deletebtns = document.querySelectorAll(".delete-btn")
+    deletebtns = document.querySelectorAll(".delete-btn"); //Alla Delete knappar 
     for (let i = 0; i < deletebtns.length; i++) {
       deletebtns[i].addEventListener("click", function () {
         console.log("delete me!!");
@@ -84,37 +92,64 @@ function makeLi() {
       })
     }
   }
+  if (document.querySelectorAll(".edit-btn").length!==0) {
+    var editBtn = document.querySelectorAll(".edit-btn");
+  for (let j = 0; j < editBtn.length; j++) {
+    editBtn[j].addEventListener("click", function () {
+      //editor
+      console.log("Edit" + loadVal[j]);
+      editor.setContents(loadVal[j])
+      
+    })
+}
+  }
+    
 }
 
 
-var titleOfText;
-var examlpeStore = [];
-var saveText = [];
-var saveTags = [];
+//var titleOfText;
+
 //save knappen
 document.getElementById("save-btn").addEventListener("click",saveFunction);
-var ggt = document.querySelector(".ql-editor");
+var edidtorText = editor.getContents();
+
+
 function saveFunction(){
   loadVal;
  
-  var arr = [];
-  var titleOfText;
-  var saveText=[];
-  var saveTags=[];
-  for (let index = 0; index < ggt.children.length; index++) {
-    arr.push(ggt.children[index].textContent);
-    saveTags.push(ggt.children[index].tagName);
-    saveText.push(ggt.children[index].textContent)
+  //var arr = [];
+  console.log(edidtorText);
+
+  /*
+  for (let index = 0; index < edidtorText.length; index++) {
+   // arr.push(edidtorText[index]);
+    console.log(edidtorText[index].insert)
   }
+  */
+ /*
   if (arr.some(IfsomeHaveText)=== false) {
     return console.log("no text");
     
   }
-    loadVal.push({ title: titleOfText, text: saveText, tags: saveTags })
-  navSideBut.insertAdjacentHTML("beforeend", `<div><h1>${loadVal[loadVal.length-1].title}</h1><button class="delete-btn">X</button>
-  <button class="edit">Edit</button></div>`);
+  */
+  titleOfText="text"//+loadVal.length;
+    loadVal.push(edidtorText);
+    console.log(loadVal)
+  navSideBut.insertAdjacentHTML("beforeend", `<div><h1>${titleOfText}</h1><button class="delete-btn">X</button>
+  <button class="edit-btn">Edit</button></div>`);
   saveTextValue();
   //Delete 
+  if (document.querySelectorAll(".edit-btn")!==0){
+  var editBtn = document.querySelectorAll(".edit-btn");
+  for (let j = 0; j < editBtn.length; j++) {
+         //editor
+      editBtn[j].addEventListener("click", function () {
+      console.log("Edit"+j);
+      editor.setContents(loadVal[j])
+    })
+  
+  }
+}
   var deletebtns;
   if (document.querySelectorAll(".delete-btn").length !== 0) {
     deletebtns = document.querySelectorAll(".delete-btn")
@@ -128,7 +163,15 @@ function saveFunction(){
       })
     }
   }
+  
 }
+
+//document.querySelectorAll(".edit-btn");
+
+
+
+
+
 
 
 function saveTextValue(){
