@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+body {
+  display: flex;
+}
+
 #save-btn {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 20px;
@@ -24,9 +28,9 @@
 
 .container {
   margin-top: 50px;
+  width: calc(100% - 5rem);
   display: flex;
   flex: 1 1 auto;
-  margin-left: 5px;
 }
 
 @media print {
@@ -56,19 +60,19 @@
 }
 
 /* inside the navbar*/
-.sidebar {
+/* .sidebar {
   display: flex;
   flex-direction: column;
 
-  /* display: flex;
+  display: flex;
   justify-content: space-around;
-  align-items: center; */
-  min-height: 8vh;
+  align-items: center;
+  height: 100vh;
   font-family: 'Poppins', sans-serif;
-  background-color: paleturquoise;
-  width: 7%;
+  background-color: blue;
+  width: 5rem;
 }
-
+ */
 /* The logo "MENU" in the navbar */
 /* .logo {
   color: white;
@@ -80,25 +84,25 @@
 } */
 
 /* links in the navbar (the buttons/logos) */
-.nav-links {
+/* .nav-links {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 50%;
+  width: 100%;
   height: 20%;
-}
+} */
 
 /* .nav-links li {
   list-style: none;
 } */
 
-.nav-links a {
+/* .nav-links a {
   color: white;
   text-decoration: none;
   letter-spacing: 3px;
   font-weight: bold;
   font-size: 14px;
-}
+} */
 
 .burger {
   display: none;
@@ -113,28 +117,29 @@
   transition: all 0.3s ease;
 }
 
-img {
-  width: 5em;
-  height: 5em;
+/* SVG images*/
+/* .svg-img {
+  width: 100%;
+  padding: 1.5rem;
 }
 
 @media screen and (max-width:1024px) {
   .nav-links {
     width: 60%;
   }
-}
+} */
 
 @media screen and (max-width:768px) {
   body {
     overflow-x: hidden;
   }
 
-  .nav-links {
+  /* .nav-links {
     position: absolute;
     left: 0px;
     height: 92vh;
     top: 8vh;
-    background-color: paleturquoise;
+    background-color: blue;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -147,7 +152,7 @@ img {
   .nav-links li {
     opacity: 0;
   }
-
+ */
   .burger {
     display: block;
   }
@@ -170,7 +175,7 @@ img {
 }
 
 /* Rotation of the Hamburger */
-
+/* 
 .burgertoggle .line1 {
   transform: rotate(-45deg) translate(-5px, 6px);
 }
@@ -181,6 +186,6 @@ img {
 
 .burgertoggle .line3 {
   transform: rotate(45deg) translate(-5px, -6px);
-}
+} */
 
 /* ------------- NAVBAR DESIGN ENDS -------------*/
