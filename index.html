@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/navbartest.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdn.quilljs.com/1.3.6/quill.snow.css">
   <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
@@ -13,25 +14,28 @@
 </head>
 
 <body>
+
+  <nav class="sidebar">
+    <div class="burger">
+      <div class="line1"></div>
+      <div class="line2"></div>
+      <div class="line3"></div>
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="#"><img class="svg-img" src="assets/home.svg" /></a>
+      </li>
+      <li> <a href="#"><img class="svg-img" src="assets/notes.svg" /></a>
+      </li>
+      <li> <a href="#"><img class="svg-img" src="assets/search.svg" /></a>
+      </li>
+      <li> <a href="#"><img class="svg-img" src="assets/setting.svg" /></a>
+      </li>
+    </ul>
+
+  </nav>
   <div class="container">
-    <nav class="sidebar">
-      <ul class="nav-links">
-        <li>
-          <a href="#"><img src="assets/home.svg" /></a>
-        </li>
-        <li> <a href="#"><img src="assets/notes.svg" /></a>
-        </li>
-        <li> <a href="#"><img src="assets/search.svg" /></a>
-        </li>
-        <li> <a href="#"><img src="assets/setting.svg" /></a>
-        </li>
-      </ul>
-      <div class="burger">
-        <div class="line1"></div>
-        <div class="line2"></div>
-        <div class="line3"></div>
-      </div>
-    </nav>
+
     <div id="editor-main">
       <div id="editor-code"></div>
       <button id="save-btn">Save</button>
