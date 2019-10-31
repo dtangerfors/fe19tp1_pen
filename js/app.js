@@ -110,12 +110,6 @@ function saveFunction(){
     return console.log("no text");
     
   }
-  if (ggt.firstElementChild.tagName==="H1") {
-    //h1 blir titel av sidan
-    titleOfText=ggt.firstElementChild.textContent
-  }else{
-    titleOfText="Untitled";
-  }
     loadVal.push({ title: titleOfText, text: saveText, tags: saveTags })
   navSideBut.insertAdjacentHTML("beforeend", `<div><h1>${loadVal[loadVal.length-1].title}</h1><button class="delete-btn">X</button>
   <button class="edit">Edit</button></div>`);
@@ -135,6 +129,8 @@ function saveFunction(){
     }
   }
 }
+
+
 function saveTextValue(){
   localStorage.setItem("storage", JSON.stringify(loadVal));
 }
