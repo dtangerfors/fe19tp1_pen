@@ -15,8 +15,6 @@ const toolbarOptions = [
   ['clean']
 ];
 
-let auto_save = false;
-
 const options = {
   modules: {
     toolbar: toolbarOptions
@@ -29,30 +27,7 @@ const options = {
  */
 const editor = new Quill('#editor-code', options);
 
-editor.on('text-change', function(delta, source) {
-  if(auto_save) {
-    saveDocument();
-  }
-});
-
-/**
- * Save Button Element
- */
-const save_btn = document.getElementById('save-btn');
-save_btn.addEventListener('click', (event) => {
-  saveDocument();
-});
-
-/**
- * Localstorage content example
- */
-const content = localStorage.getItem('notes');
-if(content) {
-  editor.setContents(JSON.parse(content));
-}
-
-
-var navSideBut = document.getElementById("set-storage");
+var navSideBut = document.getElementById("note-list");
 
 var loadVal=[];
 function loadNew(){
@@ -64,7 +39,7 @@ function makeLi() {
     navSideBut.insertAdjacentHTML("beforeend", `<div><h1>text</h1><button class="delete-btn">X</button>
   <button class="edit-btn">Edit</button></div>`)
   }
-  //delete1
+  //delete
   var deletebtns; 
   if (document.querySelectorAll(".delete-btn").length !== 0) {
     deletebtns = document.querySelectorAll(".delete-btn"); //Alla Delete knappar 
@@ -92,11 +67,11 @@ function makeLi() {
     
 }
 
-//save knappen
+//save button
 document.getElementById("save-btn").addEventListener("click",saveFunction);
-var edidtorText = editor.getContents();
 
 function saveFunction(){
+  var edidtorText = editor.getContents();
   titleOfText="text";
   loadVal.push(edidtorText);
   console.log(loadVal);
@@ -136,11 +111,6 @@ window.addEventListener("DOMContentLoaded",function () {
   makeLi();
 });
 
-
-function saveDocument() {
-  const content = JSON.stringify(editor.getContents());
-  localStorage.setItem('notes', content);
-}
 
 // Navbar
 const navSlide = () => {
