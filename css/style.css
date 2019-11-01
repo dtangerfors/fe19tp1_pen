@@ -21,10 +21,12 @@ body {
 
 #editor-main {
   width: 594px;
+  height: 442px;
   max-height: 842px;
 }
-
-#editor-code {}
+.note-list:empty {
+  display: none;
+}
 
 .container {
   margin-top: 50px;
