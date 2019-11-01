@@ -22,28 +22,18 @@ const options = {
     toolbar: toolbarOptions
   },
   readOnly: false,
-  theme: 'snow',
-  
+  theme: 'snow'
 };
 /**
  * Quill Editor
  */
 const editor = new Quill('#editor-code', options);
 
-
 editor.on('text-change', function(delta, source) {
   if(auto_save) {
     saveDocument();
   }
 });
-/*
-class Note{
-  constructor(text){
-    this.text = text;
-    this.date= new Date().now;
-  }
-}
-*/
 
 /**
  * Save Button Element
@@ -64,9 +54,6 @@ if(content) {
 
 var navSideBut = document.getElementById("set-storage");
 
-//var loadItems = JSON.parse(localStorage.getItem("storage")); 
-/*
-*/
 var loadVal=[];
 function loadNew(){
   loadVal = localStorage.getItem("storage") ? JSON.parse(localStorage.getItem("storage")) : [];
@@ -94,82 +81,51 @@ function makeLi() {
   }
   if (document.querySelectorAll(".edit-btn").length!==0) {
     var editBtn = document.querySelectorAll(".edit-btn");
-  for (let j = 0; j < editBtn.length; j++) {
-    editBtn[j].addEventListener("click", function () {
-      //editor
-      console.log("Edit" + loadVal[j]);
-      editor.setContents(loadVal[j])
-      
-    })
-}
+    for (let j = 0; j < editBtn.length; j++) {
+      editBtn[j].addEventListener("click", function () {
+        //editor
+        console.log("Edit" + loadVal[j]);
+        editor.setContents(loadVal[j]);
+      });
+    }
   }
     
 }
-
-
-//var titleOfText;
 
 //save knappen
 document.getElementById("save-btn").addEventListener("click",saveFunction);
 var edidtorText = editor.getContents();
 
-
 function saveFunction(){
-  loadVal;
- 
-  //var arr = [];
-  console.log(edidtorText);
+  titleOfText="text";
+  loadVal.push(edidtorText);
+  console.log(loadVal);
 
-  /*
-  for (let index = 0; index < edidtorText.length; index++) {
-   // arr.push(edidtorText[index]);
-    console.log(edidtorText[index].insert)
-  }
-  */
- /*
- 
-  */
-  titleOfText="text"//+loadVal.length;
-    loadVal.push(edidtorText);
-    console.log(loadVal)
-  navSideBut.insertAdjacentHTML("beforeend", `<div><h1>${titleOfText}</h1><button class="delete-btn">X</button>
-  <button class="edit-btn">Edit</button></div>`);
+  navSideBut.insertAdjacentHTML("beforeend", `<div><h1>${titleOfText}</h1><button class="delete-btn">X</button><button class="edit-btn">Edit</button></div>`);
   saveTextValue();
   //Delete 
   if (document.querySelectorAll(".edit-btn")!==0){
-  var editBtn = document.querySelectorAll(".edit-btn");
-  for (let j = 0; j < editBtn.length; j++) {
-         //editor
+    var editBtn = document.querySelectorAll(".edit-btn");
+    for (let j = 0; j < editBtn.length; j++) {
+      //editor
       editBtn[j].addEventListener("click", function () {
-      console.log("Edit"+j);
-      editor.setContents(loadVal[j])
-    })
-  
+        console.log("Edit"+j);
+        editor.setContents(loadVal[j])
+      });
+    }
   }
-}
-  var deletebtns;
   if (document.querySelectorAll(".delete-btn").length !== 0) {
-    deletebtns = document.querySelectorAll(".delete-btn")
+    var deletebtns = document.querySelectorAll(".delete-btn")
     for (let i = 0; i < deletebtns.length; i++) {
       deletebtns[i].addEventListener("click", function () {
         console.log("delete me!!");
         loadVal.splice(i, 1);
         saveTextValue();
         deletebtns[i].parentNode.remove();
-
-      })
+      });
     }
   }
-  
 }
-
-//document.querySelectorAll(".edit-btn");
-
-
-
-
-
-
 
 function saveTextValue(){
   localStorage.setItem("storage", JSON.stringify(loadVal));
@@ -178,26 +134,25 @@ function saveTextValue(){
 window.addEventListener("DOMContentLoaded",function () {
   loadNew();
   makeLi();
-})
+});
 
 
 function saveDocument() {
   const content = JSON.stringify(editor.getContents());
   localStorage.setItem('notes', content);
 }
-// Navbar
 
+// Navbar
 const navSlide = () => {
   const burger = document.querySelector('.burger');
   const nav = document.querySelector('.nav-links');
   const navLinks = document.querySelectorAll('.nav-links li');
  
- 
   burger.addEventListener('click',()=>{
-       //Toggle nav
-      nav.classList.toggle('nav-active');
+  //Toggle nav
+  nav.classList.toggle('nav-active');
          
-      //Animate Links
+  //Animate Links
   navLinks.forEach((link, index) => {
       if (link.style.animation){
           link.style.animation = ''
@@ -208,7 +163,6 @@ const navSlide = () => {
   //burger animation
   burger.classList.toggle('burgertoggle')
   });
-
 }
 
 navSlide();
