@@ -30,12 +30,13 @@ const options = {
  */
 const editor = new Quill('#editor-code', options);
 
-
+/*
 editor.on('text-change', function(delta, source) {
   if(auto_save) {
-    saveDocument();
+    //saveDocument();
   }
 });
+*/
 /*
 class Note{
   constructor(text){
@@ -47,143 +48,137 @@ class Note{
 
 /**
  * Save Button Element
- */
+
 const save_btn = document.getElementById('save-btn');
 save_btn.addEventListener('click', (event) => {
-  saveDocument();
+  //saveDocument();
 });
-
+ */
 /**
  * Localstorage content example
  */
+/*
 const content = localStorage.getItem('notes');
 if(content) {
   editor.setContents(JSON.parse(content));
 }
-
-
-var navSideBut = document.getElementById("set-storage");
-
-//var loadItems = JSON.parse(localStorage.getItem("storage")); 
-/*
 */
-var loadVal=[];
-function loadNew(){
-  loadVal = localStorage.getItem("storage") ? JSON.parse(localStorage.getItem("storage")) : [];
-}
-function makeLi() {
-  for (let i = 0; i < loadVal.length; i++) {
-    console.log(i);
-    navSideBut.insertAdjacentHTML("beforeend", `<div><h1>text</h1><button class="delete-btn">X</button>
-  <button class="edit-btn">Edit</button></div>`)
-  }
-  //delete1
-  var deletebtns; 
-  if (document.querySelectorAll(".delete-btn").length !== 0) {
-    deletebtns = document.querySelectorAll(".delete-btn"); //Alla Delete knappar 
-    for (let i = 0; i < deletebtns.length; i++) {
-      deletebtns[i].addEventListener("click", function () {
-        console.log("delete me!!");
-        loadVal.splice(i, 1);
-        saveTextValue();
-        deletebtns[i].parentNode.remove();
-
-        console.log(i);
-      })
+var navSideBut = document.getElementById("set-storage"); //set items
+function RemoveItem(e) {
+  //Remove button function
+  let clickIDRemove = e.target.getAttribute("delete-value");
+  const loadDeleteList = JSON.parse(localStorage.getItem("save-notes"));
+  console.log(Number(clickIDRemove));
+  for (let i = 0; i < loadDeleteList.length; i++) {
+    if(loadDeleteList[i].id===Number(clickIDRemove)){
+      console.log(loadDeleteList[i].id+" must go")
+      console.log(loadDeleteList[i].content.ops[0]);
+      loadDeleteList.splice(i,1);
     }
   }
-  if (document.querySelectorAll(".edit-btn").length!==0) {
-    var editBtn = document.querySelectorAll(".edit-btn");
-  for (let j = 0; j < editBtn.length; j++) {
-    editBtn[j].addEventListener("click", function () {
-      //editor
-      console.log("Edit" + loadVal[j]);
-      editor.setContents(loadVal[j])
-      
-    })
-}
-  }
-    
-}
-
-
-//var titleOfText;
-
-//save knappen
-document.getElementById("save-btn").addEventListener("click",saveFunction);
-var edidtorText = editor.getContents();
-
-
-function saveFunction(){
-  loadVal;
- 
-  //var arr = [];
-  console.log(edidtorText);
-
-  /*
-  for (let index = 0; index < edidtorText.length; index++) {
-   // arr.push(edidtorText[index]);
-    console.log(edidtorText[index].insert)
-  }
-  */
- /*
- 
-  */
-  titleOfText="text"//+loadVal.length;
-    loadVal.push(edidtorText);
-    console.log(loadVal)
-  navSideBut.insertAdjacentHTML("beforeend", `<div><h1>${titleOfText}</h1><button class="delete-btn">X</button>
-  <button class="edit-btn">Edit</button></div>`);
-  saveTextValue();
-  //Delete 
-  if (document.querySelectorAll(".edit-btn")!==0){
-  var editBtn = document.querySelectorAll(".edit-btn");
-  for (let j = 0; j < editBtn.length; j++) {
-         //editor
-      editBtn[j].addEventListener("click", function () {
-      console.log("Edit"+j);
-      editor.setContents(loadVal[j])
-    })
+  console.log(loadDeleteList)
+  storeContent(loadDeleteList); //deleted from localstorage
+  e.target.parentNode.remove(); //delete from div
   
-  }
 }
-  var deletebtns;
-  if (document.querySelectorAll(".delete-btn").length !== 0) {
-    deletebtns = document.querySelectorAll(".delete-btn")
-    for (let i = 0; i < deletebtns.length; i++) {
-      deletebtns[i].addEventListener("click", function () {
-        console.log("delete me!!");
-        loadVal.splice(i, 1);
-        saveTextValue();
-        deletebtns[i].parentNode.remove();
+function saveEditText(value) {
+  localStorage.setItem("window-edit",JSON.stringify(value));
+}
 
-      })
+function EditItem(e){
+  let clickIDRemoveEdit = e.target.getAttribute("edit-value");
+  var windowContent;
+ var editText = JSON.parse(localStorage.getItem("save-notes"));
+  console.log(Number(clickIDRemoveEdit));
+  for (let i = 0; i <editText.length; i++){
+    if (editText[i].id === Number(clickIDRemoveEdit)) {
+      editor.setContents(editText[i].content);
+      windowContent= editText[i].content;
+      e.target.parentNode.remove();
+      editText.splice(i,1);
     }
   }
-  
+  saveEditText(windowContent);
+  storeContent(editText);
 }
-
-//document.querySelectorAll(".edit-btn");
-
-
-
-
-
-
-
-function saveTextValue(){
-  localStorage.setItem("storage", JSON.stringify(loadVal));
+function makeAndStoreContent() {
+  var makeAndStoreContentLoad = JSON.parse(localStorage.getItem("save-notes"));
+  const saveItem = {
+    content: editor.getContents(),
+    id: Date.now()
+  }
+  makeAndStoreContentLoad.push(saveItem);
+  storeContent(makeAndStoreContentLoad);
+    var removeBtn = document.createElement("button");
+    var editBtn = document.createElement("button");
+  const h1 = document.createElement("h1");
+  h1.innerText=saveItem.content.ops[0].insert; //text that tells which to delete or edit 
+  removeBtn.innerHTML="delete";
+  editBtn.innerHTML="edit";
+  var attributeRemoveID = document.createAttribute("delete-value");
+  var attributeEditID = document.createAttribute("edit-value");
+  attributeRemoveID.value= saveItem.id;
+  attributeEditID.value= saveItem.id;
+  const listDiv = document.createElement("div"); 
+  console.log(attributeRemoveID)
+  removeBtn.setAttributeNode(attributeRemoveID);
+  editBtn.setAttributeNode(attributeEditID);
+  listDiv.append(h1);
+  navSideBut.append(listDiv);
+  h1.parentNode.insertBefore(removeBtn,h1.nextSibling);
+  removeBtn.parentNode.insertBefore(editBtn, removeBtn.nextSibling);
+  removeBtn.onclick = RemoveItem;
+  editBtn.onclick = EditItem;
 }
-
-window.addEventListener("DOMContentLoaded",function () {
-  loadNew();
-  makeLi();
+window.addEventListener("DOMContentLoaded", function () {
+  renderItems();
+   editorLoad();
 })
+function renderItems(){
+  const renderList = JSON.parse(localStorage.getItem("save-notes"))
+  for (let i = 0; i < renderList.length; i++) {
+    var idNumb= renderList[i].id;
+    var removeBtn = document.createElement("button");
+    var editBtn = document.createElement("button");
+    var attributeRemoveID = document.createAttribute("delete-value");
+    var attributeEditID = document.createAttribute("edit-value");
+    attributeRemoveID.value=idNumb;
+    attributeEditID.value=idNumb;
+    const h1 = document.createElement("h1");
+    h1.innerText = renderList[i].content.ops[0].insert;
+    removeBtn.innerHTML = "delete";
+    editBtn.innerHTML = "edit";
+    var listDiv = document.createElement("div");
+    removeBtn.setAttributeNode(attributeRemoveID);
+    editBtn.setAttributeNode(attributeEditID);
+    listDiv.append(h1);
+    navSideBut.append(listDiv);
+    h1.parentNode.insertBefore(removeBtn, h1.nextSibling);
+    removeBtn.parentNode.insertBefore(editBtn, removeBtn.nextSibling);
+    removeBtn.onclick = RemoveItem;
+    editBtn.onclick = EditItem;
+  }
+}
+//save knappen
+function saveFunction() {
+  makeAndStoreContent();
+  clearContents();
+}
 
+document.getElementById("save-btn").addEventListener("click",saveFunction)
+function editorLoad() {
+  const loadFromStorage = JSON.parse(localStorage.getItem("window-edit"))
+      editor.setContents(loadFromStorage);
+   
+}
+function clearContents() {
+  editor.setContents(); //clear all text;
+  var clearWindow =[];
+  saveEditText(clearWindow);
 
-function saveDocument() {
-  const content = JSON.stringify(editor.getContents());
-  localStorage.setItem('notes', content);
+}
+function storeContent(value) {
+  localStorage.setItem("save-notes", JSON.stringify(value))
 }
 // Navbar
 
@@ -210,5 +205,6 @@ const navSlide = () => {
   });
 
 }
+
 
 navSlide();
