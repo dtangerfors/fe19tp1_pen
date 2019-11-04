@@ -165,9 +165,10 @@ function renderItems(){
   const renderList = JSON.parse(localStorage.getItem("save-notes"))
   const newList  = newContent(renderList);
   var title = 0;
-  for (let i = 0; i < newList.length; i++) {
+  for (let i = 0 ; i < newList.length; i++) {
     title++;
     var idNumb = newList[i].id;
+    console.log(i)
     newDIV(title,idNumb);
   }
 }
@@ -186,7 +187,7 @@ function newDIV(valueTitle,idNumberValue) {
   removeBtn.setAttributeNode(attributeRemoveID);
   editBtn.setAttributeNode(attributeEditID);
   listDiv.append(h1);
-  navSideBut.append(listDiv);
+  navSideBut.insertBefore(listDiv,navSideBut.firstChild);
   h1.parentNode.insertBefore(removeBtn, h1.nextSibling);
   removeBtn.parentNode.insertBefore(editBtn, removeBtn.nextSibling);
   removeBtn.onclick = RemoveItem;
