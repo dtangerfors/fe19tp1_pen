@@ -120,12 +120,10 @@ function makeAndStoreContent() {
   var newContentLoad = newContent(makeAndStoreContentLoad);
   const loadID = Number(loadEditID());
   var numb = 0;
-  const h1 = document.createElement("h1");
   for (let i = 0; i < newContentLoad.length; i++) {
     if (newContentLoad[i].id === loadID) {
       console.log(newContentLoad[i].id + " " + loadID) 
       newContentLoad[i].content=editor.getContents();
-      h1.innerText = editor.getContents().ops[0].insert;
       console.log(newContentLoad[i].content)
       numb++;
     }
@@ -141,6 +139,7 @@ function makeAndStoreContent() {
       id: Date.now()
     }
     newContentLoad.push(saveItem);
+    const h1 = document.createElement("h1");
     var removeBtn = document.createElement("button");
     var editBtn = document.createElement("button");
     h1.innerText = saveItem.content.ops[0].insert; //text that tells which to delete or edit 
