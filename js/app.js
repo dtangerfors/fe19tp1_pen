@@ -22,30 +22,18 @@ const options = {
   readOnly: false,
   theme: 'snow'
 };
-
-const settings = {
-	autoSave: true,
-	activeTheme: null
-};
-
-const localSettings = JSON.parse(localStorage.getItem("user-settings"));
-if(localSettings) {	
-	settings.autoSave = localSettings.autoSave;
-	settings.activeTheme = localSettings.activeTheme;
-}
-
 /**
  * Quill Editor
  */
 const editor = new Quill('#editor-code', options);
 
-// 
+/*
 editor.on('text-change', function(delta, source) {
-  if(settings.autoSave) {
-	//   saveDocument();
+  if(auto_save) {
+    //saveDocument();
   }
 });
-
+*/
 /*
 class Note{
   constructor(text){
@@ -72,7 +60,7 @@ if(content) {
   editor.setContents(JSON.parse(content));
 }
 */
-var navSideBut = document.getElementById("set-storage"); //set items
+var navSideBut = document.getElementById("note-list"); //set items
 function RemoveItem(e) {
   //Remove button function
   let clickIDRemove = e.target.getAttribute("delete-value");
@@ -118,7 +106,6 @@ function EditItem(e){
   saveEditText(windowContent);
   storeContent(editText);
 }
-<<<<<<< HEAD
 function newContent(value) {
   if (value ===null) {
     return []
@@ -153,16 +140,6 @@ function makeAndStoreContent() {
     }
     newContentLoad.push(saveItem);
     
-=======
-function makeAndStoreContent() {
-  var makeAndStoreContentLoad = JSON.parse(localStorage.getItem("save-notes"));
-  const saveItem = {
-    content: editor.getContents(),
-    id: Date.now()
-  }
-  makeAndStoreContentLoad.push(saveItem);
-  storeContent(makeAndStoreContentLoad);
->>>>>>> 17249690b695a01b732f15738df3d263e533c746
     var removeBtn = document.createElement("button");
     var editBtn = document.createElement("button");
     const h1 = document.createElement("h1");
@@ -193,16 +170,11 @@ window.addEventListener("DOMContentLoaded", function () {
 })
 function renderItems(){
   const renderList = JSON.parse(localStorage.getItem("save-notes"))
-<<<<<<< HEAD
   const newList  = newContent(renderList);
   var title = 0;
   for (let i = 0; i < newList.length; i++) {
     title++;
     var idNumb = newList[i].id;
-=======
-  for (let i = 0; i < renderList.length; i++) {
-    var idNumb= renderList[i].id;
->>>>>>> 17249690b695a01b732f15738df3d263e533c746
     var removeBtn = document.createElement("button");
     var editBtn = document.createElement("button");
     var attributeRemoveID = document.createAttribute("delete-value");
@@ -210,11 +182,7 @@ function renderItems(){
     attributeRemoveID.value=idNumb;
     attributeEditID.value=idNumb;
     const h1 = document.createElement("h1");
-<<<<<<< HEAD
     h1.innerText = "title"+title;
-=======
-    h1.innerText = renderList[i].content.ops[0].insert;
->>>>>>> 17249690b695a01b732f15738df3d263e533c746
     removeBtn.innerHTML = "delete";
     editBtn.innerHTML = "edit";
     var listDiv = document.createElement("div");
@@ -228,7 +196,11 @@ function renderItems(){
     editBtn.onclick = EditItem;
   }
 }
-//save knappen
+
+//save button
+document.getElementById("save-btn").addEventListener("click", saveFunction);
+
+
 function saveFunction() {
   makeAndStoreContent();
   clearContents();
@@ -249,89 +221,7 @@ function clearContents() {
 function storeContent(value) {
   localStorage.setItem("save-notes", JSON.stringify(value))
 }
-var navSideBut = document.getElementById("note-list");
 
-var loadVal=[];
-function loadNew(){
-  loadVal = localStorage.getItem("storage") ? JSON.parse(localStorage.getItem("storage")) : [];
-}
-function makeLi() {
-  for (let i = 0; i < loadVal.length; i++) {
-    console.log(i);
-    navSideBut.insertAdjacentHTML("beforeend", `<div><h1>text</h1><button class="delete-btn">X</button>
-  <button class="edit-btn">Edit</button></div>`)
-  }
-  //delete
-  var deletebtns; 
-  if (document.querySelectorAll(".delete-btn").length !== 0) {
-    deletebtns = document.querySelectorAll(".delete-btn"); //Alla Delete knappar 
-    for (let i = 0; i < deletebtns.length; i++) {
-      deletebtns[i].addEventListener("click", function () {
-        console.log("delete me!!");
-        loadVal.splice(i, 1);
-        saveTextValue();
-        deletebtns[i].parentNode.remove();
-
-        console.log(i);
-      })
-    }
-  }
-  if (document.querySelectorAll(".edit-btn").length!==0) {
-    var editBtn = document.querySelectorAll(".edit-btn");
-    for (let j = 0; j < editBtn.length; j++) {
-      editBtn[j].addEventListener("click", function () {
-        //editor
-        console.log("Edit" + loadVal[j]);
-        editor.setContents(loadVal[j]);
-      });
-    }
-  }
-    
-}
-
-//save button
-document.getElementById("save-btn").addEventListener("click",saveFunction);
-
-function saveFunction(){
-  var edidtorText = editor.getContents();
-  titleOfText="text";
-  loadVal.push(edidtorText);
-  console.log(loadVal);
-
-  navSideBut.insertAdjacentHTML("beforeend", `<div><h1>${titleOfText}</h1><button class="delete-btn">X</button><button class="edit-btn">Edit</button></div>`);
-  saveTextValue();
-  //Delete 
-  if (document.querySelectorAll(".edit-btn")!==0){
-    var editBtn = document.querySelectorAll(".edit-btn");
-    for (let j = 0; j < editBtn.length; j++) {
-      //editor
-      editBtn[j].addEventListener("click", function () {
-        console.log("Edit"+j);
-        editor.setContents(loadVal[j])
-      });
-    }
-  }
-  if (document.querySelectorAll(".delete-btn").length !== 0) {
-    var deletebtns = document.querySelectorAll(".delete-btn")
-    for (let i = 0; i < deletebtns.length; i++) {
-      deletebtns[i].addEventListener("click", function () {
-        console.log("delete me!!");
-        loadVal.splice(i, 1);
-        saveTextValue();
-        deletebtns[i].parentNode.remove();
-      });
-    }
-  }
-}
-
-function saveTextValue(){
-  localStorage.setItem("storage", JSON.stringify(loadVal));
-}
-
-window.addEventListener("DOMContentLoaded",function () {
-  loadNew();
-  makeLi();
-});
 
 
 // Navbar
@@ -359,34 +249,3 @@ const navSlide = () => {
 
 
 navSlide();
-
-
-
-/**
- * Save Checkbox Element in the DOM
- */
-const save_checkbox = document.querySelector("input[name=auto-save]");
-save_checkbox.checked = settings.autoSave
-
-save_checkbox.addEventListener( 'change', function() {
-	settings.autoSave = this.checked;
-	localStorage.setItem("user-settings", JSON.stringify(settings));
-});
-
-const settingsModal = document.getElementById("settings-modal");
-const settingsButton = document.getElementById("settings");
-const closeElement = document.querySelector(".close");
-
-settingsButton.addEventListener('click', function() {
-  settingsModal.style.display = "block";
-});
-
-closeElement.addEventListener('click', function() {
-	settingsModal.style.display = "none";
-});
-
-window.onclick = function(event) {
-  if (event.target == settingsModal) {
-	settingsModal.style.display = "none";	
-  }
-};
