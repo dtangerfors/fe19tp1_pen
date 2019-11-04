@@ -124,7 +124,7 @@ function makeAndStoreContent() {
     if (newContentLoad[i].id === loadID) {
       console.log(newContentLoad[i].id + " " + loadID) 
       newContentLoad[i].content=editor.getContents();
-      console.log(newContentLoad[i].content)
+
       numb++;
     }
     else{
@@ -139,9 +139,10 @@ function makeAndStoreContent() {
       id: Date.now()
     }
     newContentLoad.push(saveItem);
-    const h1 = document.createElement("h1");
+    
     var removeBtn = document.createElement("button");
     var editBtn = document.createElement("button");
+    const h1 = document.createElement("h1");
     h1.innerText = saveItem.content.ops[0].insert; //text that tells which to delete or edit 
     removeBtn.innerHTML = "delete";
     editBtn.innerHTML = "edit";
@@ -149,14 +150,18 @@ function makeAndStoreContent() {
     var attributeEditID = document.createAttribute("edit-value");
     attributeRemoveID.value = saveItem.id;
     attributeEditID.value = saveItem.id;
+    const listDiv = document.createElement("div");
     console.log(attributeRemoveID)
     removeBtn.setAttributeNode(attributeRemoveID);
     editBtn.setAttributeNode(attributeEditID);
+    listDiv.append(h1);
+    navSideBut.append(listDiv);
     h1.parentNode.insertBefore(removeBtn, h1.nextSibling);
     removeBtn.parentNode.insertBefore(editBtn, removeBtn.nextSibling);
     removeBtn.onclick = RemoveItem;
     editBtn.onclick = EditItem;
   }
+  storeContent(newContentLoad);
   
 }
 window.addEventListener("DOMContentLoaded", function () {
