@@ -114,10 +114,13 @@ function newContent(value) {
   }
 
 }
-
+function titleNumb() {
+  return JSON.parse(localStorage.getItem("save-notes")).length+1
+}
 function makeAndStoreContent() {
   const makeAndStoreContentLoad = JSON.parse(localStorage.getItem("save-notes"))
   var newContentLoad = newContent(makeAndStoreContentLoad);
+  var numbTitle = titleNumb();
   const loadID = Number(loadEditID());
   var numb = 0;
   for (let i = 0; i < newContentLoad.length; i++) {
@@ -126,9 +129,6 @@ function makeAndStoreContent() {
       newContentLoad[i].content=editor.getContents();
 
       numb++;
-    }
-    else{
-
     }
   }
   if (numb!==0) {
@@ -143,7 +143,7 @@ function makeAndStoreContent() {
     var removeBtn = document.createElement("button");
     var editBtn = document.createElement("button");
     const h1 = document.createElement("h1");
-    h1.innerText = saveItem.content.ops[0].insert; //text that tells which to delete or edit 
+    h1.innerText = "title"+numbTitle; //text that tells which to delete or edit 
     removeBtn.innerHTML = "delete";
     editBtn.innerHTML = "edit";
     var attributeRemoveID = document.createAttribute("delete-value");
@@ -171,7 +171,9 @@ window.addEventListener("DOMContentLoaded", function () {
 function renderItems(){
   const renderList = JSON.parse(localStorage.getItem("save-notes"))
   const newList  = newContent(renderList);
+  var title = 0;
   for (let i = 0; i < newList.length; i++) {
+    title++;
     var idNumb = newList[i].id;
     var removeBtn = document.createElement("button");
     var editBtn = document.createElement("button");
@@ -180,7 +182,7 @@ function renderItems(){
     attributeRemoveID.value=idNumb;
     attributeEditID.value=idNumb;
     const h1 = document.createElement("h1");
-    h1.innerText = newList[i].content.ops[0].insert;
+    h1.innerText = "title"+title;
     removeBtn.innerHTML = "delete";
     editBtn.innerHTML = "edit";
     var listDiv = document.createElement("div");
