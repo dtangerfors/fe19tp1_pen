@@ -156,7 +156,7 @@ function renderItems(){
     h1.parentNode.insertBefore(removeBtn, h1.nextSibling);
     removeBtn.parentNode.insertBefore(editBtn, removeBtn.nextSibling);
     removeBtn.onclick = RemoveItem;
-    editBtn.onclick = EditItem;
+    editBtn.onclick = EditItem;//
   }
 }
 //save knappen
