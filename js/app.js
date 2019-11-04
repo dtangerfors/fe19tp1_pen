@@ -117,7 +117,9 @@ function newContent(value) {
 function titleNumb() {
   return JSON.parse(localStorage.getItem("save-notes")).length+1
 }
+
 function makeAndStoreContent() {
+  
   const makeAndStoreContentLoad = JSON.parse(localStorage.getItem("save-notes"))
   var newContentLoad = newContent(makeAndStoreContentLoad);
   var numbTitle = titleNumb();
@@ -129,6 +131,7 @@ function makeAndStoreContent() {
       newContentLoad[i].content=editor.getContents();
 
       numb++;
+      
     }
   }
   if (numb!==0) {
@@ -136,34 +139,24 @@ function makeAndStoreContent() {
   else{
     const saveItem = {
       content: editor.getContents(),
-      id: Date.now()
+      id: Date.now()}
+      newDIV(numbTitle,saveItem.id);
+      newContentLoad.push(saveItem);
     }
-    newContentLoad.push(saveItem);
+   
     
-    var removeBtn = document.createElement("button");
-    var editBtn = document.createElement("button");
-    const h1 = document.createElement("h1");
-    h1.innerText = "title"+numbTitle; //text that tells which to delete or edit 
-    removeBtn.innerHTML = "delete";
-    editBtn.innerHTML = "edit";
-    var attributeRemoveID = document.createAttribute("delete-value");
-    var attributeEditID = document.createAttribute("edit-value");
-    attributeRemoveID.value = saveItem.id;
-    attributeEditID.value = saveItem.id;
-    const listDiv = document.createElement("div");
-    console.log(attributeRemoveID)
-    removeBtn.setAttributeNode(attributeRemoveID);
-    editBtn.setAttributeNode(attributeEditID);
-    listDiv.append(h1);
-    navSideBut.append(listDiv);
-    h1.parentNode.insertBefore(removeBtn, h1.nextSibling);
-    removeBtn.parentNode.insertBefore(editBtn, removeBtn.nextSibling);
-    removeBtn.onclick = RemoveItem;
-    editBtn.onclick = EditItem;
+     storeContent(newContentLoad);
   }
-  storeContent(newContentLoad);
+ 
   
-}
+
+document.getElementById("new-document").addEventListener("click",function () {
+  localStorage.setItem("edit-id",JSON.stringify(0));
+var noID = JSON.parse(localStorage.getItem("edit-id"));
+  console.log(noID);
+  clearContents();
+})
+
 window.addEventListener("DOMContentLoaded", function () {
   renderItems();
    editorLoad();
@@ -175,26 +168,29 @@ function renderItems(){
   for (let i = 0; i < newList.length; i++) {
     title++;
     var idNumb = newList[i].id;
-    var removeBtn = document.createElement("button");
-    var editBtn = document.createElement("button");
-    var attributeRemoveID = document.createAttribute("delete-value");
-    var attributeEditID = document.createAttribute("edit-value");
-    attributeRemoveID.value=idNumb;
-    attributeEditID.value=idNumb;
-    const h1 = document.createElement("h1");
-    h1.innerText = "title"+title;
-    removeBtn.innerHTML = "delete";
-    editBtn.innerHTML = "edit";
-    var listDiv = document.createElement("div");
-    removeBtn.setAttributeNode(attributeRemoveID);
-    editBtn.setAttributeNode(attributeEditID);
-    listDiv.append(h1);
-    navSideBut.append(listDiv);
-    h1.parentNode.insertBefore(removeBtn, h1.nextSibling);
-    removeBtn.parentNode.insertBefore(editBtn, removeBtn.nextSibling);
-    removeBtn.onclick = RemoveItem;
-    editBtn.onclick = EditItem;
+    newDIV(title,idNumb);
   }
+}
+function newDIV(valueTitle,idNumberValue) {
+  var removeBtn = document.createElement("button");
+  var editBtn = document.createElement("button");
+  var attributeRemoveID = document.createAttribute("delete-value");
+  var attributeEditID = document.createAttribute("edit-value");
+  attributeRemoveID.value = idNumberValue;
+  attributeEditID.value = idNumberValue;
+  const h1 = document.createElement("h1");
+  h1.innerText = "title" + valueTitle;
+  removeBtn.innerHTML = "delete";
+  editBtn.innerHTML = "edit";
+  var listDiv = document.createElement("div");
+  removeBtn.setAttributeNode(attributeRemoveID);
+  editBtn.setAttributeNode(attributeEditID);
+  listDiv.append(h1);
+  navSideBut.append(listDiv);
+  h1.parentNode.insertBefore(removeBtn, h1.nextSibling);
+  removeBtn.parentNode.insertBefore(editBtn, removeBtn.nextSibling);
+  removeBtn.onclick = RemoveItem;
+  editBtn.onclick = EditItem;
 }
 
 //save button
@@ -212,6 +208,7 @@ function editorLoad() {
       editor.setContents(loadFromStorage);
    
 }
+
 function clearContents() {
   editor.setContents(); //clear all text;
   var clearWindow =[];
