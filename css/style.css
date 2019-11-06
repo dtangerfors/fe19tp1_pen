@@ -297,3 +297,88 @@ input:checked+.slider:before {
 }
 
 /* ------------- MODAL DESIGN ENDS -------------*/
+
+/* ------------- Notes Navigation Design -------------*/
+
+
+.note-list {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  width: 30vh;
+  list-style: none;
+  background-color: #F8F8F8;
+  overflow-y: scroll;
+  max-height: 100vh;
+  margin-right: 25px;
+  animation: slideFade 0.5s reverse;
+}
+
+.note-list::-webkit-scrollbar {
+  width: 20px;
+}
+
+.note-list::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #222; 
+  border-radius: 10px;
+}
+
+.note-list::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: 10px;
+}
+
+.note-list::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+.note-list > li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.note-list > li:hover {
+  background-color: #8F8F8F25;
+}
+
+.note-list > li > h3 {
+  font-weight: bold;
+}
+
+.note-list > li:after {
+  width: 20vw;
+  height: 5px;
+  background-color: black;
+}
+
+.flex {
+  display: flex;
+}
+
+.slide-out {
+  animation: slideFade 0.55s reverse;
+}
+
+.slide-in {
+  animation: slideFade 0.55s;
+}
+
+@keyframes slideFade {
+  0% {
+    opacity: 0;
+    z-index: -1;
+    transform: translateX(-100%);
+  }
+
+  90% {
+    z-index: -1;
+  }
+  
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+    z-index: 1;
+  }
+}
+
+/* ------------- Notes Navigation Design Ends -------------*/

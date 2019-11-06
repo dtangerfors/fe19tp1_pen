@@ -1,45 +1,20 @@
-/**
- * Options to apply for Quill
- */
-const toolbarOptions = [
-  ['bold', 'italic', 'underline', 'strike'],
-  ['blockquote', 'code-block'],
-  [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-  [{ 'script': 'sub'}, { 'script': 'super' }],
-  [{ 'indent': '-1'}, { 'indent': '+1' }],
-  [{ 'direction': 'rtl' }],
-  [{ 'color': [] }, { 'background': [] }],
-  [{ 'font': [] }],
-  [{ 'align': [] }],
-  ['clean']
-];
-
-const options = {
-  modules: {
-    toolbar: toolbarOptions
-  },
-  readOnly: false,
-  theme: 'snow'
-};
-
-
-/**
- * End user settings
- */
-const settings = {
-	autoSave: true,
-	activeTheme: null
-};
-
-/**
- * Load settings from localstorage if it's saved.
- */
-const localSettings = JSON.parse(localStorage.getItem("user-settings"));
-if(localSettings) {	
-	settings.autoSave = localSettings.autoSave;
-	settings.activeTheme = localSettings.activeTheme;
-}
+/*
+  Import modules
+*/
+import Note from './modules/notes/note.js';
+import {
+  addNote,
+  removeBasedOnIndex,
+  removeFirstFoundBasedOnTitle,
+  getNote
+} from './modules/notes/note-list.js';
+import {
+  options
+} from './modules/settings/quill-settings.js';
+import {
+  settings as userSettings,
+  saveUserSettings
+} from './modules/settings/user-settings.js';
 
 /**
  * Quill Editor
@@ -47,170 +22,189 @@ if(localSettings) {
 const editor = new Quill('#editor-code', options);
 
 /*
-editor.on('text-change', function(delta, source) {
-  if(auto_save) {
-    //saveDocument();
-  }
-});
+  Initialize localStorage keys before usage.
 */
-/*
-class Note{
-  constructor(text){
-    this.text = text;
-    this.date= new Date().now;
-  }
+if (!localStorage.getItem("window-edit")) {
+  localStorage.setItem("window-edit", "[]");
 }
-*/
+if (!localStorage.getItem("save-notes")) {
+  localStorage.setItem("save-notes", "[]");
+}
+if (!localStorage.getItem("edit-id")) {
+  localStorage.setItem("edit-id", "0");
+}
+if (!localStorage.getItem("user-settings")) {
+  localStorage.setItem("user-settings", JSON.stringify(userSettings));
+}
+
+const test = "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit sunt dolor ut tempore autem incidunt earum nulla accusamus. Voluptatem nulla architecto eligendi deleniti voluptas, dolore vero assumenda dolores vitae porro consectetur reprehenderit accusamus nam? Optio repellat consectetur, sed dolorem labore odit tempore odio? Temporibus officiis rerum repudiandae, exercitationem quos vel ipsum nemo, in perferendis omnis, maiores libero commodi! Amet, delectus ad tempora voluptas tempore incidunt deserunt earum ea libero quis possimus et sapiente qui exercitationem, explicabo, praesentium laboriosam repellat quam quasi dignissimos? Labore facere, a iusto quia at quisquam impedit et qui possimus, aliquid obcaecati omnis ratione ullam hic voluptatem praesentium amet perspiciatis reprehenderit libero illo, quis nobis doloremque! Repellendus, totam fugit provident quod laudantium sunt odit laboriosam ad soluta unde illum porro illo officiis, dolore eligendi facilis, repudiandae voluptatum excepturi consequuntur deleniti tenetur dolores aliquid obcaecati aut. Et officiis nobis possimus tempore eligendi praesentium quas quibusdam, earum fugiat sed quidem aspernatur sapiente fugit explicabo maiores ipsum labore eum? Laudantium est possimus, quos deserunt autem voluptatibus commodi rerum inventore ipsam corporis maxime consectetur in cum rem culpa libero. Vel deleniti excepturi accusamus tenetur mollitia temporibus nobis delectus necessitatibus quis nam vero ipsum voluptates veniam quibusdam nisi, itaque ex molestias! Iure neque obcaecati non aliquam rerum atque, aliquid exercitationem qui architecto corrupti porro temporibus consequatur distinctio iste laboriosam laborum dignissimos? Quisquam consectetur, dolore eum quaerat corrupti cumque deleniti laborum impedit modi similique tenetur esse itaque possimus enim ad consequuntur repellat debitis porro laboriosam! Voluptas, omnis odio deleniti cumque laudantium nam dolorem mollitia quod facilis amet quisquam illum fugiat dolores accusantium! Doloremque quae eligendi hic? Doloribus suscipit ducimus nihil, recusandae dolore ratione cum sunt excepturi totam libero soluta veniam assumenda. Culpa incidunt nobis dolor cupiditate corporis molestias ipsum, alias inventore quo vel suscipit sapiente voluptatem, maxime doloribus molestiae quibusdam maiores blanditiis harum ad mollitia illo eum! Neque consequatur, porro possimus dolore est nobis enim? Ducimus, illum itaque? Accusamus accusantium ducimus, in quaerat veniam placeat architecto, ipsum suscipit atque et error voluptate quod, adipisci laudantium. Eos qui quo, esse voluptatem perspiciatis perferendis, iste cumque ipsa obcaecati sapiente repellendus accusantium delectus natus non neque animi sint? Tempore velit quaerat vero obcaecati et distinctio debitis perferendis, ad a vitae odio quas omnis pariatur repellat, amet consectetur doloribus voluptates laboriosam magni rem. Quisquam perspiciatis neque ut libero praesentium consequatur est esse explicabo ea ipsam nulla fugiat, nobis eveniet commodi, quos cum totam facilis natus iusto aperiam.";
+
+function addNewNoteToDOMList(note) {
+  const newNote = document.createElement('li');
+  const noteTitle = document.createElement('h3');
+  const description = document.createElement('p');
+  noteTitle.innerHTML = note.title;
+  description.innerHTML = test.substr(0,35) + "...";
+  newNote.appendChild(noteTitle);
+  newNote.appendChild(description);
+
+  newNote.addEventListener('click', () => {
+    editor.setContents(note.content);
+  });
+
+  document.querySelector('.note-list').appendChild(newNote);
+}
+
+for (let index = 0; index < 50; index++) {
+  addNewNoteToDOMList(new Note("Untitled Document", {"ops":[{"insert":"Hello WOrld!\n"}]}));
+}
 
 /**
- * Save Button Element
+ * HTML Element that keeps our notes
+ */
+const elementNoteList = document.getElementById("note-list");
 
-const save_btn = document.getElementById('save-btn');
-save_btn.addEventListener('click', (event) => {
-  //saveDocument();
-});
- */
 /**
- * Localstorage content example
+ * Event handler for mouse click to remove a Note
+ * @param {MouseEvent} event
  */
-/*
-const content = localStorage.getItem('notes');
-if(content) {
-  editor.setContents(JSON.parse(content));
+function RemoveNoteEventHandler(event) {
+  const noteIdToRemove = event.target.getAttribute("delete-value");
+  const savedNotes = JSON.parse(localStorage.getItem("save-notes"));
+  const indexToRemove = savedNotes.findIndex(data => data.id === Number(noteIdToRemove));
+
+  //Remove the Note from our JSON object and from the DOM 
+  savedNotes.splice(indexToRemove, 1);
+  event.target.parentNode.remove();
+
+  //Save our new content
+  storeContent(savedNotes);
 }
-*/
-var navSideBut = document.getElementById("note-list"); //set items
-function RemoveItem(e) {
-  //Remove button function
-  let clickIDRemove = e.target.getAttribute("delete-value");
-  const loadDeleteList = JSON.parse(localStorage.getItem("save-notes"));
-  console.log(Number(clickIDRemove));
-  var val = loadDeleteList.findIndex(function (data, index) { return data.id === Number(clickIDRemove) })//get index to remover
-  console.log(val);
-  loadDeleteList.splice(val, 1);
-  console.log(loadDeleteList)
-  storeContent(loadDeleteList); //deleted from localstorage
-  e.target.parentNode.remove(); //delete from div
-  
-}
+
+/**
+ * 
+ * @param {Array} value 
+ */
 function saveEditText(value) {
-  localStorage.setItem("window-edit",JSON.stringify(value));
-}
-function saveEditID(idValue) {
-  localStorage.setItem("edit-id",JSON.stringify(idValue))
-}
-function loadEditID() {
-  const idValue = JSON.parse(localStorage.getItem("edit-id"));
-  if (idValue==null) {
-    return [];
-  } else{
-    return idValue;
-  }
+  localStorage.setItem("window-edit", JSON.stringify(value));
 }
 
-function EditItem(e){
-  let clickIDEdit = e.target.getAttribute("edit-value");
-  var windowContent;
- var editText = JSON.parse(localStorage.getItem("save-notes"));
-  console.log(Number(clickIDEdit));
-  for (let i = 0; i <editText.length; i++){
-    if (editText[i].id === Number(clickIDEdit)) {
-      editor.setContents(editText[i].content);
-      windowContent= editText[i].content;
-     // e.target.parentNode.remove();
-     // editText.splice(i,1);
-    }
+/**
+ * 
+ * @param {number} id 
+ */
+function saveEditID(id) {
+  localStorage.setItem("edit-id", JSON.stringify(id))
+}
+
+/**
+ * 
+ */
+function loadEditID() {
+  const id = JSON.parse(localStorage.getItem("edit-id"));
+  if (!id) {
+    return 0;
   }
-  saveEditID(clickIDEdit)
+  return parseInt(id);
+}
+
+/**
+ * 
+ * @param {MouseEvent} event 
+ */
+function editItem(event) {
+  const editText = JSON.parse(localStorage.getItem("save-notes"));
+  let noteIdToEdit = event.target.getAttribute("edit-value");
+  let windowContent;
+
+  editText.forEach((note) => {
+    if (note.id === Number(noteIdToEdit)) {
+      editor.setContents(note.content);
+      windowContent = note.content;
+    }
+  });
+
+  saveEditID(noteIdToEdit);
   saveEditText(windowContent);
   storeContent(editText);
 }
-function newContent(value) {
-  if (value ===null) {
-    return []
-  }else{
-    return value;
-  }
 
-}
-function titleNumb() {
-  return JSON.parse(localStorage.getItem("save-notes")).length+1
+function lengthOfNotes() {
+  return JSON.parse(localStorage.getItem("save-notes")).length + 1
 }
 
 function makeAndStoreContent() {
-  
-  const makeAndStoreContentLoad = JSON.parse(localStorage.getItem("save-notes"))
-  var newContentLoad = newContent(makeAndStoreContentLoad);
-  var numbTitle = titleNumb();
-  const loadID = Number(loadEditID());
-  var numb = 0;
-  for (let i = 0; i < newContentLoad.length; i++) {
-    if (newContentLoad[i].id === loadID) {
-      console.log(newContentLoad[i].id + " " + loadID) 
-      newContentLoad[i].content=editor.getContents();
+  const savedNotes = JSON.parse(localStorage.getItem("save-notes"));
+  const indexToStoreAt = savedNotes.findIndex(note => note.id === loadEditID());
 
-      numb++;
-      
-    }
-  }
-  if (numb!==0) {
-  }
-  else{
+  if (indexToStoreAt != -1) {
+    savedNotes[indexToStoreAt].content = editor.getContents();
     const saveItem = {
       content: editor.getContents(),
-      id: Date.now()}
-      newDIV(numbTitle,saveItem.id);
-      newContentLoad.push(saveItem);
-    }
-   
-    
-     storeContent(newContentLoad);
-  }
- 
-  
-
-document.getElementById("new-document").addEventListener("click",function () {
-  localStorage.setItem("edit-id",JSON.stringify(0));
-var noID = JSON.parse(localStorage.getItem("edit-id"));
-  console.log(noID);
-  clearContents();
-})
-
-window.addEventListener("DOMContentLoaded", function () {
-  renderItems();
-   editorLoad();
-})
-function renderItems(){
-  const renderList = JSON.parse(localStorage.getItem("save-notes"))
-  const newList  = newContent(renderList);
-  var title = 0;
-  for (let i = 0 ; i < newList.length; i++) {
-    title++;
-    var idNumb = newList[i].id;
-    console.log(i)
-    newDIV(title,idNumb);
+      id: Date.now()
+    };
+    newDIV(lengthOfNotes(), saveItem.id);
+    savedNotes.push(saveItem);
+    storeContent(savedNotes);
   }
 }
-function newDIV(valueTitle,idNumberValue) {
-  var removeBtn = document.createElement("button");
-  var editBtn = document.createElement("button");
-  var attributeRemoveID = document.createAttribute("delete-value");
-  var attributeEditID = document.createAttribute("edit-value");
+
+document.getElementById("new-document").addEventListener("click", function () {
+
+  // localStorage.setItem("edit-id", JSON.stringify(0));
+  // var noID = JSON.parse(localStorage.getItem("edit-id"));
+  // clearContents();
+});
+
+
+let shown = false;
+document.getElementById('open-notes').addEventListener('click', function() {
+  const notesList = document.querySelector('.note-list');
+  notesList.classList.toggle('flex');
+
+  if(shown) {
+    notesList.classList.toggle('slide-in');
+    notesList.classList.toggle('slide-out');
+  } else {
+    notesList.classList.toggle('slide-in');
+    notesList.classList.toggle('slide-out');
+    shown = true;
+  }
+
+
+});
+
+function renderItems() {
+  const renderList = JSON.parse(localStorage.getItem("save-notes"))
+  var title = 0;
+  for (let i = 0; i < renderList.length; i++) {
+    title++;
+    var idNumb = renderList[i].id;
+    newDIV(title, idNumb);
+  }
+}
+
+function newDIV(valueTitle, idNumberValue) {
+
+  const removeBtn = document.createElement("button");
+  const editBtn = document.createElement("button");
+  const attributeRemoveID = document.createAttribute("delete-value");
+  const attributeEditID = document.createAttribute("edit-value");
   attributeRemoveID.value = idNumberValue;
   attributeEditID.value = idNumberValue;
-  const h1 = document.createElement("h1");
-  h1.innerText = "title" + valueTitle;
+  const title = document.createElement("title");
+  title.innerText = "title" + valueTitle;
   removeBtn.innerHTML = "delete";
   editBtn.innerHTML = "edit";
-  var listDiv = document.createElement("div");
+  const listDiv = document.createElement("div");
   removeBtn.setAttributeNode(attributeRemoveID);
   editBtn.setAttributeNode(attributeEditID);
-  listDiv.append(h1);
-  navSideBut.insertBefore(listDiv,navSideBut.firstChild);
-  h1.parentNode.insertBefore(removeBtn, h1.nextSibling);
+  listDiv.append(title);
+  elementNoteList.insertBefore(listDiv, elementNoteList.firstChild);
+  title.parentNode.insertBefore(removeBtn, title.nextSibling);
   removeBtn.parentNode.insertBefore(editBtn, removeBtn.nextSibling);
-  removeBtn.onclick = RemoveItem;
-  editBtn.onclick = EditItem;
+  removeBtn.onclick = RemoveNoteEventHandler;
+  editBtn.onclick = editItem;
 }
 
 //save button
@@ -222,81 +216,54 @@ function saveFunction() {
   clearContents();
 }
 
-document.getElementById("save-btn").addEventListener("click",saveFunction)
+document.getElementById("save-btn").addEventListener("click", saveFunction)
+
 function editorLoad() {
   const loadFromStorage = JSON.parse(localStorage.getItem("window-edit"))
-      editor.setContents(loadFromStorage);
-   
+  editor.setContents(loadFromStorage);
+
 }
 
 function clearContents() {
   editor.setContents(); //clear all text;
-  var clearWindow =[];
+  var clearWindow = [];
   saveEditText(clearWindow);
 
 }
+
 function storeContent(value) {
   localStorage.setItem("save-notes", JSON.stringify(value))
 }
 
+const navbarSlide = () => {
+  const burger = document.querySelector('.burger');
+  const nav = document.querySelector('.nav-links');
+  const navLinks = document.querySelectorAll('.nav-links li');
 
+  burger.addEventListener('click', function() {
+    //Toggle nav
+    nav.classList.toggle('nav-active');
 
-// ------------- Navbar -------------
-/**
- * Navbar slide functionality
- */
-const navSlide = () => {
-  const burger = document.querySelector('.hamburger');
-  const nav = document.querySelector('.nav__link-group');
-  const navLinks = document.querySelectorAll('.nav__link-group li');
- 
-  burger.addEventListener('click', () => {
-  //Toggle nav
-  nav.classList.toggle('nav-active');
-         
-  //Animate Links
-  navLinks.forEach((link, index) => {
-      if (link.style.animation){
-          link.style.animation = ''
+    //Animate Links
+    navLinks.forEach((link, index) => {
+      if (link.style.animation) {
+        link.style.animation = ''
       } else {
-          link.style.animation = `navLinkFade 0.5s ease backwards ${index / 7 + 0.2}s`;
+        link.style.animation = `navLinkFade 0.5s ease backwards ${index / 7 + 0.2}s`;
       }
+    });
+    //burger animation
+    this.classList.toggle('burgertoggle')
   });
-  //burger animation
-  burger.classList.toggle('hamburger-toggle')
-  });
+};
+
+function main() {
+  navbarSlide();
+  renderItems();
+  editorLoad();
 }
 
 
-navSlide();
-
-// ------------- Navbar ends -------------
-
-/**
- * Save Checkbox Element in the DOM
- */
-const save_checkbox = document.querySelector("input[name=auto-save]");
-save_checkbox.checked = settings.autoSave
-
-save_checkbox.addEventListener( 'change', function() {
-	settings.autoSave = this.checked;
-	localStorage.setItem("user-settings", JSON.stringify(settings));
+window.addEventListener("DOMContentLoaded", function () {
+  main();
 });
-
-const settingsModal = document.getElementById("settings-modal");
-const settingsButton = document.getElementById("settings");
-const closeElement = document.querySelector(".close");
-
-settingsButton.addEventListener('click', function() {
-  settingsModal.style.display = "block";
-});
-
-closeElement.addEventListener('click', function() {
-	settingsModal.style.display = "none";
-});
-
-window.onclick = function(event) {
-  if (event.target == settingsModal) {
-	settingsModal.style.display = "none";	
-  }
-};

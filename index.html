@@ -43,18 +43,21 @@
     </div>
     <ul class="nav__link-group">
       <li>
-        <a href="#"><img class="nav__icon" src="assets/sticky-note-solid.svg" /></a>
+        <a href="#"><img class="svg-img" src="assets/home.svg" /></a>
+      </li>
+      <li id="open-notes"> <a href="#"><img class="svg-img" src="assets/notes.svg" /></a>
       </li>
       <li> <a href="#"><img class="nav__icon" src="assets/search-solid.svg" /></a>
       </li>
-      <li> <a href="#"><img class="nav__icon" src="assets/cog-solid.svg" /></a>
+      <li> <a href="#"><img class="nav__icon" src="assets/cog-solid.svg" id="settings" /></a>
       </li>
     </ul>
   </nav>
-  <div id="note-list"></div>
+  
+  <ul class="note-list">
+  </ul>
+ 
   <div class="container">
-
-
     <div id="editor-main">
       <div id="editor-code"></div>
       <button id="save-btn">Save</button>
@@ -76,7 +79,6 @@
   </div>
 
   <script src="js/quill.js"></script>
-  <script src="js/app.js"></script>
+  <script type="module" src="js/app.js"></script>
 </body>
-
 </html>
