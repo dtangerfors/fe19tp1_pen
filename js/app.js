@@ -241,13 +241,16 @@ function storeContent(value) {
 
 
 
-// Navbar
+// ------------- Navbar -------------
+/**
+ * Navbar slide functionality
+ */
 const navSlide = () => {
-  const burger = document.querySelector('.burger');
-  const nav = document.querySelector('.nav-links');
-  const navLinks = document.querySelectorAll('.nav-links li');
+  const burger = document.querySelector('.hamburger');
+  const nav = document.querySelector('.nav__link-group');
+  const navLinks = document.querySelectorAll('.nav__link-group li');
  
-  burger.addEventListener('click',()=>{
+  burger.addEventListener('click', () => {
   //Toggle nav
   nav.classList.toggle('nav-active');
          
@@ -260,12 +263,14 @@ const navSlide = () => {
       }
   });
   //burger animation
-  burger.classList.toggle('burgertoggle')
+  burger.classList.toggle('hamburger-toggle')
   });
 }
 
 
 navSlide();
+
+// ------------- Navbar ends -------------
 
 /**
  * Save Checkbox Element in the DOM
