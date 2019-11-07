@@ -1,3 +1,5 @@
+import Note from './note.js';
+
 /**
  * A list to store our notes in
  */
@@ -9,10 +11,11 @@ const Notes = [];
  */
 export function addNote(note) {
     //If the input note is not a Note object, we don't add it
-    if(typeof note !== "object") return;
-    if(note.length) return;
-    if(!note.title || !note.content) return;
+    if (typeof note !== "object") return;
+    if (note.length) return;
+    if (!note.title || !note.content) return;
     Notes.push(note);
+
 }
 
 /**
@@ -31,7 +34,7 @@ export function removeBasedOnIndex(index) {
  */
 export function removeFirstFoundBasedOnTitle(title) {
     const index = Notes.findIndex(t => t === title);
-    if(index !== -1) {
+    if (index !== -1) {
         removeBasedOnIndex(index);
     }
 }
@@ -49,4 +52,10 @@ export function getNote(index) {
  */
 export function getAllNotes() {
     return Notes
+}
+
+export function setPredefinedNotes(notes) {
+    notes.forEach((note) => {
+        Notes.push(new Note(note.title, note.content, note.dateOfCreation, note.lastChanged));
+    });
 }
