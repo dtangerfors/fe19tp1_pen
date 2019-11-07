@@ -10,6 +10,12 @@
   <link rel="stylesheet" href="https://cdn.quilljs.com/1.3.6/quill.snow.css">
   <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+  <!-- IMPORT FONTS -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Playfair+Display:700|Roboto:300,300i,400,400i,700,700i&display=swap"
+    rel="stylesheet">
+
   <title>Quire - Home Page</title>
 </head>
 
@@ -52,14 +58,15 @@
     </ul>
   </nav>
   <div id="note-list"></div>
-  <div class="container">
-
-    <div id="editor-main">
+  <main class="editor-section">
+    <input type="text" name="editorTitle" id="editorTitle" class="editor-section__title" placeholder="Untitled"
+      spellcheck="false">
+    <div id="editor-main" class="editor-section__editor">
       <div id="editor-code"></div>
       <button id="save-btn">Save</button>
       <button id="new-document">New Document</button>
     </div>
-  </div>
+  </main>
 
   <div id="settings-modal" class="modal">
     <div class="modal-content">
