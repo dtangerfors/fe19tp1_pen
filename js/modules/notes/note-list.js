@@ -4,6 +4,11 @@
 const Notes = [];
 
 /**
+ * flag : Sorting variable indicating Ascending - Descending
+ */
+let flag = false;
+
+/**
  * Add a note to the Notes list
  * @param {Note} note - accepts a Note object
  */
@@ -49,4 +54,27 @@ export function getNote(index) {
  */
 export function getAllNotes() {
     return Notes
+}
+
+/**
+ * Sort notes by title
+ */
+export function sortNotesByTitle() {
+  flag = !flag;
+  return flag ? Notes.sort((a,b) => {
+    return a.title - b.title;
+  }) : Notes.sort((a,b) => {
+    return b.title - a.title;
+  });
+}
+/**
+ * Sort notes by date
+ */
+export function sortNotesByDate() {
+  flag = !flag;
+  return flag ? Notes.sort((a,b) => {
+    return a.lastChanged - b.lastChanged;
+  }) : Notes.sort((a,b) => {
+    return b.lastChanged - a.lastChanged;
+  });
 }
