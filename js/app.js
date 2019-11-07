@@ -134,8 +134,79 @@ function newContent(value) {
 
 }
 function titleNumb() {
-  return JSON.parse(localStorage.getItem("save-notes")).length+1
+  if (!JSON.parse(localStorage.getItem("save-notes"))) {
+    return 1;
+  } else {
+    return JSON.parse(localStorage.getItem("save-notes")).length+1;
+  }
 }
+function lastDate(oldDate) {
+  const nowDate= new Date();
+  var seconds = nowDate.getSeconds();
+  var minutes = nowDate.getMinutes();
+  var hours = nowDate.getHours();
+  var days = nowDate.getDay();
+  var months= nowDate.getMonth();
+  var years = nowDate.getFullYear();
+  const newSeconds = seconds-oldDate[5];
+  const newMinutes = minutes-oldDate[4];
+  const newHours = hours - oldDate[3];
+  const newDays = days - oldDate[2];
+  const newMonths = months - oldDate[1];
+  const newYears = years - oldDate[0];
+  if (newYears>0) {
+    console.log(newYears+" years");
+  }
+  else if (newMonths> 0) {
+    console.log(newMonths + " months");
+  }
+  else if (newDays> 0) {
+    console.log(newDays + " days");
+  }
+  else if (newHours> 0) {
+    console.log(newHours + " hours");
+  }
+  else if (newMinutes> 0) {
+    console.log(newMinutes + " minutes");
+  }else if (newSeconds>0) {
+    console.log(newSeconds + " seconds");
+  }
+}
+function DateSaved(){
+  const nowDate = new Date();
+  const seconds = nowDate.getSeconds();
+  const minutes = nowDate.getMinutes();
+  const hours = nowDate.getHours();
+  const days = nowDate.getDay();
+  const months = nowDate.getMonth();
+  const years = nowDate.getFullYear();
+  const date=[years,months,days,hours,minutes,seconds]
+  return date;
+}
+
+function loadItems(attributeID,title) {
+  var removeBtn = document.createElement("button");
+  var editBtn = document.createElement("button");
+  const h1 = document.createElement("h1");
+  h1.innerText = "title" + title; //text that tells which to delete or edit 
+  removeBtn.innerHTML = "delete";
+  editBtn.innerHTML = "edit";
+  var attributeRemoveID = document.createAttribute("delete-value");
+  var attributeEditID = document.createAttribute("edit-value");
+  attributeRemoveID.value = attributeID;
+  attributeEditID.value = attributeID;
+  const listDiv = document.createElement("div");
+  console.log(attributeRemoveID)
+  removeBtn.setAttributeNode(attributeRemoveID);
+  editBtn.setAttributeNode(attributeEditID);
+  listDiv.append(h1);
+  navSideBut.append(listDiv);
+  h1.parentNode.insertBefore(removeBtn, h1.nextSibling);
+  removeBtn.parentNode.insertBefore(editBtn, removeBtn.nextSibling);
+  removeBtn.onclick = RemoveItem;
+  editBtn.onclick = EditItem;
+}
+
 function makeAndStoreContent() {
   const makeAndStoreContentLoad = JSON.parse(localStorage.getItem("save-notes"))
   var newContentLoad = newContent(makeAndStoreContentLoad);
@@ -158,30 +229,10 @@ function makeAndStoreContent() {
       id: Date.now()
     }
     newContentLoad.push(saveItem);
+    loadItems(saveItem.id,numbTitle);
     
-    var removeBtn = document.createElement("button");
-    var editBtn = document.createElement("button");
-    const h1 = document.createElement("h1");
-    h1.innerText = "title"+numbTitle; //text that tells which to delete or edit 
-    removeBtn.innerHTML = "delete";
-    editBtn.innerHTML = "edit";
-    var attributeRemoveID = document.createAttribute("delete-value");
-    var attributeEditID = document.createAttribute("edit-value");
-    attributeRemoveID.value = saveItem.id;
-    attributeEditID.value = saveItem.id;
-    const listDiv = document.createElement("div");
-    console.log(attributeRemoveID)
-    removeBtn.setAttributeNode(attributeRemoveID);
-    editBtn.setAttributeNode(attributeEditID);
-    listDiv.append(h1);
-    navSideBut.append(listDiv);
-    h1.parentNode.insertBefore(removeBtn, h1.nextSibling);
-    removeBtn.parentNode.insertBefore(editBtn, removeBtn.nextSibling);
-    removeBtn.onclick = RemoveItem;
-    editBtn.onclick = EditItem;
   }
   storeContent(newContentLoad);
-  
 }
 window.addEventListener("DOMContentLoaded", function () {
   renderItems();
@@ -194,31 +245,17 @@ function renderItems(){
   for (let i = 0; i < newList.length; i++) {
     title++;
     var idNumb = newList[i].id;
-    var removeBtn = document.createElement("button");
-    var editBtn = document.createElement("button");
-    var attributeRemoveID = document.createAttribute("delete-value");
-    var attributeEditID = document.createAttribute("edit-value");
-    attributeRemoveID.value=idNumb;
-    attributeEditID.value=idNumb;
-    const h1 = document.createElement("h1");
-    h1.innerText = "title"+title;
-    removeBtn.innerHTML = "delete";
-    editBtn.innerHTML = "edit";
-    var listDiv = document.createElement("div");
-    removeBtn.setAttributeNode(attributeRemoveID);
-    editBtn.setAttributeNode(attributeEditID);
-    listDiv.append(h1);
-    navSideBut.append(listDiv);
-    h1.parentNode.insertBefore(removeBtn, h1.nextSibling);
-    removeBtn.parentNode.insertBefore(editBtn, removeBtn.nextSibling);
-    removeBtn.onclick = RemoveItem;
-    editBtn.onclick = EditItem;
+    loadItems(idNumb,title)
   }
 }
 
 //save button
 document.getElementById("save-btn").addEventListener("click", saveFunction);
-
+/*document.getElementById("new-document").addEventListener("click",function () {
+  localStorage.setItem("edit-id",JSON.stringify([]))
+  makeAndStoreContent();
+  clearContents();
+})
 
 function saveFunction() {
   makeAndStoreContent();
