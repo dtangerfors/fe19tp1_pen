@@ -31,7 +31,7 @@ export function removeBasedOnIndex(index) {
  */
 export function removeFirstFoundBasedOnTitle(title) {
     const index = Notes.findIndex(t => t === title);
-    if(index) {
+    if(index !== -1) {
         removeBasedOnIndex(index);
     }
 }
