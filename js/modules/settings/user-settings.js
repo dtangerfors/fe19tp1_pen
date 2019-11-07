@@ -31,7 +31,7 @@ save_checkbox.addEventListener('change', function () {
 });
 
 const settingsModal = document.getElementById("settings-modal");
-const settingsButton = document.querySelector('.nav__link-group:last-child');
+const settingsButton = document.getElementById('nav-settings');
 const closeElement = document.querySelector(".close");
 
 settingsButton.addEventListener('click', function () {
