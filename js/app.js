@@ -9,7 +9,7 @@ import {
   getNote
 } from './modules/notes/note-list.js';
 import {
-  options
+  options as quillSettings
 } from './modules/settings/quill-settings.js';
 import {
   settings as userSettings,
@@ -19,7 +19,7 @@ import {
 /**
  * Quill Editor
  */
-const editor = new Quill('#editor-code', options);
+const editor = new Quill('#editor-code', quillSettings);
 
 /*
   Initialize localStorage keys before usage.
@@ -35,28 +35,6 @@ if (!localStorage.getItem("edit-id")) {
 }
 if (!localStorage.getItem("user-settings")) {
   localStorage.setItem("user-settings", JSON.stringify(userSettings));
-}
-
-const test = "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit sunt dolor ut tempore autem incidunt earum nulla accusamus. Voluptatem nulla architecto eligendi deleniti voluptas, dolore vero assumenda dolores vitae porro consectetur reprehenderit accusamus nam? Optio repellat consectetur, sed dolorem labore odit tempore odio? Temporibus officiis rerum repudiandae, exercitationem quos vel ipsum nemo, in perferendis omnis, maiores libero commodi! Amet, delectus ad tempora voluptas tempore incidunt deserunt earum ea libero quis possimus et sapiente qui exercitationem, explicabo, praesentium laboriosam repellat quam quasi dignissimos? Labore facere, a iusto quia at quisquam impedit et qui possimus, aliquid obcaecati omnis ratione ullam hic voluptatem praesentium amet perspiciatis reprehenderit libero illo, quis nobis doloremque! Repellendus, totam fugit provident quod laudantium sunt odit laboriosam ad soluta unde illum porro illo officiis, dolore eligendi facilis, repudiandae voluptatum excepturi consequuntur deleniti tenetur dolores aliquid obcaecati aut. Et officiis nobis possimus tempore eligendi praesentium quas quibusdam, earum fugiat sed quidem aspernatur sapiente fugit explicabo maiores ipsum labore eum? Laudantium est possimus, quos deserunt autem voluptatibus commodi rerum inventore ipsam corporis maxime consectetur in cum rem culpa libero. Vel deleniti excepturi accusamus tenetur mollitia temporibus nobis delectus necessitatibus quis nam vero ipsum voluptates veniam quibusdam nisi, itaque ex molestias! Iure neque obcaecati non aliquam rerum atque, aliquid exercitationem qui architecto corrupti porro temporibus consequatur distinctio iste laboriosam laborum dignissimos? Quisquam consectetur, dolore eum quaerat corrupti cumque deleniti laborum impedit modi similique tenetur esse itaque possimus enim ad consequuntur repellat debitis porro laboriosam! Voluptas, omnis odio deleniti cumque laudantium nam dolorem mollitia quod facilis amet quisquam illum fugiat dolores accusantium! Doloremque quae eligendi hic? Doloribus suscipit ducimus nihil, recusandae dolore ratione cum sunt excepturi totam libero soluta veniam assumenda. Culpa incidunt nobis dolor cupiditate corporis molestias ipsum, alias inventore quo vel suscipit sapiente voluptatem, maxime doloribus molestiae quibusdam maiores blanditiis harum ad mollitia illo eum! Neque consequatur, porro possimus dolore est nobis enim? Ducimus, illum itaque? Accusamus accusantium ducimus, in quaerat veniam placeat architecto, ipsum suscipit atque et error voluptate quod, adipisci laudantium. Eos qui quo, esse voluptatem perspiciatis perferendis, iste cumque ipsa obcaecati sapiente repellendus accusantium delectus natus non neque animi sint? Tempore velit quaerat vero obcaecati et distinctio debitis perferendis, ad a vitae odio quas omnis pariatur repellat, amet consectetur doloribus voluptates laboriosam magni rem. Quisquam perspiciatis neque ut libero praesentium consequatur est esse explicabo ea ipsam nulla fugiat, nobis eveniet commodi, quos cum totam facilis natus iusto aperiam.";
-
-function addNewNoteToDOMList(note) {
-  const newNote = document.createElement('li');
-  const noteTitle = document.createElement('h3');
-  const description = document.createElement('p');
-  noteTitle.innerHTML = note.title;
-  description.innerHTML = test.substr(0,35) + "...";
-  newNote.appendChild(noteTitle);
-  newNote.appendChild(description);
-
-  newNote.addEventListener('click', () => {
-    editor.setContents(note.content);
-  });
-
-  document.querySelector('.note-list').appendChild(newNote);
-}
-
-for (let index = 0; index < 50; index++) {
-  addNewNoteToDOMList(new Note("Untitled Document", {"ops":[{"insert":"Hello WOrld!\n"}]}));
 }
 
 /**
@@ -129,49 +107,61 @@ function editItem(event) {
   storeContent(editText);
 }
 
-function lengthOfNotes() {
+function numberOfNotes() {
   return JSON.parse(localStorage.getItem("save-notes")).length + 1
 }
 
 function makeAndStoreContent() {
-  const savedNotes = JSON.parse(localStorage.getItem("save-notes"));
-  const indexToStoreAt = savedNotes.findIndex(note => note.id === loadEditID());
+  const makeAndStoreContentLoad = JSON.parse(localStorage.getItem("save-notes"))
+  var numbTitle = numberOfNotes();
+  const loadID = Number(loadEditID());
+  var numb = 0;
+  for (let i = 0; i < makeAndStoreContentLoad.length; i++) {
+    if (makeAndStoreContentLoad[i].id === loadID) {
+      makeAndStoreContentLoad[i].content=editor.getContents();
 
-  if (indexToStoreAt != -1) {
-    savedNotes[indexToStoreAt].content = editor.getContents();
+      numb++;
+    }
+  }
+  if (numb!==0) {
+  }
+  else{
     const saveItem = {
       content: editor.getContents(),
       id: Date.now()
-    };
-    newDIV(lengthOfNotes(), saveItem.id);
-    savedNotes.push(saveItem);
-    storeContent(savedNotes);
+    }
+    makeAndStoreContentLoad.push(saveItem);
+    
+    var removeBtn = document.createElement("button");
+    var editBtn = document.createElement("button");
+    const h1 = document.createElement("h1");
+    h1.innerText = "title"+numbTitle; //text that tells which to delete or edit 
+    removeBtn.innerHTML = "delete";
+    editBtn.innerHTML = "edit";
+    var attributeRemoveID = document.createAttribute("delete-value");
+    var attributeEditID = document.createAttribute("edit-value");
+    attributeRemoveID.value = saveItem.id;
+    attributeEditID.value = saveItem.id;
+    const listDiv = document.createElement("div");
+    removeBtn.setAttributeNode(attributeRemoveID);
+    editBtn.setAttributeNode(attributeEditID);
+    listDiv.append(h1);
+    elementNoteList.append(listDiv);
+    h1.parentNode.insertBefore(removeBtn, h1.nextSibling);
+    removeBtn.parentNode.insertBefore(editBtn, removeBtn.nextSibling);
+    removeBtn.onclick = RemoveNoteEventHandler;
+    editBtn.onclick = editItem;
   }
+  storeContent(makeAndStoreContentLoad);
+  
 }
+
 
 document.getElementById("new-document").addEventListener("click", function () {
 
-  // localStorage.setItem("edit-id", JSON.stringify(0));
-  // var noID = JSON.parse(localStorage.getItem("edit-id"));
-  // clearContents();
-});
-
-
-let shown = false;
-document.getElementById('open-notes').addEventListener('click', function() {
-  const notesList = document.querySelector('.note-list');
-  notesList.classList.toggle('flex');
-
-  if(shown) {
-    notesList.classList.toggle('slide-in');
-    notesList.classList.toggle('slide-out');
-  } else {
-    notesList.classList.toggle('slide-in');
-    notesList.classList.toggle('slide-out');
-    shown = true;
-  }
-
-
+  localStorage.setItem("edit-id", JSON.stringify(0));
+  var noID = JSON.parse(localStorage.getItem("edit-id"));
+  clearContents();
 });
 
 function renderItems() {
@@ -180,7 +170,26 @@ function renderItems() {
   for (let i = 0; i < renderList.length; i++) {
     title++;
     var idNumb = renderList[i].id;
-    newDIV(title, idNumb);
+    var removeBtn = document.createElement("button");
+    var editBtn = document.createElement("button");
+    var attributeRemoveID = document.createAttribute("delete-value");
+    var attributeEditID = document.createAttribute("edit-value");
+    attributeRemoveID.value=idNumb;
+    attributeEditID.value=idNumb;
+    const h1 = document.createElement("h1");
+    h1.innerText = "title"+title;
+    removeBtn.innerHTML = "delete";
+    editBtn.innerHTML = "edit";
+    var listDiv = document.createElement("div");
+    removeBtn.setAttributeNode(attributeRemoveID);
+    editBtn.setAttributeNode(attributeEditID);
+    listDiv.append(h1);
+    elementNoteList.append(listDiv);
+    h1.parentNode.insertBefore(removeBtn, h1.nextSibling);
+    removeBtn.parentNode.insertBefore(editBtn, removeBtn.nextSibling);
+    removeBtn.onclick = RemoveNoteEventHandler;
+    editBtn.onclick = editItem;
+
   }
 }
 
@@ -221,7 +230,6 @@ document.getElementById("save-btn").addEventListener("click", saveFunction)
 function editorLoad() {
   const loadFromStorage = JSON.parse(localStorage.getItem("window-edit"))
   editor.setContents(loadFromStorage);
-
 }
 
 function clearContents() {
@@ -236,9 +244,9 @@ function storeContent(value) {
 }
 
 const navbarSlide = () => {
-  const burger = document.querySelector('.burger');
-  const nav = document.querySelector('.nav-links');
-  const navLinks = document.querySelectorAll('.nav-links li');
+  const burger = document.querySelector('.hamburger');
+  const nav = document.querySelector('.nav__link-group');
+  const navLinks = document.querySelectorAll('.nav__link-group li');
 
   burger.addEventListener('click', function() {
     //Toggle nav
@@ -263,7 +271,4 @@ function main() {
   editorLoad();
 }
 
-
-window.addEventListener("DOMContentLoaded", function () {
-  main();
-});
+window.addEventListener("DOMContentLoaded", main);
