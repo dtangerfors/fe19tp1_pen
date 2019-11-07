@@ -1,3 +1,12 @@
+:root {
+  --primary-purple: #7A6CB1;
+  --secondary-purple: #3D3658;
+  --light-grey: #F8F8F8;
+  --grey: #888;
+  --dark-grey: #575757;
+  --black: #171717;
+}
+
 *,
 *::before,
 *::after {
@@ -6,12 +15,17 @@
   box-sizing: border-box;
 }
 
+html {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+
 body {
   display: flex;
 }
 
 #save-btn {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: inherit;
   font-size: 20px;
   border: 1px solid black;
 }
@@ -20,22 +34,44 @@ body {
   background-color: lightgray;
 }
 
-#editor-main {
-  width: 594px;
-  height: 442px;
-  max-height: 842px;
-}
+
 
 .note-list:empty {
   display: none;
 }
 
-.container {
-  margin-top: 50px;
-  width: calc(100% - 5rem);
+/* ------------- EDITOR SECTION -------------*/
+
+.editor-section {
+  margin: 5rem auto 0;
+  width: 60rem;
   display: flex;
-  flex: 1 1 auto;
+  flex-direction: column;
 }
+
+.editor-section__title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  color: var(--black);
+  padding: 1rem 0;
+  margin-bottom: 1rem;
+  -webkit-appearance: none;
+  border: 0;
+}
+
+.editor-section__title:focus {
+  outline: none;
+  border: 2px solid var(--primary-purple);
+  padding-left: 1rem;
+}
+
+.editor-section__editor {
+  width: 100%;
+  height: 442px;
+  max-height: 842px;
+}
+
+/* ------------- EDITOR SECTION END -------------*/
 
 @media print {
   body * {
@@ -52,86 +88,6 @@ body {
     margin: 0;
   }
 }
-
-/* ------------- NAVBAR DESIGN ------------- */
-
-/* the nav bar */
-/* * {
-  margin: 0px;
-  padding: 0px;
-  box-sizing: border-box;
-
-} */
-
-/* inside the navbar*/
-/* .sidebar {
-  display: flex;
-  flex-direction: column;
-
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: 100vh;
-  font-family: 'Poppins', sans-serif;
-  background-color: blue;
-  width: 5rem;
-}
- */
-/* The logo "MENU" in the navbar */
-/* .logo {
-  color: white;
-  text-transform: uppercase;
-  letter-spacing: 5px;
-  font-size: 20px;
-  display: flex;
-  justify-content: center;
-} */
-
-/* links in the navbar (the buttons/logos) */
-/* .nav-links {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-  height: 20%;
-} */
-
-/* .nav-links li {
-  list-style: none;
-} */
-
-/* .nav-links a {
-  color: white;
-  text-decoration: none;
-  letter-spacing: 3px;
-  font-weight: bold;
-  font-size: 14px;
-} */
-
-/* .burger {
-  display: none;
-  cursor: pointer;
-}
-
-.burger div {
-  width: 25px;
-  height: 3px;
-  background-color: white;
-  margin: 5px;
-  transition: all 0.3s ease;
-} */
-
-/* SVG images*/
-/* .svg-img {
-  width: 100%;
-  padding: 1.5rem;
-}
-
-@media screen and (max-width:1024px) {
-  .nav-links {
-    width: 60%;
-  }
-} */
 
 @media screen and (max-width:768px) {
   body {
