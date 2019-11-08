@@ -50,12 +50,13 @@ const elementNoteList = document.getElementById("note-list");
  * Event handler for mouse click to remove a Note
  * @param {MouseEvent} event
  */
-function removeNoteEventHandler(event) {
-  const noteIdToRemove = event.target.getAttribute("delete-value");
+ function removeNoteEventHandler(event) {
+  const noteIdToRemove = event.target.getAttribute('data-note-id');
   const indexToRemove = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToRemove));
 
   removeBasedOnIndex(indexToRemove);
   event.target.parentNode.remove();
+
   //Save our new content
   storeContent();
 }
@@ -83,49 +84,53 @@ function loadEditID() {
  * 
  * @param {MouseEvent} event 
  */
-function editItem(event) {
-  const allNotes = getAllNotes();
-  let noteIdToEdit = event.target.getAttribute("edit-value");
-  let index = allNotes.findIndex(data => {
-    return data.dateOfCreation === Number(noteIdToEdit);
-  });
-
+function editNoteEventHandler(event) {
+  const noteIdToEdit = event.target.getAttribute('data-note-id');
+  const index = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToEdit));
+  
   if (index !== -1) {
-    editor.setContents(getNote(index).content);
+    const note = getNote(index);
+    const editorTitle = document.getElementById('editorTitle');
+    editor.setContents(note.content);
+    editorTitle.value = note.title;
   }
   saveEditID(noteIdToEdit);
   storeContent();
 }
 
-function loadItems(attributeID) {
+function loadItems(note) {
+  //Creating div for a note list
+  const divNoteList = document.createElement("div");
 
-  const removeBtn = document.createElement("button");
-  const editBtn = document.createElement("button");
-  const noteTitle = document.createElement("h3");
+  //Create necessary buttons for a note
+  const buttonRemove = document.createElement("button"),
+        buttonEdit = document.createElement("button"),
+        buttonFavorite = document.createElement("button");
 
-  const attributeRemoveID = document.createAttribute("delete-value");
-  const attributeEditID = document.createAttribute("edit-value");
-  const listDiv = document.createElement("div");
+  //Create title for a note
+  const header3Title = document.createElement("h3");
 
-  //text that tells which to delete or edit 
-  noteTitle.innerText = document.getElementById('editorTitle');
+  //Setting visual text for every created element
+  buttonRemove.innerHTML = "Delete";
+  buttonEdit.innerHTML = "Edit";
+  buttonFavorite.innerHTML = "Favorite";
+  header3Title.innerHTML = note.title;
 
-  removeBtn.innerHTML = "delete";
-  editBtn.innerHTML = "edit";
+  //Setting attribute for each button
+  header3Title.setAttribute("data-note-id", note.dateOfCreation);
+  buttonRemove.setAttribute("data-note-id", note.dateOfCreation);
+  buttonEdit.setAttribute("data-note-id", note.dateOfCreation);
+  buttonFavorite.setAttribute("data-note-id", note.dateOfCreation);
 
-  attributeRemoveID.value = attributeID;
-  attributeEditID.value = attributeID;
-  removeBtn.setAttributeNode(attributeRemoveID);
+  divNoteList.append(header3Title);
+  elementNoteList.append(divNoteList);
 
-  editBtn.setAttributeNode(attributeEditID);
-  listDiv.append(noteTitle);
-  elementNoteList.append(listDiv);
+  header3Title.parentNode.insertBefore(buttonRemove, header3Title.nextSibling);
+  buttonRemove.parentNode.insertBefore(buttonEdit, buttonRemove.nextSibling);
+  buttonEdit.parentNode.insertBefore(buttonFavorite, buttonEdit.nextSibling);
 
-  noteTitle.parentNode.insertBefore(removeBtn, noteTitle.nextSibling);
-  removeBtn.parentNode.insertBefore(editBtn, removeBtn.nextSibling);
-  removeBtn.onclick = removeNoteEventHandler;
-
-  editBtn.onclick = editItem;
+  buttonRemove.onclick = removeNoteEventHandler;
+  buttonEdit.onclick = editNoteEventHandler;
 }
 
 function makeAndStoreContent() {
@@ -137,13 +142,19 @@ function makeAndStoreContent() {
     if (note.dateOfCreation === loadID) {
       note.content = editor.getContents();
       counter++;
+      note.title = document.getElementById('editorTitle').value;
+      const h3TitleElement = document.querySelector(`h3[data-note-id="${loadID}"]`);
+      h3TitleElement.innerHTML = note.title;
     }
   });
 
   if (counter === 0) {
-    const newNote = new Note();
+    const newNote = new Note({
+      title: document.getElementById("editorTitle").value,
+      content: editor.getContents()
+    });
     addNote(newNote);
-    loadItems(newNote.dateOfCreation);
+    loadItems(newNote);
   }
   storeContent();
 }
@@ -164,7 +175,6 @@ document.getElementById("save-btn").addEventListener("click", saveFunction);
 
 function saveFunction() {
   makeAndStoreContent();
-  clearContents();
 }
 
 document.getElementById("save-btn").addEventListener("click", saveFunction)
