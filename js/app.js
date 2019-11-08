@@ -97,11 +97,7 @@ function editItem(event) {
   storeContent();
 }
 
-function numberOfNotes() {
-  return JSON.parse(localStorage.getItem("save-notes")).length + 1
-}
-
-function loadItems(attributeID, title) {
+function loadItems(attributeID) {
 
   const removeBtn = document.createElement("button");
   const editBtn = document.createElement("button");
@@ -112,7 +108,7 @@ function loadItems(attributeID, title) {
   const listDiv = document.createElement("div");
 
   //text that tells which to delete or edit 
-  noteTitle.innerText = "title" + title;
+  noteTitle.innerText = document.getElementById('editorTitle');
 
   removeBtn.innerHTML = "delete";
   editBtn.innerHTML = "edit";
@@ -134,21 +130,20 @@ function loadItems(attributeID, title) {
 
 function makeAndStoreContent() {
   const allNotes = getAllNotes();
-  var numbTitle = numberOfNotes();
   const loadID = Number(loadEditID());
-  var numb = 0;
+  let counter = 0;
 
   allNotes.forEach(function (note) {
     if (note.dateOfCreation === loadID) {
       note.content = editor.getContents();
-      numb++;
+      counter++;
     }
   });
 
-  if (numb === 0) {
-    const saveItem = new Note('Test Title', editor.getContents());
-    addNote(saveItem)
-    loadItems(saveItem.dateOfCreation, numbTitle);
+  if (counter === 0) {
+    const newNote = new Note();
+    addNote(newNote);
+    loadItems(newNote.dateOfCreation);
   }
   storeContent();
 }
@@ -157,18 +152,11 @@ function makeAndStoreContent() {
 document.getElementById("new-document").addEventListener("click", function () {
 
   localStorage.setItem("edit-id", JSON.stringify(0));
-  var noID = JSON.parse(localStorage.getItem("edit-id"));
   clearContents();
 });
 
 function renderItems() {
-  const renderList = getAllNotes()
-  var title = 0;
-  for (let i = 0; i < renderList.length; i++) {
-    title++;
-    var idNumb = renderList[i].dateOfCreation;
-    loadItems(idNumb, title)
-  }
+  getAllNotes().forEach(note => loadItems(note));
 }
 
 //save button
