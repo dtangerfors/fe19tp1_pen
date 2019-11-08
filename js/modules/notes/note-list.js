@@ -5,6 +5,7 @@ import Note from './note.js';
  */
 const Notes = [];
 
+
 /**
  * flag : Sorting variable indicating Ascending - Descending
  */
@@ -20,7 +21,10 @@ export function addNote(note) {
     if (note.length) return;
     if (!note.title || !note.content) return;
     Notes.push(note);
+}
 
+export function getFavorites() {
+  return Notes.filter(note => note.isFavorite);
 }
 
 /**
@@ -82,11 +86,11 @@ export function sortNotesByDate() {
   });
 }
 /**
- * Taking predefined notes
+ * Taking predefined notes from external source
  * @param {Note} notes 
  */
 export function setPredefinedNotes(notes) {
     notes.forEach((note) => {
-        Notes.push(new Note(note.title, note.content, note.dateOfCreation, note.lastChanged));
+        Notes.push(new Note(note));
     });
 }
