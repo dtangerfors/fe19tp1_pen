@@ -1,12 +1,16 @@
 export default class Note {
 
-    constructor(title = "Untitled Document", content = {}, dateOfCreation = Date.now(), lastChanged = dateOfCreation) {
-        this.content = content;
-        this.title = title;
-        this.dateOfCreation = Date.now();
-        this.lastChanged = this.dateOfCreation;
+    constructor({title, content, dateOfCreation, lastChanged, isFavorite} = {}) {
+        this.title = title || 'Untitled'
+        this.content = content || {};
+        this.dateOfCreation = dateOfCreation || Date.now();
+        this.lastChanged = lastChanged || this.dateOfCreation;
+        this.isFavorite = isFavorite || false;
     }
-    
+    setFavorite() {
+        this.isFavorite = !this.isFavorite;
+        return this.isFavorite;
+    }
     setContent(content) {
         if(typeof content === "string") {
             this.content = JSON.parse(content);
