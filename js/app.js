@@ -7,6 +7,7 @@ import {
   removeBasedOnIndex,
   removeFirstFoundBasedOnTitle,
   getNote,
+  getFavorites,
   getAllNotes,
   setPredefinedNotes
 } from './modules/notes/note-list.js';
@@ -113,7 +114,7 @@ function loadItems(note) {
   //Setting visual text for every created element
   buttonRemove.innerHTML = "Delete";
   buttonEdit.innerHTML = "Edit";
-  buttonFavorite.innerHTML = "Favorite";
+  buttonFavorite.innerHTML = note.isFavorite ? 'Unfavorite' : 'Favorite';
   header3Title.innerHTML = note.title;
 
   //Setting attribute for each button
@@ -131,6 +132,7 @@ function loadItems(note) {
 
   buttonRemove.onclick = removeNoteEventHandler;
   buttonEdit.onclick = editNoteEventHandler;
+  buttonFavorite.onclick = setFavoriteNoteEventHandler;
 }
 
 function makeAndStoreContent() {
@@ -159,12 +161,23 @@ function makeAndStoreContent() {
   storeContent();
 }
 
+function setFavoriteNoteEventHandler(event) {
+  const favoriteNote = event.target.getAttribute('data-note-id');
+  const index = getAllNotes().findIndex(note => note.dateOfCreation === Number(favoriteNote));
+  const note = getNote(index);
+  const isFavorited = note.setFavorite();
+  this.innerHTML = isFavorited ? 'Unfavorite' : 'Favorite';
+  storeContent();
+}
 
 document.getElementById("new-document").addEventListener("click", function () {
 
   localStorage.setItem("edit-id", JSON.stringify(0));
   clearContents();
+  document.getElementById('editorTitle').value = '';
 });
+
+
 
 function renderItems() {
   getAllNotes().forEach(note => loadItems(note));
