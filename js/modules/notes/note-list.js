@@ -5,6 +5,12 @@ import Note from './note.js';
  */
 const Notes = [];
 
+
+/**
+ * flag : Sorting variable indicating Ascending - Descending
+ */
+let flag = false;
+
 /**
  * Add a note to the Notes list
  * @param {Note} note - accepts a Note object
@@ -15,7 +21,10 @@ export function addNote(note) {
     if (note.length) return;
     if (!note.title || !note.content) return;
     Notes.push(note);
+}
 
+export function getFavorites() {
+  return Notes.filter(note => note.isFavorite);
 }
 
 /**
@@ -54,8 +63,34 @@ export function getAllNotes() {
     return Notes
 }
 
+/**
+ * Sort notes by title
+ */
+export function sortNotesByTitle() {
+  flag = !flag;
+  return flag ? Notes.sort((a,b) => {
+    return a.title - b.title;
+  }) : Notes.sort((a,b) => {
+    return b.title - a.title;
+  });
+}
+/**
+ * Sort notes by date
+ */
+export function sortNotesByDate() {
+  flag = !flag;
+  return flag ? Notes.sort((a,b) => {
+    return a.lastChanged - b.lastChanged;
+  }) : Notes.sort((a,b) => {
+    return b.lastChanged - a.lastChanged;
+  });
+}
+/**
+ * Taking predefined notes from external source
+ * @param {Note} notes 
+ */
 export function setPredefinedNotes(notes) {
     notes.forEach((note) => {
-        Notes.push(new Note(note.title, note.content, note.dateOfCreation, note.lastChanged));
+        Notes.push(new Note(note));
     });
 }

@@ -7,6 +7,7 @@ import {
   removeBasedOnIndex,
   removeFirstFoundBasedOnTitle,
   getNote,
+  getFavorites,
   getAllNotes,
   setPredefinedNotes
 } from './modules/notes/note-list.js';
@@ -50,12 +51,13 @@ const elementNoteList = document.getElementById("note-list");
  * Event handler for mouse click to remove a Note
  * @param {MouseEvent} event
  */
-function removeNoteEventHandler(event) {
-  const noteIdToRemove = event.target.getAttribute("delete-value");
+ function removeNoteEventHandler(event) {
+  const noteIdToRemove = event.target.getAttribute('data-note-id');
   const indexToRemove = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToRemove));
 
   removeBasedOnIndex(indexToRemove);
   event.target.parentNode.remove();
+
   //Save our new content
   storeContent();
 }
@@ -83,90 +85,102 @@ function loadEditID() {
  * 
  * @param {MouseEvent} event 
  */
-function editItem(event) {
-  const allNotes = getAllNotes();
-  let noteIdToEdit = event.target.getAttribute("edit-value");
-  let index = allNotes.findIndex(data => {
-    return data.dateOfCreation === Number(noteIdToEdit);
-  });
-
+function editNoteEventHandler(event) {
+  const noteIdToEdit = event.target.getAttribute('data-note-id');
+  const index = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToEdit));
+  
   if (index !== -1) {
-    editor.setContents(getNote(index).content);
+    const note = getNote(index);
+    const editorTitle = document.getElementById('editorTitle');
+    editor.setContents(note.content);
+    editorTitle.value = note.title;
   }
   saveEditID(noteIdToEdit);
   storeContent();
 }
 
-function numberOfNotes() {
-  return JSON.parse(localStorage.getItem("save-notes")).length + 1
-}
-function titleNumb() {
-  if (!JSON.parse(localStorage.getItem("save-notes"))) {
-    return 1;
-  } else {
-    return JSON.parse(localStorage.getItem("save-notes")).length + 1;
-  }
-}
+function loadItems(note) {
+  //Creating div for a note list
+  const divNoteList = document.createElement("div");
 
-function loadItems(attributeID, title) {
-  const removeBtn = document.createElement("button");
-  const editBtn = document.createElement("button");
-  const noteTitle = document.createElement("h3");
-  const attributeRemoveID = document.createAttribute("delete-value");
-  const attributeEditID = document.createAttribute("edit-value");
-  const listDiv = document.createElement("div");
-  noteTitle.innerText = "title" + title; //text that tells which to delete or edit 
-  removeBtn.innerHTML = "delete";
-  editBtn.innerHTML = "edit";
-  attributeRemoveID.value = attributeID;
-  attributeEditID.value = attributeID;
-  removeBtn.setAttributeNode(attributeRemoveID);
-  editBtn.setAttributeNode(attributeEditID);
-  listDiv.append(noteTitle);
-  elementNoteList.append(listDiv);
-  noteTitle.parentNode.insertBefore(removeBtn, noteTitle.nextSibling);
-  removeBtn.parentNode.insertBefore(editBtn, removeBtn.nextSibling);
-  removeBtn.onclick = removeNoteEventHandler;
-  editBtn.onclick = editItem;
+  //Create necessary buttons for a note
+  const buttonRemove = document.createElement("button"),
+        buttonEdit = document.createElement("button"),
+        buttonFavorite = document.createElement("button");
+
+  //Create title for a note
+  const header3Title = document.createElement("h3");
+
+  //Setting visual text for every created element
+  buttonRemove.innerHTML = "Delete";
+  buttonEdit.innerHTML = "Edit";
+  buttonFavorite.innerHTML = note.isFavorite ? 'Unfavorite' : 'Favorite';
+  header3Title.innerHTML = note.title;
+
+  //Setting attribute for each button
+  header3Title.setAttribute("data-note-id", note.dateOfCreation);
+  buttonRemove.setAttribute("data-note-id", note.dateOfCreation);
+  buttonEdit.setAttribute("data-note-id", note.dateOfCreation);
+  buttonFavorite.setAttribute("data-note-id", note.dateOfCreation);
+
+  divNoteList.append(header3Title);
+  elementNoteList.append(divNoteList);
+
+  header3Title.parentNode.insertBefore(buttonRemove, header3Title.nextSibling);
+  buttonRemove.parentNode.insertBefore(buttonEdit, buttonRemove.nextSibling);
+  buttonEdit.parentNode.insertBefore(buttonFavorite, buttonEdit.nextSibling);
+
+  buttonRemove.onclick = removeNoteEventHandler;
+  buttonEdit.onclick = editNoteEventHandler;
+  buttonFavorite.onclick = setFavoriteNoteEventHandler;
 }
 
 function makeAndStoreContent() {
   const allNotes = getAllNotes();
-  var numbTitle = numberOfNotes();
   const loadID = Number(loadEditID());
-  var numb = 0;
+  let counter = 0;
 
   allNotes.forEach(function (note) {
     if (note.dateOfCreation === loadID) {
       note.content = editor.getContents();
-      numb++;
+      counter++;
+      note.title = document.getElementById('editorTitle').value;
+      const h3TitleElement = document.querySelector(`h3[data-note-id="${loadID}"]`);
+      h3TitleElement.innerHTML = note.title;
     }
   });
 
-  if (numb === 0) {
-    const saveItem = new Note('Test Title', editor.getContents());
-    addNote(saveItem)
-    loadItems(saveItem.dateOfCreation, numbTitle);
+  if (counter === 0) {
+    const newNote = new Note({
+      title: document.getElementById("editorTitle").value,
+      content: editor.getContents()
+    });
+    addNote(newNote);
+    loadItems(newNote);
   }
   storeContent();
 }
 
+function setFavoriteNoteEventHandler(event) {
+  const favoriteNote = event.target.getAttribute('data-note-id');
+  const index = getAllNotes().findIndex(note => note.dateOfCreation === Number(favoriteNote));
+  const note = getNote(index);
+  const isFavorited = note.setFavorite();
+  this.innerHTML = isFavorited ? 'Unfavorite' : 'Favorite';
+  storeContent();
+}
 
 document.getElementById("new-document").addEventListener("click", function () {
 
   localStorage.setItem("edit-id", JSON.stringify(0));
-  var noID = JSON.parse(localStorage.getItem("edit-id"));
   clearContents();
+  document.getElementById('editorTitle').value = '';
 });
 
+
+
 function renderItems() {
-  const renderList = getAllNotes()
-  var title = 0;
-  for (let i = 0; i < renderList.length; i++) {
-    title++;
-    var idNumb = renderList[i].dateOfCreation;
-    loadItems(idNumb, title)
-  }
+  getAllNotes().forEach(note => loadItems(note));
 }
 
 //save button
@@ -174,7 +188,6 @@ document.getElementById("save-btn").addEventListener("click", saveFunction);
 
 function saveFunction() {
   makeAndStoreContent();
-  clearContents();
 }
 
 document.getElementById("save-btn").addEventListener("click", saveFunction)
