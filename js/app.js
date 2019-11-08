@@ -100,33 +100,35 @@ function editItem(event) {
 function numberOfNotes() {
   return JSON.parse(localStorage.getItem("save-notes")).length + 1
 }
-function titleNumb() {
-  if (!JSON.parse(localStorage.getItem("save-notes"))) {
-    return 1;
-  } else {
-    return JSON.parse(localStorage.getItem("save-notes")).length + 1;
-  }
-}
 
 function loadItems(attributeID, title) {
+
   const removeBtn = document.createElement("button");
   const editBtn = document.createElement("button");
   const noteTitle = document.createElement("h3");
+
   const attributeRemoveID = document.createAttribute("delete-value");
   const attributeEditID = document.createAttribute("edit-value");
   const listDiv = document.createElement("div");
-  noteTitle.innerText = "title" + title; //text that tells which to delete or edit 
+
+  //text that tells which to delete or edit 
+  noteTitle.innerText = "title" + title;
+
   removeBtn.innerHTML = "delete";
   editBtn.innerHTML = "edit";
+
   attributeRemoveID.value = attributeID;
   attributeEditID.value = attributeID;
   removeBtn.setAttributeNode(attributeRemoveID);
+
   editBtn.setAttributeNode(attributeEditID);
   listDiv.append(noteTitle);
   elementNoteList.append(listDiv);
+
   noteTitle.parentNode.insertBefore(removeBtn, noteTitle.nextSibling);
   removeBtn.parentNode.insertBefore(editBtn, removeBtn.nextSibling);
   removeBtn.onclick = removeNoteEventHandler;
+
   editBtn.onclick = editItem;
 }
 
