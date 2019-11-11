@@ -7,9 +7,11 @@ import {
   removeBasedOnIndex,
   removeFirstFoundBasedOnTitle,
   getNote,
-  getFavorites,
+  // getFavorites,
   getAllNotes,
-  setPredefinedNotes
+  setPredefinedNotes,
+  lastEditedDate,
+  setDate
 } from './modules/notes/note-list.js';
 import {
   options as quillSettings
@@ -51,7 +53,7 @@ const elementNoteList = document.getElementById("note-list");
  * Event handler for mouse click to remove a Note
  * @param {MouseEvent} event
  */
- function removeNoteEventHandler(event) {
+function removeNoteEventHandler(event) {
   const noteIdToRemove = event.target.getAttribute('data-note-id');
   const indexToRemove = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToRemove));
 
@@ -88,7 +90,7 @@ function loadEditID() {
 function editNoteEventHandler(event) {
   const noteIdToEdit = event.target.getAttribute('data-note-id');
   const index = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToEdit));
-  
+
   if (index !== -1) {
     const note = getNote(index);
     const editorTitle = document.getElementById('editorTitle');
@@ -105,8 +107,8 @@ function loadItems(note) {
 
   //Create necessary buttons for a note
   const buttonRemove = document.createElement("button"),
-        buttonEdit = document.createElement("button"),
-        buttonFavorite = document.createElement("button");
+    buttonEdit = document.createElement("button"),
+    buttonFavorite = document.createElement("button");
 
   //Create title for a note
   const header3Title = document.createElement("h3");
@@ -116,7 +118,11 @@ function loadItems(note) {
   buttonEdit.innerHTML = "Edit";
   buttonFavorite.innerHTML = note.isFavorite ? 'Unfavorite' : 'Favorite';
   header3Title.innerHTML = note.title;
-
+  const dateParagraph = document.createElement("p");
+  const newdateParagraph = document.createElement("p");
+  const date = setDate(note.lastChanged)
+  dateParagraph.innerText = "last edited on " + date[0] + "/" + date[1] + "/" + date[2] + ", " + date[3] + ":" + date[4];
+  newdateParagraph.innerText = "last changed " + lastEditedDate(note.lastChanged)
   //Setting attribute for each button
   header3Title.setAttribute("data-note-id", note.dateOfCreation);
   buttonRemove.setAttribute("data-note-id", note.dateOfCreation);
@@ -129,6 +135,8 @@ function loadItems(note) {
   header3Title.parentNode.insertBefore(buttonRemove, header3Title.nextSibling);
   buttonRemove.parentNode.insertBefore(buttonEdit, buttonRemove.nextSibling);
   buttonEdit.parentNode.insertBefore(buttonFavorite, buttonEdit.nextSibling);
+  buttonFavorite.parentNode.insertBefore(dateParagraph, buttonFavorite.nextSibling);
+  dateParagraph.parentNode.insertBefore(newdateParagraph, dateParagraph.nextSibling)
 
   buttonRemove.onclick = removeNoteEventHandler;
   buttonEdit.onclick = editNoteEventHandler;
@@ -144,6 +152,7 @@ function makeAndStoreContent() {
     if (note.dateOfCreation === loadID) {
       note.content = editor.getContents();
       counter++;
+      note.lastChanged = Date.now();
       note.title = document.getElementById('editorTitle').value;
       const h3TitleElement = document.querySelector(`h3[data-note-id="${loadID}"]`);
       h3TitleElement.innerHTML = note.title;
@@ -184,7 +193,7 @@ function renderItems() {
 }
 
 //save button
-document.getElementById("save-btn").addEventListener("click", saveFunction);
+//document.getElementById("save-btn").addEventListener("click", saveFunction);
 
 function saveFunction() {
   makeAndStoreContent();
