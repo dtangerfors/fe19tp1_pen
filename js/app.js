@@ -242,6 +242,6 @@ window.addEventListener("DOMContentLoaded", main);
 /**
  * Print button
  */
-document.getElementById('printer__button').addEventListener('click', function() {
+document.getElementById('printerButton').addEventListener('click', function() {
   window.print();
 });
