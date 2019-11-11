@@ -60,17 +60,6 @@ export function setPredefinedNotes(notes) {
     });
 }
 
-export function setDate(time){
-    const convertToDate = new Date(time)
-    const minutes = (convertToDate.getMinutes()<10?'0':'')+convertToDate.getMinutes();
-    const hours = (convertToDate.getHours()<10?'0':'')+convertToDate.getHours();
-    const days = convertToDate.getDate();
-    const months = convertToDate.getMonth()+1;
-    const years = convertToDate.getFullYear();
-    const dateValue = [years,months,days,hours,minutes]
-    return dateValue;
-    
-}
 
 export function dateHowLongAgo(milliseconds) {
     const nowMiliseconds = Date.now();
