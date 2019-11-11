@@ -74,19 +74,12 @@ body {
 /* ------------- EDITOR SECTION END -------------*/
 
 @media print {
-  body * {
-    visibility: hidden;
+   .nav, #note-list, .ql-toolbar, button, a, .editor-section__title {
+    display: none;
   }
 
-  #editor-code * {
-    visibility: visible;
-    height: auto;
-    overflow: hidden;
-  }
-
-  #editorTitle {
-    visibility: visible;
-    margin-left: 25%;
+  .ql-container {
+    border: 0 !important;
   }
 
   @page {
