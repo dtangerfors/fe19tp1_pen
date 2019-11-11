@@ -72,8 +72,9 @@ export function setDate(time){
     
 }
 
-export function lastEditedDate(milliseconds) {
+export function dateHowLongAgo(milliseconds) {
     const nowMiliseconds = Date.now();
+    const dateReturn = new Date(milliseconds);
     const howOld = nowMiliseconds-milliseconds;
     const secondsDecimal = howOld/1000;
     const seconds= secondsDecimal.toFixed(0);
@@ -87,19 +88,22 @@ export function lastEditedDate(milliseconds) {
     const months = monthsDecimal.toFixed(0);
     const yearsDecimal = monthsDecimal/12;
     const years = yearsDecimal.toFixed(0);
-    if (years<0) {
-        return years+" years ago";
-    }
-    else if (months>0) {
-        return months+" months ago";
-    } else if(days>0){
-        return days+" days ago";
+   if (days > 0 || months > 0 || years < 0){
+       return ": " + dateReturn.getFullYear() + "/" + (dateReturn.getMonth() + 1) + "/" + dateReturn.getDate() + ", " + ((dateReturn.getHours() < 10 ? '0' : '') + dateReturn.getHours()) + ":" + ((dateReturn.getMinutes() < 10 ? '0' : '') + dateReturn.getMinutes())
     } else if (hours>0) {
-       return hours+" hours ago";
+        if (hours==1) {
+        return " on " + hours + " hour ago";
+        } else {
+        return " on " + hours + " hours ago";
+        }
     }
     else if (minutes>0) {
-        return minutes+" minutes ago";
+        if (minutes==1) {
+            return " on " + minutes + " minute ago";
+        } else {
+            return " on " + minutes + " minutes ago";
+        }
     } else {
-        return seconds+" seconds ago";
+       return " on " +seconds+" seconds ago";
     }
 }
