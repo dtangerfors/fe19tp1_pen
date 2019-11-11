@@ -193,13 +193,11 @@ function renderItems() {
 }
 
 //save button
-//document.getElementById("save-btn").addEventListener("click", saveFunction);
+document.getElementById("save-btn").addEventListener("click", saveFunction);
 
 function saveFunction() {
   makeAndStoreContent();
 }
-
-document.getElementById("save-btn").addEventListener("click", saveFunction)
 
 function editorLoad() {
   const allNotes = getAllNotes();
