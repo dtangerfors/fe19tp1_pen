@@ -10,7 +10,7 @@ import {
   // getFavorites,
   getAllNotes,
   setPredefinedNotes,
-  lastEditedDate,
+  dateHowLongAgo,
   setDate
 } from './modules/notes/note-list.js';
 import {
@@ -121,8 +121,9 @@ function loadItems(note) {
   const dateParagraph = document.createElement("p");
   const newdateParagraph = document.createElement("p");
   const date = setDate(note.lastChanged)
-  dateParagraph.innerText = "last edited on " + date[0] + "/" + date[1] + "/" + date[2] + ", " + date[3] + ":" + date[4];
-  newdateParagraph.innerText = "last changed " + lastEditedDate(note.lastChanged)
+  const createdDate = setDate(note.dateOfCreation)
+  dateParagraph.innerText = "Last edited"+dateHowLongAgo(note.lastChanged);
+  newdateParagraph.innerText = "Created" +dateHowLongAgo(note.dateOfCreation);
   //Setting attribute for each button
   header3Title.setAttribute("data-note-id", note.dateOfCreation);
   buttonRemove.setAttribute("data-note-id", note.dateOfCreation);
