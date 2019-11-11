@@ -245,3 +245,10 @@ function main() {
 }
 
 window.addEventListener("DOMContentLoaded", main);
+
+/**
+ * Print button
+ */
+document.getElementById('printer__button').addEventListener('click', function() {
+  window.print();
+});
