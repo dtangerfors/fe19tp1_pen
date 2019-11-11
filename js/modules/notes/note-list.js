@@ -17,7 +17,7 @@ let flag = false;
  */
 export function addNote(note) {
     //If the input note is not a Note object, we don't add it
-    if (typeof note !== "object") return;
+    if (typeof note !== 'object') return;
     if (note.length) return;
     if (!note.title || !note.content) return;
     Notes.push(note);

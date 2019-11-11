@@ -45,7 +45,7 @@
     </div>
     <ul class="nav__link-group">
       <li>
-        <a href="#"><img class="nav__icon" src="assets/sticky-note-solid.svg" /></a>
+        <a href="#"><img class="nav__icon" src="assets/sticky-note-solid.svg" id="nav-note" /></a>
       </li>
       <li> <a href="#"><img class="nav__icon" src="assets/search-solid.svg" /></a>
       </li>
@@ -53,7 +53,10 @@
       </li>
     </ul>
   </nav>
-  <div id="note-list"></div>
+  <aside class="sidebar">
+    <ul class="aside__note-list">
+    </ul>
+  </aside>
   <main class="editor-section">
     <input type="text" name="editorTitle" id="editorTitle" class="editor-section__title" placeholder="Untitled"
       spellcheck="false">
