@@ -10,8 +10,7 @@ import {
   // getFavorites,
   getAllNotes,
   setPredefinedNotes,
-  dateHowLongAgo,
-  setDate
+  dateHowLongAgo
 } from './modules/notes/note-list.js';
 import {
   options as quillSettings
@@ -120,8 +119,6 @@ function loadItems(note) {
   header3Title.innerHTML = note.title;
   const dateParagraph = document.createElement("p");
   const newdateParagraph = document.createElement("p");
-  const date = setDate(note.lastChanged)
-  const createdDate = setDate(note.dateOfCreation)
   dateParagraph.innerText = "Last edited"+dateHowLongAgo(note.lastChanged);
   newdateParagraph.innerText = "Created" +dateHowLongAgo(note.dateOfCreation);
   //Setting attribute for each button
