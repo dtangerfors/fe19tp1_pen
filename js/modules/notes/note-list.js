@@ -5,12 +5,6 @@ import Note from './note.js';
  */
 const Notes = [];
 
-
-/**
- * flag : Sorting variable indicating Ascending - Descending
- */
-let flag = false;
-
 /**
  * Add a note to the Notes list
  * @param {Note} note - accepts a Note object
@@ -21,10 +15,7 @@ export function addNote(note) {
     if (note.length) return;
     if (!note.title || !note.content) return;
     Notes.push(note);
-}
 
-export function getFavorites() {
-  return Notes.filter(note => note.isFavorite);
 }
 
 /**
@@ -63,34 +54,52 @@ export function getAllNotes() {
     return Notes
 }
 
-/**
- * Sort notes by title
- */
-export function sortNotesByTitle() {
-  flag = !flag;
-  return flag ? Notes.sort((a,b) => {
-    return a.title - b.title;
-  }) : Notes.sort((a,b) => {
-    return b.title - a.title;
-  });
-}
-/**
- * Sort notes by date
- */
-export function sortNotesByDate() {
-  flag = !flag;
-  return flag ? Notes.sort((a,b) => {
-    return a.lastChanged - b.lastChanged;
-  }) : Notes.sort((a,b) => {
-    return b.lastChanged - a.lastChanged;
-  });
-}
-/**
- * Taking predefined notes from external source
- * @param {Note} notes 
- */
 export function setPredefinedNotes(notes) {
     notes.forEach((note) => {
         Notes.push(new Note(note));
     });
+}
+
+export function setDate(time){
+    const convertToDate = new Date(time)
+    const minutes = (convertToDate.getMinutes()<10?'0':'')+convertToDate.getMinutes();
+    const hours = (convertToDate.getHours()<10?'0':'')+convertToDate.getHours();
+    const days = convertToDate.getDate();
+    const months = convertToDate.getMonth()+1;
+    const years = convertToDate.getFullYear();
+    const dateValue = [years,months,days,hours,minutes]
+    return dateValue;
+    
+}
+
+export function lastEditedDate(milliseconds) {
+    const nowMiliseconds = Date.now();
+    const howOld = nowMiliseconds-milliseconds;
+    const secondsDecimal = howOld/1000;
+    const seconds= secondsDecimal.toFixed(0);
+    const minutesDecimal = secondsDecimal/60;
+    const minutes = minutesDecimal.toFixed(0);
+    const hoursDecimal = minutesDecimal/60;
+    const hours = hoursDecimal.toFixed(0);
+    const daysDecimal = hoursDecimal/24;
+    const days = daysDecimal.toFixed(0);
+    const monthsDecimal = daysDecimal/30;
+    const months = monthsDecimal.toFixed(0);
+    const yearsDecimal = monthsDecimal/12;
+    const years = yearsDecimal.toFixed(0);
+    if (years<0) {
+        return years+" years ago";
+    }
+    else if (months>0) {
+        return months+" months ago";
+    } else if(days>0){
+        return days+" days ago";
+    } else if (hours>0) {
+       return hours+" hours ago";
+    }
+    else if (minutes>0) {
+        return minutes+" minutes ago";
+    } else {
+        return seconds+" seconds ago";
+    }
 }
