@@ -79,6 +79,14 @@ html {
     transform: translateY(.5rem);
 }
 
+.hamburger:hover .hamburger__inner::before {
+    transform: translateY(-.8rem);
+}
+
+.hamburger:hover .hamburger__inner::after {
+    transform: translateY(.8rem);
+}
+
 .hamburger__top,
 .hamburger__middle,
 .hamburger__bottom {
