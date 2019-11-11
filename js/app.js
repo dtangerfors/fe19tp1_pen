@@ -226,7 +226,7 @@ const navbarSlide = () => {
       }
     });
     //burger animation
-    this.classList.toggle('burgertoggle')
+    this.classList.toggle('hamburger-toggle')
   });
 };
 
