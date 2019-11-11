@@ -226,7 +226,7 @@ const navbarSlide = () => {
       }
     });
     //burger animation
-    this.classList.toggle('burgertoggle')
+    this.classList.toggle('hamburger-toggle')
   });
 };
 
@@ -238,3 +238,10 @@ function main() {
 }
 
 window.addEventListener("DOMContentLoaded", main);
+
+/**
+ * Print button
+ */
+document.getElementById('printerButton').addEventListener('click', function() {
+  window.print();
+});

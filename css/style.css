@@ -84,6 +84,11 @@ body {
     overflow: hidden;
   }
 
+  #editorTitle {
+    visibility: visible;
+    margin-left: 25%;
+  }
+
   @page {
     margin: 0;
   }
@@ -92,29 +97,6 @@ body {
 @media screen and (max-width:768px) {
   body {
     overflow-x: hidden;
-  }
-
-  /* .nav-links {
-    position: absolute;
-    left: 0px;
-    height: 92vh;
-    top: 8vh;
-    background-color: blue;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 30%;
-    transform: translateX(-100%);
-    transition: transform 0.5s ease-in;
-    list-style: none;
-  }
-
-  .nav-links li {
-    opacity: 0;
-  }
- */
-  .burger {
-    display: block;
   }
 }
 
@@ -134,19 +116,11 @@ body {
   }
 }
 
-/* Rotation of the Hamburger */
-/* 
-.burgertoggle .line1 {
-  transform: rotate(-45deg) translate(-5px, 6px);
+#printerButton {
+  float: right;
+  width: 2.5rem;
+  height: 2.5rem;
 }
-
-.burgertoggle .line2 {
-  opacity: 0;
-}
-
-.burgertoggle .line3 {
-  transform: rotate(45deg) translate(-5px, -6px);
-} */
 
 /* ------------- NAVBAR DESIGN ENDS -------------*/
 
