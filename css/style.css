@@ -24,20 +24,18 @@ body {
   display: flex;
 }
 
+h2 {
+  font-size: 1.7rem;
+}
+
 #save-btn {
   font-family: inherit;
   font-size: 20px;
-  border: 1px solid black;
+  border: 1px solid var(--black);
 }
 
 #save-btn:hover {
-  background-color: lightgray;
-}
-
-
-
-.note-list:empty {
-  display: none;
+  background-color: var(--light-grey);
 }
 
 /* ------------- EDITOR SECTION -------------*/
@@ -74,23 +72,26 @@ body {
 /* ------------- EDITOR SECTION END -------------*/
 
 @media print {
-  body * {
-    visibility: hidden;
-  }
+  .nav, #note-list, .ql-toolbar, button, a, .editor-section__title {
+   display: none;
+ }
 
-  #editor-code * {
-    visibility: visible;
-    height: auto;
-    overflow: hidden;
-  }
-
+<<<<<<< HEAD
   #editorTitle {
     visibility: visible;
   }
+=======
+ #editor-code {
+   border: 0;
+   overflow: hidden;
+   height: auto;
+ }
+>>>>>>> e060a5a2fb68e768e0dc9304ed8551e6eacb31c3
 
-  @page {
-    margin: 0;
-  }
+ @page {
+   size: auto;
+   margin: 2cm;
+ }
 }
 
 @media screen and (max-width:768px) {
@@ -167,11 +168,15 @@ body {
 }
 
 input:checked+.slider {
+<<<<<<< HEAD
   background-color: #ccc;
+=======
+  background-color: var(--primary-purple);
+>>>>>>> e060a5a2fb68e768e0dc9304ed8551e6eacb31c3
 }
 
 input:focus+.slider {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px var(--primary-purple);
 }
 
 input:checked+.slider:before {
@@ -208,6 +213,7 @@ input:checked+.slider:before {
 .modal-content {
   background-color: #fefefe;
   margin: auto;
+<<<<<<< HEAD
   color: var(--black);
   padding: 20px; 
   height: 100%;
@@ -223,6 +229,11 @@ label[for="auto-save"]{
   float: left;
     padding-right: 20px;
     margin-top: -4px;
+=======
+  padding: 20px;
+  border: 1px solid var(--grey);
+  width: 80%;
+>>>>>>> e060a5a2fb68e768e0dc9304ed8551e6eacb31c3
 }
 .close {
   color: #aaaaaa;
@@ -233,7 +244,7 @@ label[for="auto-save"]{
 
 .close:hover,
 .close:focus {
-  color: #000;
+  color: var(--black);
   text-decoration: none;
   cursor: pointer;
 }
@@ -251,82 +262,87 @@ label[for="auto-save"]{
 
 /* ------------- Notes Navigation Design -------------*/
 
-
-.note-list {
+.sidebar {
   display: none;
-  flex-direction: column;
-  align-items: center;
-  width: 30vh;
-  list-style: none;
-  background-color: #F8F8F8;
-  overflow-y: scroll;
+  background-color: var(--light-grey);
+  min-width: 25rem;
+  max-width: 25rem;
+  min-height: 100vh;
   max-height: 100vh;
-  margin-right: 25px;
-  animation: slideFade 0.5s reverse;
+  overflow: hidden scroll;
+  overflow-wrap: break-word;
 }
 
-.note-list::-webkit-scrollbar {
+.sidebar-show {
+  display: block;
+  animation: anim-sidebar-slide 0.5s;
+}
+
+.aside__note-list {
+  list-style: none;
+}
+
+.sidebar::-webkit-scrollbar {
   width: 20px;
 }
 
-.note-list::-webkit-scrollbar-track {
+.sidebar::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px #222; 
-  border-radius: 10px;
+  border-radius: 1rem;
 }
 
-.note-list::-webkit-scrollbar-thumb {
-  background: #888; 
-  border-radius: 10px;
+.sidebar::-webkit-scrollbar-thumb {
+  background: #999; 
+  border-radius: 1rem;
 }
 
-.note-list::-webkit-scrollbar-thumb:hover {
-  background: #666;
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
 }
 
-.note-list > li {
-  padding: 10px;
+.aside__note-list li {
+  padding: 1rem;
   cursor: pointer;
+  border-bottom: 1px solid var(--black);
 }
 
-.note-list > li:hover {
+.aside__note-list h2 {
+  font-size: 2rem;
+}
+
+.aside__note-list p {
+  font-size: 1.45rem;
+}
+
+.aside__note-list li > * {
+  margin-bottom: 0.5rem;
+}
+
+.aside__note-list li:hover {
   background-color: #8F8F8F25;
 }
 
-.note-list > li > h3 {
+.aside__note-list li h3 {
   font-weight: bold;
 }
 
-.note-list > li:after {
-  width: 20vw;
-  height: 5px;
-  background-color: black;
+.aside__note-list li:after {
+  width: 5rem;
+  height: .5rem;
+  background-color: var(--black);
 }
 
-.flex {
-  display: flex;
-}
-
-.slide-out {
-  animation: slideFade 0.55s reverse;
-}
-
-.slide-in {
-  animation: slideFade 0.55s;
-}
-
-@keyframes slideFade {
+@keyframes anim-sidebar-slide {
   0% {
-    opacity: 0;
     z-index: -1;
-    transform: translateX(-100%);
+    transform: translateX(-150%);
   }
 
-  90% {
+  99% {
     z-index: -1;
   }
   
   100% {
-    opacity: 1;
     transform: translateX(0);
     z-index: 1;
   }
