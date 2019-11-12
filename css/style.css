@@ -72,27 +72,20 @@ h2 {
 /* ------------- EDITOR SECTION END -------------*/
 
 @media print {
-  body * {
-    display: none;
-  }
+  .nav, #note-list, .ql-toolbar, button, a, .editor-section__title {
+   display: none;
+ }
 
-  #editor-code > * {
-    display: block;
-    height: auto;
-    overflow: hidden;
-  }
+ #editor-code {
+   border: 0;
+   overflow: hidden;
+   height: auto;
+ }
 
-  *::-webkit-scrollbar {
-    display: none;
-  }
-
-  #editorTitle {
-    margin-left: 25%;
-  }
-
-  @page {
-    margin: 0;
-  }
+ @page {
+   size: auto;
+   margin: 2cm;
+ }
 }
 
 @media screen and (max-width:768px) {
