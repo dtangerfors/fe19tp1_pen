@@ -74,17 +74,20 @@ body {
 /* ------------- EDITOR SECTION END -------------*/
 
 @media print {
-   .nav, #note-list, .ql-toolbar, button, a, .editor-section__title {
-    display: none;
-  }
+  .nav, #note-list, .ql-toolbar, button, a, .editor-section__title {
+   display: none;
+ }
 
-  .ql-container {
-    border: 0 !important;
-  }
+ #editor-code {
+   border: 0;
+   overflow: hidden;
+   height: auto;
+ }
 
-  @page {
-    margin: 0;
-  }
+ @page {
+   size: auto;
+   margin: 2cm;
+ }
 }
 
 @media screen and (max-width:768px) {
