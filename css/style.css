@@ -127,6 +127,8 @@ body {
 /* ------------- SETTINGS DESIGN -------------*/
 
 .switch {
+  float: right;
+  margin-right: 20px;
   position: relative;
   display: inline-block;
   width: 3rem;
@@ -210,11 +212,17 @@ input:checked+.slider:before {
   padding: 20px; 
   height: 100%;
   margin-left: 80px;
-  border-left: 5px solid #ccc;
+  border-left: 3px solid #ccc;
   width: 30%;
+}
+.modal-content h1{
+  font-size: 30px;
 }
 label[for="auto-save"]{
   font-size: 20px;
+  float: left;
+    padding-right: 20px;
+    margin-top: -4px;
 }
 .close {
   color: #aaaaaa;
@@ -228,6 +236,15 @@ label[for="auto-save"]{
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+#note-list div{
+  padding: 20px;
+}
+#note-list div h3{
+  font-size: 30px;
+}
+#note-list div p{
+  font-size: 15px;
 }
 
 /* ------------- MODAL DESIGN ENDS -------------*/
