@@ -12,12 +12,12 @@ export default class Note {
         return this.isFavorite;
     }
     setContent(content) {
-        if(typeof content === "string") {
+        if(typeof content === 'string') {
             this.content = JSON.parse(content);
-        }else if(typeof content === "object") {
+        }else if(typeof content === 'object') {
             this.content = content;
         }else {
-            throw Error("The content must either be a string or an object");
+            throw Error('The content must either be a string or an object');
         }
     }
 }
