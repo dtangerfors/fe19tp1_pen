@@ -79,11 +79,23 @@ h2 {
    display: none;
  }
 
+<<<<<<< HEAD
  #editor-code {
    border: 0;
    overflow: hidden;
    height: auto;
  }
+=======
+  #editor-code * {
+    visibility: visible;
+    height: auto;
+    overflow: hidden;
+  }
+
+  #editorTitle {
+    visibility: visible;
+  }
+>>>>>>> 1c697a3da88f294141ecc2ed8ad333f5b788a2f5
 
  @page {
    size: auto;
@@ -125,6 +137,8 @@ h2 {
 /* ------------- SETTINGS DESIGN -------------*/
 
 .switch {
+  float: right;
+  margin-right: 20px;
   position: relative;
   display: inline-block;
   width: 3rem;
@@ -144,6 +158,7 @@ h2 {
   left: 0;
   right: 0;
   bottom: 0;
+  width:4rem;
   background-color: #ccc;
   -webkit-transition: .4s;
   transition: .4s;
@@ -152,11 +167,11 @@ h2 {
 .slider::before {
   position: absolute;
   content: "";
-  height: 1.3rem;
-  width: 1.3rem;
-  left: .2rem;
-  bottom: .2rem;
-  background-color: white;
+  height: 2.3rem;
+  width: 2.3rem;
+  left: -0.3rem;
+  bottom: -.3rem;
+  background-color: var(--primary-purple);
   -webkit-transition: .4s;
   transition: .4s;
 }
@@ -170,9 +185,9 @@ input:focus+.slider {
 }
 
 input:checked+.slider:before {
-  -webkit-transform: translateX(1.3rem);
-  -ms-transform: translateX(1.3rem);
-  transform: translateX(1.3rem);
+  -webkit-transform: translateX(2.4rem);
+  -ms-transform: translateX(2.4rem);
+  transform: translateX(2.4rem);
 }
 
 .slider.round {
@@ -191,7 +206,6 @@ input:checked+.slider:before {
   display: none;
   position: fixed;
   z-index: 1;
-  padding-top: 100px;
   left: 0;
   top: 0;
   width: 100%;
@@ -204,11 +218,22 @@ input:checked+.slider:before {
 .modal-content {
   background-color: var(--color-primary);
   margin: auto;
-  padding: 20px;
-  border: 1px solid var(--grey);
-  width: 80%;
+  color: var(--black);
+  padding: 20px; 
+  height: 100%;
+  margin-left: 80px;
+  border-left: 3px solid #ccc;
+  width: 30%;
 }
-
+.modal-content h1{
+  font-size: 30px;
+}
+label[for="auto-save"]{
+  font-size: 20px;
+  float: left;
+    padding-right: 20px;
+    margin-top: -4px;
+}
 .close {
   color: #aaaaaa;
   float: right;
@@ -221,6 +246,15 @@ input:checked+.slider:before {
   color: var(--black);
   text-decoration: none;
   cursor: pointer;
+}
+#note-list div{
+  padding: 20px;
+}
+#note-list div h3{
+  font-size: 30px;
+}
+#note-list div p{
+  font-size: 15px;
 }
 
 /* ------------- MODAL DESIGN ENDS -------------*/

@@ -7,9 +7,10 @@ import {
   removeBasedOnIndex,
   removeFirstFoundBasedOnTitle,
   getNote,
-  getFavorites,
+  // getFavorites,
   getAllNotes,
-  setPredefinedNotes
+  setPredefinedNotes,
+  dateHowLongAgo
 } from './modules/notes/note-list.js';
 import {
   options as quillSettings
@@ -82,7 +83,7 @@ function loadEditID() {
 function editNoteEventHandler(event) {
   const noteIdToEdit = event.target.getAttribute('data-note-id');
   const index = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToEdit));
-  
+
   if (index !== -1) {
     const note = getNote(index);
     const editorTitle = document.getElementById('editorTitle');
@@ -122,10 +123,18 @@ function loadItems(note) {
   //Create title for a note
   const header2Title = document.createElement('h2');
 
+  const dateParagraph = document.createElement("p");
+  const newdateParagraph = document.createElement("p");
+
   //Setting visual text for every created element
   buttonRemove.innerHTML = 'Delete';
   buttonFavorite.innerHTML = note.isFavorite ? 'Unfavorite' : 'Favorite';
   header2Title.innerHTML = note.title;
+  dateParagraph.innerText = "Last edited"+dateHowLongAgo(note.lastChanged);
+  newdateParagraph.innerText = "Created" +dateHowLongAgo(note.dateOfCreation);
+  //Setting attribute for each button
+  buttonRemove.setAttribute("data-note-id", note.dateOfCreation);
+  buttonFavorite.setAttribute("data-note-id", note.dateOfCreation);
 
   previewText.innerHTML = getPreviewTextFromNote(note, 0, 50);
 
@@ -133,7 +142,7 @@ function loadItems(note) {
   noteList.setAttribute('data-note-id', note.dateOfCreation);
   header2Title.setAttribute('data-note-id', note.dateOfCreation);
   previewText.setAttribute('data-note-id', note.dateOfCreation);
-
+  
   buttonRemove.onclick = removeNoteEventHandler;
   noteList.onclick = editNoteEventHandler;
   buttonFavorite.onclick = setFavoriteNoteEventHandler;
@@ -142,6 +151,8 @@ function loadItems(note) {
   noteList.append(previewText);
   noteList.append(buttonRemove);
   noteList.append(buttonFavorite);
+  noteList.append(newdateParagraph);
+  noteList.append(dateParagraph);
   elementNoteList.append(noteList);
 }
 
@@ -154,6 +165,7 @@ function makeAndStoreContent() {
     if (note.dateOfCreation === loadID) {
       note.content = editor.getContents();
       counter++;
+      note.lastChanged = Date.now();
       note.title = document.getElementById('editorTitle').value;
       const h2TitleElement = document.querySelector(`h2[data-note-id='${loadID}']`);
       const previewTextElement = document.querySelector(`p[data-note-id='${loadID}']`);
@@ -206,8 +218,6 @@ document.getElementById('save-btn').addEventListener('click', saveFunction);
 function saveFunction() {
   makeAndStoreContent();
 }
-
-document.getElementById('save-btn').addEventListener('click', saveFunction)
 
 function editorLoad() {
   const allNotes = getAllNotes();
