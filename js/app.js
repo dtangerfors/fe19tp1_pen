@@ -102,7 +102,7 @@ function getTextFromContent(content) {
 }
 
 function getPreviewTextFromNote(note, from, to) {
-  return getTextFromContent(note.content.ops).split('\n').join(' ').substr(from, to)
+  return `${getTextFromContent(note.content.ops).split('\n').join(' ').substr(from, to)}...`;
 }
 
 function loadItems(note) {
@@ -120,25 +120,25 @@ function loadItems(note) {
 
   const previewText = document.createElement('p');
   //Create title for a note
-  const header3Title = document.createElement('h3');
+  const header2Title = document.createElement('h2');
 
   //Setting visual text for every created element
   buttonRemove.innerHTML = 'Delete';
   buttonFavorite.innerHTML = note.isFavorite ? 'Unfavorite' : 'Favorite';
-  header3Title.innerHTML = note.title;
+  header2Title.innerHTML = note.title;
 
-  previewText.innerHTML = getPreviewTextFromNote(note, 0, 100);
+  previewText.innerHTML = getPreviewTextFromNote(note, 0, 50);
 
   //Setting attribute for each button
   noteList.setAttribute('data-note-id', note.dateOfCreation);
-  header3Title.setAttribute('data-note-id', note.dateOfCreation);
+  header2Title.setAttribute('data-note-id', note.dateOfCreation);
   previewText.setAttribute('data-note-id', note.dateOfCreation);
 
   buttonRemove.onclick = removeNoteEventHandler;
   noteList.onclick = editNoteEventHandler;
   buttonFavorite.onclick = setFavoriteNoteEventHandler;
 
-  noteList.append(header3Title);
+  noteList.append(header2Title);
   noteList.append(previewText);
   noteList.append(buttonRemove);
   noteList.append(buttonFavorite);
@@ -155,10 +155,10 @@ function makeAndStoreContent() {
       note.content = editor.getContents();
       counter++;
       note.title = document.getElementById('editorTitle').value;
-      const h3TitleElement = document.querySelector(`h3[data-note-id='${loadID}']`);
+      const h2TitleElement = document.querySelector(`h2[data-note-id='${loadID}']`);
       const previewTextElement = document.querySelector(`p[data-note-id='${loadID}']`);
-      h3TitleElement.innerHTML = note.title;
-      previewTextElement.innerHTML = getPreviewTextFromNote(note, 0, 120);
+      h2TitleElement.innerHTML = note.title;
+      previewTextElement.innerHTML = getPreviewTextFromNote(note, 0, 50);
     }
   });
 
@@ -189,10 +189,15 @@ document.getElementById('new-document').addEventListener('click', function () {
   document.getElementById('editorTitle').value = '';
 });
 
+function clearAllChildren(node) {
+  while (node.firstChild) {
+    node.removeChild(node.firstChild);
+  }
+}
 
-
-function renderItems() {
-  getAllNotes().forEach(note => loadItems(note));
+function renderItems(notes = getAllNotes()) {
+  clearAllChildren(document.querySelector('.aside__note-list'));
+  notes.forEach(note => loadItems(note));
 }
 
 //save button
@@ -242,26 +247,12 @@ const navbarSlide = () => {
   });
 };
 
-
-let notesOpen = false;
-
 function noteListSlide() {
   const note = document.getElementById('nav-note');
   const noteList = document.querySelector('.sidebar');
-  noteList.classList.remove('sidebar');
-  
+
   note.addEventListener('click', function() {
-    if(!notesOpen) {
-      noteList.classList.add('sidebar-show');
-      noteList.classList.remove('sidebar-hide');
-    } else {
-      noteList.classList.add('sidebar-hide');
-      noteList.classList.remove('sidebar-show');
-    }
-    notesOpen = !notesOpen;
-    setTimeout(() => {
-      noteList.classList.add('sidebar');
-    }, 300);
+      noteList.classList.toggle('sidebar-show');
   });
 }
 
