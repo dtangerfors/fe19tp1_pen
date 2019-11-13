@@ -118,7 +118,7 @@ function loadItems(note) {
   const groupButtonDiv = document.createElement('div');
   groupButtonDiv.classList.add('class_'+note.dateOfCreation);
   groupButtonDiv.style.setProperty('position', 'absolute');
-  groupButtonDiv.style.setProperty('right', '-22rem');
+  groupButtonDiv.style.setProperty('right', '-21rem');
 
   //Create necessary buttons for a note
   const imgRemove = document.createElement('img'),
