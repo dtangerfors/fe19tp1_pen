@@ -240,10 +240,6 @@ input:checked+.slider:before {
   animation: anim-sidebar-slide 0.5s;
 }
 
-.aside__note-list {
-  list-style: none;
-}
-
 .sidebar::-webkit-scrollbar {
   width: 20px;
 }
@@ -262,8 +258,12 @@ input:checked+.slider:before {
   background: #aaa;
 }
 
+.aside__note-list {
+  position: relative;
+}
+
 .aside__note-list li {
-  padding: 1rem;
+  padding: 2rem;
   cursor: pointer;
   border-bottom: 1px solid var(--black);
 }
@@ -292,6 +292,15 @@ input:checked+.slider:before {
   width: 5rem;
   height: .5rem;
   background-color: var(--black);
+}
+
+.note-button-group {
+  position: absolute;
+  border: none;
+  right: 0;
+  margin-right: 2rem;
+  background-color: white;
+  font-size: 1.5rem;
 }
 
 @keyframes anim-sidebar-slide {
