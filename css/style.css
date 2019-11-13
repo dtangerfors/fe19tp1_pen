@@ -299,9 +299,27 @@ input:checked+.slider:before {
   position: absolute;
   border: none;
   right: 0;
-  margin-right: 2rem;
-  background-color: white;
+  margin-right: 1.5rem;
+  background-color: wheat;
   font-size: 1.5rem;
+  width: 2rem;
+  border-radius: 50%;
+  transform: translateX(0);
+  transition: all 0.5s ease;
+}
+
+@keyframes slide-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-12rem);
+  }
+}
+
+.group-button-show {
+  transform: translateX(-12rem);
+  transition: all 0.5s ease;
 }
 
 @keyframes anim-sidebar-slide {
