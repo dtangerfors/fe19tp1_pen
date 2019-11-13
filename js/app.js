@@ -116,6 +116,7 @@ function loadItems(note) {
 
   //Create div for favorite and remove buttons
   const groupButtonDiv = document.createElement('div');
+  groupButtonDiv.classList.add('class_'+note.dateOfCreation);
 
   //Create necessary buttons for a note
   const buttonRemove = document.createElement('button'),
@@ -123,11 +124,7 @@ function loadItems(note) {
   
   const buttonGroup = document.createElement('button');
   buttonGroup.innerHTML = '&#8942;';
-
   buttonGroup.setAttribute('class', 'note-button-group');
-
-  buttonFavorite.setAttribute('class', note.dateOfCreation);
-  buttonRemove.setAttribute('class', note.dateOfCreation);
   
 
   const previewText = document.createElement('p');
@@ -161,6 +158,8 @@ function loadItems(note) {
 
   
   buttonGroup.addEventListener('click', function(event) {
+    const classID = 'class_' + event.target.parentNode.getAttribute('data-note-id');
+    document.getElementsByClassName(classID)[0].style = "font-size: 5rem;";
   });
 }
 
