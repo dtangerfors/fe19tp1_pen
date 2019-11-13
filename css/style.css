@@ -308,15 +308,6 @@ input:checked+.slider:before {
   transition: all 0.5s ease;
 }
 
-@keyframes slide-left {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-12rem);
-  }
-}
-
 .group-button-show {
   transform: translateX(-12rem);
   transition: all 0.5s ease;
