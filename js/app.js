@@ -130,7 +130,7 @@ function loadItems(note) {
   imgRemove.height = '20';
   imgRemove.style.setProperty('margin-right', '2.5rem');
 
-  imgFavorite.src = note.isFavorite ? './assets/star-solid.svg' : './assets/star-regular.svg'
+  imgFavorite.src = note.isFavorite ? './assets/star.svg' : './assets/star-regular.svg'
   imgFavorite.width = '20';
   imgFavorite.height = '20';
   imgFavorite.style.setProperty('margin-right', '2.5rem');
@@ -219,7 +219,7 @@ function setFavoriteNoteEventHandler(event) {
   const index = getAllNotes().findIndex(note => note.dateOfCreation === Number(favoriteNote));
   const note = getNote(index);
   const isFavorited = note.setFavorite();
-  this.src = isFavorited ? './assets/star-solid.svg' : './assets/star-regular.svg'
+  this.src = isFavorited ? './assets/star.svg' : './assets/star-regular.svg'
   storeContent();
 }
 
