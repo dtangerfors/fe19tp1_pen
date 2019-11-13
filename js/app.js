@@ -121,9 +121,25 @@ function loadItems(note) {
   groupButtonDiv.style.setProperty('right', '-22rem');
 
   //Create necessary buttons for a note
-  const buttonRemove = document.createElement('button'),
-        buttonFavorite = document.createElement('button');
+  const imgRemove = document.createElement('img'),
+        imgFavorite = document.createElement('img'),
+        imgPrint = document.createElement('img');
   
+  imgRemove.src = './assets/remove-bin.svg';
+  imgRemove.width = '20';
+  imgRemove.height = '20';
+  imgRemove.style.setProperty('margin-right', '2.5rem');
+
+  imgFavorite.src = note.isFavorite ? './assets/star-solid.svg' : './assets/star-regular.svg'
+  imgFavorite.width = '20';
+  imgFavorite.height = '20';
+  imgFavorite.style.setProperty('margin-right', '2.5rem');
+
+  imgPrint.src = './assets/printer.svg';
+  imgPrint.width = '20';
+  imgPrint.height = '20';
+  imgPrint.style.setProperty('margin-right', '2.5rem');
+
   //Create pull button
   const button3Dot = document.createElement('button');
   button3Dot.innerHTML = '&#8942;';
@@ -134,10 +150,7 @@ function loadItems(note) {
   const header2Title = document.createElement('h2');
 
   //Setting visual text for every created element
-  buttonRemove.innerHTML = 'Delete';
-  buttonFavorite.innerHTML = note.isFavorite ? 'Unfavorite' : 'Favorite';
   header2Title.innerHTML = note.title;
-
   previewText.innerHTML = getPreviewTextFromNote(note, 0, 50);
 
   //Setting attribute for each button
@@ -145,21 +158,25 @@ function loadItems(note) {
   header2Title.setAttribute('data-note-id', note.dateOfCreation);
   previewText.setAttribute('data-note-id', note.dateOfCreation);
 
-  buttonRemove.onclick = removeNoteEventHandler;
+  //Setting event handlers
+  imgRemove.onclick = removeNoteEventHandler;
   noteList.onclick = editNoteEventHandler;
-  buttonFavorite.onclick = setFavoriteNoteEventHandler;
+  imgFavorite.onclick = setFavoriteNoteEventHandler;
 
   noteList.append(header2Title);
   noteList.append(previewText);
   noteList.append(button3Dot);
-  groupButtonDiv.appendChild(buttonRemove);
-  groupButtonDiv.appendChild(buttonFavorite);
+  groupButtonDiv.appendChild(imgFavorite);
+  groupButtonDiv.appendChild(imgPrint);
+  groupButtonDiv.appendChild(imgRemove);
   noteList.append(groupButtonDiv);
 
   elementNoteList.append(noteList);
 
   
   button3Dot.addEventListener('click', function(event) {
+    this.style.setProperty('outline', '0');
+
     const classID = 'class_' + event.target.parentNode.getAttribute('data-note-id');
     const element = document.getElementsByClassName(classID)[0];
     element.style.setProperty('position', 'relative');
@@ -202,7 +219,7 @@ function setFavoriteNoteEventHandler(event) {
   const index = getAllNotes().findIndex(note => note.dateOfCreation === Number(favoriteNote));
   const note = getNote(index);
   const isFavorited = note.setFavorite();
-  this.innerHTML = isFavorited ? 'Unfavorite' : 'Favorite';
+  this.src = isFavorited ? './assets/star-solid.svg' : './assets/star-regular.svg'
   storeContent();
 }
 
