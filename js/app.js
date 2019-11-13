@@ -46,11 +46,11 @@ function initializeLocalStorage() {
  * @param {MouseEvent} event
  */
  function removeNoteEventHandler(event) {
-  const noteIdToRemove = event.target.parentNode.getAttribute('data-note-id');
+  const noteIdToRemove = event.target.parentNode.parentNode.getAttribute('data-note-id');
   const indexToRemove = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToRemove));
 
   removeBasedOnIndex(indexToRemove);
-  event.target.parentNode.remove();
+  event.target.parentNode.parentNode.remove();
 
   //Save our new content
   storeContent();
@@ -114,13 +114,21 @@ function loadItems(note) {
   //Creating div for a note list
   const noteList = document.createElement('li');
 
+  //Create div for favorite and remove buttons
+  const groupButtonDiv = document.createElement('div');
+
   //Create necessary buttons for a note
   const buttonRemove = document.createElement('button'),
         buttonFavorite = document.createElement('button');
   
   const buttonGroup = document.createElement('button');
   buttonGroup.innerHTML = '&#8942;';
+
   buttonGroup.setAttribute('class', 'note-button-group');
+
+  buttonFavorite.setAttribute('class', note.dateOfCreation);
+  buttonRemove.setAttribute('class', note.dateOfCreation);
+  
 
   const previewText = document.createElement('p');
   //Create title for a note
@@ -142,12 +150,18 @@ function loadItems(note) {
   noteList.onclick = editNoteEventHandler;
   buttonFavorite.onclick = setFavoriteNoteEventHandler;
 
+  groupButtonDiv.appendChild(buttonRemove);
+  groupButtonDiv.appendChild(buttonFavorite);
+
   noteList.append(header2Title);
   noteList.append(previewText);
-//  noteList.append(buttonRemove);
-//  noteList.append(buttonFavorite);
+  noteList.append(groupButtonDiv);
   noteList.append(buttonGroup);
   elementNoteList.append(noteList);
+
+  
+  buttonGroup.addEventListener('click', function(event) {
+  });
 }
 
 function makeAndStoreContent() {
@@ -179,7 +193,7 @@ function makeAndStoreContent() {
 }
 
 function setFavoriteNoteEventHandler(event) {
-  const favoriteNote = event.target.parentNode.getAttribute('data-note-id');
+  const favoriteNote = event.target.parentNode.parentNode.getAttribute('data-note-id');
   const index = getAllNotes().findIndex(note => note.dateOfCreation === Number(favoriteNote));
   const note = getNote(index);
   const isFavorited = note.setFavorite();
