@@ -117,15 +117,17 @@ function loadItems(note) {
   //Create div for favorite and remove buttons
   const groupButtonDiv = document.createElement('div');
   groupButtonDiv.classList.add('class_'+note.dateOfCreation);
+  groupButtonDiv.style.setProperty('position', 'absolute');
+  groupButtonDiv.style.setProperty('right', '-22rem');
 
   //Create necessary buttons for a note
   const buttonRemove = document.createElement('button'),
         buttonFavorite = document.createElement('button');
   
-  const buttonGroup = document.createElement('button');
-  buttonGroup.innerHTML = '&#8942;';
-  buttonGroup.setAttribute('class', 'note-button-group');
-  
+  //Create pull button
+  const button3Dot = document.createElement('button');
+  button3Dot.innerHTML = '&#8942;';
+  button3Dot.setAttribute('class', 'note-button-group');
 
   const previewText = document.createElement('p');
   //Create title for a note
@@ -147,19 +149,23 @@ function loadItems(note) {
   noteList.onclick = editNoteEventHandler;
   buttonFavorite.onclick = setFavoriteNoteEventHandler;
 
-  groupButtonDiv.appendChild(buttonRemove);
-  groupButtonDiv.appendChild(buttonFavorite);
-
   noteList.append(header2Title);
   noteList.append(previewText);
+  noteList.append(button3Dot);
+  groupButtonDiv.appendChild(buttonRemove);
+  groupButtonDiv.appendChild(buttonFavorite);
   noteList.append(groupButtonDiv);
-  noteList.append(buttonGroup);
+
   elementNoteList.append(noteList);
 
   
-  buttonGroup.addEventListener('click', function(event) {
+  button3Dot.addEventListener('click', function(event) {
     const classID = 'class_' + event.target.parentNode.getAttribute('data-note-id');
-    document.getElementsByClassName(classID)[0].style = "font-size: 5rem;";
+    const element = document.getElementsByClassName(classID)[0];
+    element.style.setProperty('position', 'relative');
+    element.style.setProperty('overflow', 'hidden');
+    element.classList.toggle('group-button-show');
+    this.classList.toggle('group-button-show');
   });
 }
 
