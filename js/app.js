@@ -117,6 +117,10 @@ function loadItems(note) {
   //Create necessary buttons for a note
   const buttonRemove = document.createElement('button'),
         buttonFavorite = document.createElement('button');
+  
+  const buttonGroup = document.createElement('button');
+  buttonGroup.innerHTML = '&#8942;';
+  buttonGroup.setAttribute('class', 'note-button-group');
 
   const previewText = document.createElement('p');
   //Create title for a note
@@ -140,8 +144,9 @@ function loadItems(note) {
 
   noteList.append(header2Title);
   noteList.append(previewText);
-  noteList.append(buttonRemove);
-  noteList.append(buttonFavorite);
+//  noteList.append(buttonRemove);
+//  noteList.append(buttonFavorite);
+  noteList.append(buttonGroup);
   elementNoteList.append(noteList);
 }
 
