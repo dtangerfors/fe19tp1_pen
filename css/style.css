@@ -259,6 +259,7 @@ input:checked+.slider:before {
 }
 
 .aside__note-list {
+  list-style: none;
   position: relative;
 }
 
