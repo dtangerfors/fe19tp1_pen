@@ -125,7 +125,6 @@ h2 {
 /* ------------- SETTINGS DESIGN -------------*/
 
 .switch {
-  float: right;
   margin-right: 20px;
   position: relative;
   display: inline-block;
@@ -323,6 +322,10 @@ input:checked+.slider:before {
 /* OVERRIDE QUILL DESIGN */
 #ql-picker-options-0 {
   background-color: var(--color-primary);
+}
+
+.ql-picker-item:hover {
+  background-color: var(--color-accent);
 }
 
 /* END OVERRIDE QUILL DESIGN */
