@@ -1,3 +1,12 @@
+:root {
+  --primary-purple: #7A6CB1;
+  --secondary-purple: #3D3658;
+  --light-grey: #F8F8F8;
+  --grey: #888;
+  --dark-grey: #575757;
+  --black: #171717;
+}
+
 html {
     font-size: 62.5%;
 }
@@ -14,11 +23,12 @@ html {
     width: 8rem;
     display: flex;
     flex-direction: column;
-    background-color: #7A6CB1;
+    background-color: var(--primary-purple);
+    box-shadow: .7rem 0 0 0 rgba(0,0,0,.1);
 }
 
 .nav__logo {
-    background-color: #3D3658;
+    background-color: var(--secondary-purple);
     padding: 1rem;
     width: inherit;
 }
