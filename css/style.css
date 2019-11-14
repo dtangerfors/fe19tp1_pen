@@ -240,10 +240,6 @@ input:checked+.slider:before {
   animation: anim-sidebar-slide 0.5s;
 }
 
-.aside__note-list {
-  list-style: none;
-}
-
 .sidebar::-webkit-scrollbar {
   width: 20px;
 }
@@ -262,8 +258,15 @@ input:checked+.slider:before {
   background: #aaa;
 }
 
+.aside__note-list {
+  list-style: none;
+  position: relative;
+  overflow: hidden;
+}
+
 .aside__note-list li {
-  padding: 1rem;
+  padding: 2rem;
+  height: auto;
   cursor: pointer;
   border-bottom: 1px solid var(--black);
 }
@@ -292,6 +295,38 @@ input:checked+.slider:before {
   width: 5rem;
   height: .5rem;
   background-color: var(--black);
+}
+
+:focus {
+  outline:none;
+}
+
+::-moz-focus-inner {
+  border:0;
+}
+
+.note-button-group {
+  cursor: pointer;
+  outline: 0;
+  position: absolute;
+  border: none;
+  right: 0;
+  margin-right: 2.5rem;
+  background-color: wheat;
+  font-size: 1.5rem;
+  width: 2rem;
+  border-radius: 50%;
+  transform: translateX(0);
+  -ms-transform: translateX(0);
+  -webkit-transform: translateX(0);
+  transition: all 0.5s ease;
+}
+
+.group-button-show {
+  transform: translateX(-12rem);
+  -ms-transform: translateX(-12rem);
+  -webkit-transform: translateX(-12rem);
+  transition: all 0.5s ease;
 }
 
 @keyframes anim-sidebar-slide {
