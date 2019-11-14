@@ -28,6 +28,23 @@ h2 {
   font-size: 1.7rem;
 }
 
+/* -------------  TYPOGRAPHY -------------*/
+
+.heading-primary {
+  font-weight: 300;
+  color: var(--black);
+}
+
+.heading-primary--sub {
+  font-size: 1.6rem;
+}
+
+.heading-primary--hidden {
+  display: none;
+}
+
+/* -------------  TYPOGRAPHY END -------------*/
+
 #save-btn {
   font-family: inherit;
   font-size: 20px;
@@ -311,3 +328,81 @@ input:checked+.slider:before {
 }
 
 /* ------------- Notes Navigation Design Ends -------------*/
+
+/* ------------- LANDING PAGE -------------*/
+
+.landing-page {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: auto 15rem;
+  padding: 5rem 0;
+  width: calc(100% - 8rem);
+  height: 100vh;
+}
+
+.landing-page__start {
+  width: 50%;
+  height: 50%;
+  padding-right: 1rem;
+}
+
+.landing-page__statitics {
+  width: 50%;
+  height: 50%;
+  padding-right: 1rem;
+}
+
+.landing-page__latest-notes {
+  width: 50%;
+  height: 100%;
+  padding-left: 1rem;
+  padding-top: 10rem;
+}
+
+.landing-page__logo {
+  width: 50%;
+  fill: var(--secondary-purple);
+}
+
+.landing-page__heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+
+  color: var(--primary-purple);
+  border-bottom: 1px solid var(--grey);
+
+  padding-left: 1rem;
+}
+
+/* ------------- LANDING PAGE END -------------*/
+
+/* ------------- LANDING PAGE NOTES -------------*/
+
+.notes {
+  margin: 2rem 0 1rem;
+}
+
+.notes__title {
+  font-weight: 400;
+  font-size: 2rem;
+  color: var(--black);
+  margin-bottom: .2rem;
+}
+
+.notes__lastChanged {
+  font-size: 1.3rem;
+  color: var(--dark-grey);
+  margin-bottom: 1rem;
+}
+
+.notes__content {
+  font-size: 1.3rem;
+  color: var(--black);
+  height: 10rem;
+  overflow: hidden;
+  white-space: wrap;
+  text-overflow: ellipsis;
+}
+
+/* ------------- LANDING PAGE NOTES END -------------*/
