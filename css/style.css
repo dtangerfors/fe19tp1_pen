@@ -76,17 +76,9 @@ h2 {
    display: none;
  }
 
-<<<<<<< HEAD
   #editorTitle {
     visibility: visible;
   }
-=======
- #editor-code {
-   border: 0;
-   overflow: hidden;
-   height: auto;
- }
->>>>>>> e060a5a2fb68e768e0dc9304ed8551e6eacb31c3
 
  @page {
    size: auto;
@@ -168,11 +160,7 @@ h2 {
 }
 
 input:checked+.slider {
-<<<<<<< HEAD
   background-color: #ccc;
-=======
-  background-color: var(--primary-purple);
->>>>>>> e060a5a2fb68e768e0dc9304ed8551e6eacb31c3
 }
 
 input:focus+.slider {
@@ -211,29 +199,22 @@ input:checked+.slider:before {
 }
 
 .modal-content {
-  background-color: #fefefe;
+  background-color: var(--light-grey);
   margin: auto;
-<<<<<<< HEAD
   color: var(--black);
   padding: 20px; 
   height: 100%;
-  margin-left: 80px;
-  border-left: 3px solid #ccc;
-  width: 30%;
+  margin-left: 8rem;
+  width: 25rem;
 }
 .modal-content h1{
-  font-size: 30px;
+  font-size: 2.5rem;
 }
 label[for="auto-save"]{
-  font-size: 20px;
+  font-size: 2rem;
   float: left;
-    padding-right: 20px;
-    margin-top: -4px;
-=======
-  padding: 20px;
-  border: 1px solid var(--grey);
-  width: 80%;
->>>>>>> e060a5a2fb68e768e0dc9304ed8551e6eacb31c3
+    padding-right: 2rem;
+    margin-top: -0.5rem;
 }
 .close {
   color: #aaaaaa;
