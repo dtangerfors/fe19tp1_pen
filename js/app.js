@@ -213,7 +213,6 @@ function button3DotEventHandler(event) {
   const classID = 'class_' + event.target.parentNode.getAttribute('data-note-id');
   const element = document.getElementsByClassName(classID)[0];
   element.style.setProperty('position', 'absolute');
-  element.style.setProperty('overflow', 'hidden');
   element.classList.toggle('group-button-show');
   this.classList.toggle('group-button-show');
 }
