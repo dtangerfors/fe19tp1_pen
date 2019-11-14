@@ -31,6 +31,15 @@ export function setTheme(theme) {
 /**
  * 
  */
+function toggleTheme() {
+  if (settings.activeTheme === 'dark'){
+    setTheme('light');
+    return 'light';
+  }
+  setTheme('dark');
+  return 'dark';
+}
+
 (function () {
  if (settings.activeTheme === 'dark') {
      setTheme('dark');
@@ -61,21 +70,3 @@ theme_checkbox.addEventListener('change', function () {
   }
   saveUserSettings();
 });
-
-const settingsModal = document.getElementById('settings-modal');
-const settingsButton = document.getElementById('nav-settings');
-const closeElement = document.querySelector('.close');
-
-settingsButton.addEventListener('click', function () {
-  settingsModal.style.display = 'block';
-});
-
-closeElement.addEventListener('click', function () {
-  settingsModal.style.display = 'none';
-});
-
-window.onclick = function (event) {
-  if (event.target == settingsModal) {
-    settingsModal.style.display = 'none';
-  }
-};
