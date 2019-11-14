@@ -42,21 +42,6 @@ function initializeLocalStorage() {
 }
 
 /**
- * Event handler for mouse click to remove a Note
- * @param {MouseEvent} event
- */
- function removeNoteEventHandler(event) {
-  const noteIdToRemove = event.target.parentNode.parentNode.getAttribute('data-note-id');
-  const indexToRemove = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToRemove));
-
-  removeBasedOnIndex(indexToRemove);
-  event.target.parentNode.parentNode.remove();
-
-  //Save our new content
-  storeContent();
-}
-
-/**
  * 
  * @param {number} id 
  */
@@ -75,24 +60,6 @@ function loadEditID() {
   return parseInt(id);
 }
 
-/**
- * 
- * @param {MouseEvent} event 
- */
-function editNoteEventHandler(event) {
-  const noteIdToEdit = event.target.getAttribute('data-note-id');
-  const index = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToEdit));
-  
-  if (index !== -1) {
-    const note = getNote(index);
-    const editorTitle = document.getElementById('editorTitle');
-    editor.setContents(note.content);
-    editorTitle.value = note.title;
-  }
-  saveEditID(noteIdToEdit);
-  storeContent();
-}
-
 function getTextFromContent(content) {
   let str = '';
   for(let v of content) {
@@ -106,11 +73,9 @@ function getPreviewTextFromNote(note, from, to) {
 }
 
 function loadItems(note) {
-  /**
-   * HTML Element that keeps our notes
-   */
+   //HTML Element that keeps our notes
   const elementNoteList = document.querySelector('.aside__note-list');
-  
+
   //Creating div for a note list
   const noteList = document.createElement('li');
 
@@ -118,23 +83,26 @@ function loadItems(note) {
   const groupButtonDiv = document.createElement('div');
   groupButtonDiv.classList.add('class_'+note.dateOfCreation);
   groupButtonDiv.style.setProperty('position', 'absolute');
-  groupButtonDiv.style.setProperty('right', '-21rem');
+  groupButtonDiv.style.setProperty('right', '-14rem');
 
-  //Create necessary buttons for a note
+  //Create necessary buttons (image) for a note
   const imgRemove = document.createElement('img'),
         imgFavorite = document.createElement('img'),
         imgPrint = document.createElement('img');
   
+  //Inline styling for remove button
   imgRemove.src = './assets/remove-bin.svg';
   imgRemove.width = '20';
   imgRemove.height = '20';
   imgRemove.style.setProperty('margin-right', '2.5rem');
 
+  //Inline styling for favorite button
   imgFavorite.src = note.isFavorite ? './assets/star.svg' : './assets/star-regular.svg'
   imgFavorite.width = '20';
   imgFavorite.height = '20';
   imgFavorite.style.setProperty('margin-right', '2.5rem');
 
+  //Inline styling for print button
   imgPrint.src = './assets/printer.svg';
   imgPrint.width = '20';
   imgPrint.height = '20';
@@ -145,8 +113,8 @@ function loadItems(note) {
   button3Dot.innerHTML = '&#8942;';
   button3Dot.setAttribute('class', 'note-button-group');
 
+  //Elements for note text and content
   const previewText = document.createElement('p');
-  //Create title for a note
   const header2Title = document.createElement('h2');
 
   //Setting visual text for every created element
@@ -162,26 +130,23 @@ function loadItems(note) {
   imgRemove.onclick = removeNoteEventHandler;
   noteList.onclick = editNoteEventHandler;
   imgFavorite.onclick = setFavoriteNoteEventHandler;
+  button3Dot.onclick = button3DotEventHandler;
 
+  //Attach main elements to the list member
   noteList.append(header2Title);
   noteList.append(previewText);
   noteList.append(button3Dot);
+
+  //Attach groupped elements to the child div
   groupButtonDiv.appendChild(imgFavorite);
   groupButtonDiv.appendChild(imgPrint);
   groupButtonDiv.appendChild(imgRemove);
+
+  //Attach the child div back to the parent div.
   noteList.append(groupButtonDiv);
 
+  //Attach child div to the parent div
   elementNoteList.append(noteList);
-
-  
-  button3Dot.addEventListener('click', function(event) {
-    const classID = 'class_' + event.target.parentNode.getAttribute('data-note-id');
-    const element = document.getElementsByClassName(classID)[0];
-    element.style.setProperty('position', 'relative');
-    element.style.setProperty('overflow', 'hidden');
-    element.classList.toggle('group-button-show');
-    this.classList.toggle('group-button-show');
-  });
 }
 
 function makeAndStoreContent() {
@@ -212,12 +177,62 @@ function makeAndStoreContent() {
   storeContent();
 }
 
+/**
+ * Event handler for mouse click to remove a Note
+ * @param {MouseEvent} event
+ */
+function removeNoteEventHandler(event) {
+  const noteIdToRemove = event.target.parentNode.parentNode.getAttribute('data-note-id');
+  const indexToRemove = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToRemove));
+
+  removeBasedOnIndex(indexToRemove);
+  event.target.parentNode.parentNode.remove();
+
+  //Save our new content
+  storeContent();
+}
+
+/**
+ * Event handler to favorit selected note
+ * @param {MouseEvent} event
+ */
 function setFavoriteNoteEventHandler(event) {
   const favoriteNote = event.target.parentNode.parentNode.getAttribute('data-note-id');
   const index = getAllNotes().findIndex(note => note.dateOfCreation === Number(favoriteNote));
   const note = getNote(index);
   const isFavorited = note.setFavorite();
   this.src = isFavorited ? './assets/star.svg' : './assets/star-regular.svg'
+  storeContent();
+}
+
+/**
+ * Event handler for showing and hiding list member buttons
+ * @param {MouseEvent} event 
+ */
+function button3DotEventHandler(event) {
+  const classID = 'class_' + event.target.parentNode.getAttribute('data-note-id');
+  const element = document.getElementsByClassName(classID)[0];
+  element.style.setProperty('position', 'absolute');
+  element.style.setProperty('overflow', 'hidden');
+  element.classList.toggle('group-button-show');
+  this.classList.toggle('group-button-show');
+}
+
+/**
+ * Event handler for editing selected note
+ * @param {MouseEvent} event 
+ */
+function editNoteEventHandler(event) {
+  const noteIdToEdit = event.target.getAttribute('data-note-id');
+  const index = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToEdit));
+  
+  if (index !== -1) {
+    const note = getNote(index);
+    const editorTitle = document.getElementById('editorTitle');
+    editor.setContents(note.content);
+    editorTitle.value = note.title;
+  }
+  saveEditID(noteIdToEdit);
   storeContent();
 }
 
