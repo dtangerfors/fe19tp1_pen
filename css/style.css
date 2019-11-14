@@ -298,6 +298,7 @@ input:checked+.slider:before {
 
 .note-button-group {
   cursor: pointer;
+  outline: 0;
   position: absolute;
   border: none;
   right: 0;

@@ -175,8 +175,6 @@ function loadItems(note) {
 
   
   button3Dot.addEventListener('click', function(event) {
-    this.style.setProperty('outline', '0');
-
     const classID = 'class_' + event.target.parentNode.getAttribute('data-note-id');
     const element = document.getElementsByClassName(classID)[0];
     element.style.setProperty('position', 'relative');
