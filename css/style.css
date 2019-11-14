@@ -266,7 +266,7 @@ input:checked+.slider:before {
 
 .aside__note-list li {
   padding: 2rem;
-  height: 12rem;
+  height: auto;
   cursor: pointer;
   border-bottom: 1px solid var(--black);
 }
