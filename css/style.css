@@ -202,7 +202,7 @@ input:checked+.slider:before {
   background-color: var(--light-grey);
   margin: auto;
   color: var(--black);
-  padding: 20px; 
+  padding: 2rem; 
   height: 100%;
   margin-left: 8rem;
   width: 25rem;
