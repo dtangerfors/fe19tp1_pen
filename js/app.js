@@ -64,13 +64,18 @@ function loadEditID() {
 function getTextFromContent(content) {
   let str = '';
   for(let v of content) {
-    str += v.insert;
+    if(typeof v.insert === "string")
+      str += v.insert;
   }
   return str;
 }
 
 function getPreviewTextFromNote(note, from, to) {
-  return `${getTextFromContent(note.content.ops).split('\n').join(' ').substr(from, to)}...`;
+  let previewText = `${getTextFromContent(note.content.ops).split('\n').join(' ').substr(from, to)}`;
+  if(previewText.length > to) {
+    return `${previewText}...`;
+  }
+  return previewText;
 }
 
 function loadItems(note) {
