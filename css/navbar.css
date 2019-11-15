@@ -52,7 +52,11 @@ html {
 
 .nav__icon {
     width: 100%;
+    filter: invert(1);
+}
 
+.nav__icon:hover {
+    transform: scale(1.1);
 }
 
 /* Navbar end */
