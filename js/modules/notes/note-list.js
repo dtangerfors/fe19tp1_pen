@@ -5,12 +5,6 @@ import Note from './note.js';
  */
 const Notes = [];
 
-
-/**
- * flag : Sorting variable indicating Ascending - Descending
- */
-let flag = false;
-
 /**
  * Add a note to the Notes list
  * @param {Note} note - accepts a Note object
@@ -21,10 +15,7 @@ export function addNote(note) {
     if (note.length) return;
     if (!note.title || !note.content) return;
     Notes.push(note);
-}
 
-export function getFavorites() {
-  return Notes.filter(note => note.isFavorite);
 }
 
 /**
@@ -63,34 +54,45 @@ export function getAllNotes() {
     return Notes
 }
 
-/**
- * Sort notes by title
- */
-export function sortNotesByTitle() {
-  flag = !flag;
-  return flag ? Notes.sort((a,b) => {
-    return a.title - b.title;
-  }) : Notes.sort((a,b) => {
-    return b.title - a.title;
-  });
-}
-/**
- * Sort notes by date
- */
-export function sortNotesByDate() {
-  flag = !flag;
-  return flag ? Notes.sort((a,b) => {
-    return a.lastChanged - b.lastChanged;
-  }) : Notes.sort((a,b) => {
-    return b.lastChanged - a.lastChanged;
-  });
-}
-/**
- * Taking predefined notes from external source
- * @param {Note} notes 
- */
 export function setPredefinedNotes(notes) {
     notes.forEach((note) => {
         Notes.push(new Note(note));
     });
+}
+
+
+export function dateHowLongAgo(milliseconds) {
+    const nowMiliseconds = Date.now();
+    const dateReturn = new Date(milliseconds);
+    const howOld = nowMiliseconds-milliseconds;
+    const secondsDecimal = howOld/1000;
+    const seconds= secondsDecimal.toFixed(0);
+    const minutesDecimal = secondsDecimal/60;
+    const minutes = minutesDecimal.toFixed(0);
+    const hoursDecimal = minutesDecimal/60;
+    const hours = hoursDecimal.toFixed(0);
+    const daysDecimal = hoursDecimal/24;
+    const days = daysDecimal.toFixed(0);
+    const monthsDecimal = daysDecimal/30;
+    const months = monthsDecimal.toFixed(0);
+    const yearsDecimal = monthsDecimal/12;
+    const years = yearsDecimal.toFixed(0);
+   if (days > 0 || months > 0 || years < 0){
+       return ": " + dateReturn.getFullYear() + "/" + (dateReturn.getMonth() + 1) + "/" + dateReturn.getDate() + ", " + ((dateReturn.getHours() < 10 ? '0' : '') + dateReturn.getHours()) + ":" + ((dateReturn.getMinutes() < 10 ? '0' : '') + dateReturn.getMinutes())
+    } else if (hours>0) {
+        if (hours==1) {
+        return " on " + hours + " hour ago";
+        } else {
+        return " on " + hours + " hours ago";
+        }
+    }
+    else if (minutes>0) {
+        if (minutes==1) {
+            return " on " + minutes + " minute ago";
+        } else {
+            return " on " + minutes + " minutes ago";
+        }
+    } else {
+       return " on " +seconds+" seconds ago";
+    }
 }
