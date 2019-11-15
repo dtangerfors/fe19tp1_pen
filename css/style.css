@@ -341,10 +341,48 @@ input:checked+.slider:before {
   height: 100vh;
 }
 
+.landing-page__heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+
+  color: var(--primary-purple);
+  border-bottom: 1px solid var(--grey);
+
+  padding-left: 1rem;
+}
+
+@media only screen and (max-width:768px){
+  .landing-page {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: auto 1rem;
+  padding: 0 0;
+  width: 100%;
+  height: auto;
+}
+
+.landing-page__heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+
+  color: var(--primary-purple);
+  border-bottom: 1px solid var(--grey);
+
+  padding-left: 1rem;
+}
+}
+
+/* Landing Page Sections */
+
 .landing-page__start {
   width: 50%;
   height: 50%;
   padding-right: 1rem;
+  padding-bottom: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .landing-page__statitics {
@@ -360,19 +398,83 @@ input:checked+.slider:before {
   padding-top: 10rem;
 }
 
+@media only screen and (max-width:768px){
+    .landing-page__start {
+    width: 100%;
+    height: 50%;
+    padding-right: 1rem;
+    padding-bottom: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .landing-page__statitics {
+    width: 100%;
+    height: 50%;
+    padding-right: 1rem;
+  }
+
+  .landing-page__latest-notes {
+    width: 100%;
+    height: 100%;
+    padding-left: 1rem;
+    padding-top: 10rem;
+  }
+}
+
+/* Landing Page Start Section */
+
 .landing-page__logo {
   width: 50%;
   fill: var(--secondary-purple);
 }
 
-.landing-page__heading {
-  font-family: 'Playfair Display', serif;
-  font-size: 3rem;
+.landing-page__button-list {
+  display: flex;
+  flex-direction: row;
 
-  color: var(--primary-purple);
-  border-bottom: 1px solid var(--grey);
+  
+}
 
-  padding-left: 1rem;
+.landing-page__button {
+  border: none;
+  border-radius: 1rem;
+
+  cursor: pointer;
+
+  padding: 1rem;
+  min-width: 9rem;
+
+  font-family: inherit;
+  font-weight: 400;
+  font-size: 1.2rem;
+  color: var(--black);
+  text-decoration: none;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.landing-page__button:not(:first-child){
+  margin-left: 1rem;
+}
+
+.landing-page__icon {
+  width: 5rem;
+  margin-bottom: 1rem;
+}
+
+.landing-page__button:hover {
+  background-color: var(--primary-purple);
+  border-radius: 1rem;
+  color: white;
+}
+
+.landing-page__button:hover .landing-page__icon {
+  filter: invert(1);
+  transition: all 1s ease;
 }
 
 /* ------------- LANDING PAGE END -------------*/
@@ -399,7 +501,7 @@ input:checked+.slider:before {
 .notes__content {
   font-size: 1.3rem;
   color: var(--black);
-  height: 10rem;
+  max-height: 10rem;
   overflow: hidden;
   white-space: wrap;
   text-overflow: ellipsis;
