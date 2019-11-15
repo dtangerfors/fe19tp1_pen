@@ -22,7 +22,9 @@ import {
 /**
  * Quill Editor
  */
-const editor = new Quill('#editor-code', quillSettings);
+if (document.querySelector("#editor-code")) {
+  const editor = new Quill('#editor-code', quillSettings);
+}
 
 /*
   Initialize localStorage keys before usage.
@@ -45,7 +47,7 @@ function initializeLocalStorage() {
  * Event handler for mouse click to remove a Note
  * @param {MouseEvent} event
  */
- function removeNoteEventHandler(event) {
+function removeNoteEventHandler(event) {
   const noteIdToRemove = event.target.parentNode.getAttribute('data-note-id');
   const indexToRemove = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToRemove));
 
@@ -82,7 +84,7 @@ function loadEditID() {
 function editNoteEventHandler(event) {
   const noteIdToEdit = event.target.getAttribute('data-note-id');
   const index = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToEdit));
-  
+
   if (index !== -1) {
     const note = getNote(index);
     const editorTitle = document.getElementById('editorTitle');
@@ -95,7 +97,7 @@ function editNoteEventHandler(event) {
 
 function getTextFromContent(content) {
   let str = '';
-  for(let v of content) {
+  for (let v of content) {
     str += v.insert;
   }
   return str;
@@ -110,13 +112,13 @@ function loadItems(note) {
    * HTML Element that keeps our notes
    */
   const elementNoteList = document.querySelector('.aside__note-list');
-  
+
   //Creating div for a note list
   const noteList = document.createElement('li');
 
   //Create necessary buttons for a note
   const buttonRemove = document.createElement('button'),
-        buttonFavorite = document.createElement('button');
+    buttonFavorite = document.createElement('button');
 
   const previewText = document.createElement('p');
   //Create title for a note
@@ -182,12 +184,13 @@ function setFavoriteNoteEventHandler(event) {
   storeContent();
 }
 
-document.getElementById('new-document').addEventListener('click', function () {
-
-  localStorage.setItem('edit-id', JSON.stringify(0));
-  clearContents();
-  document.getElementById('editorTitle').value = '';
-});
+if (document.getElementById('new-document')) {
+  document.getElementById('new-document').addEventListener('click', function () {
+    localStorage.setItem('edit-id', JSON.stringify(0));
+    clearContents();
+    document.getElementById('editorTitle').value = '';
+  });
+}
 
 function clearAllChildren(node) {
   while (node.firstChild) {
@@ -201,13 +204,14 @@ function renderItems(notes = getAllNotes()) {
 }
 
 //save button
-document.getElementById('save-btn').addEventListener('click', saveFunction);
+if (document.getElementById('save-btn')) {
+  document.getElementById('save-btn').addEventListener('click', saveFunction);
+}
 
 function saveFunction() {
   makeAndStoreContent();
 }
 
-document.getElementById('save-btn').addEventListener('click', saveFunction)
 
 function editorLoad() {
   const allNotes = getAllNotes();
@@ -251,8 +255,8 @@ function noteListSlide() {
   const note = document.getElementById('nav-note');
   const noteList = document.querySelector('.sidebar');
 
-  note.addEventListener('click', function() {
-      noteList.classList.toggle('sidebar-show');
+  note.addEventListener('click', function () {
+    noteList.classList.toggle('sidebar-show');
   });
 }
 
@@ -267,8 +271,10 @@ function main() {
 /**
  * Print button
  */
-document.getElementById('printerButton').addEventListener('click', function() {
-  window.print();
-});
+if (document.getElementById('printerButton')) {
+  document.getElementById('printerButton').addEventListener('click', function () {
+    window.print();
+  });
+}
 
 window.addEventListener("DOMContentLoaded", main);
