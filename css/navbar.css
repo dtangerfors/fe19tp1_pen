@@ -15,6 +15,7 @@ html {
     display: flex;
     flex-direction: column;
     background-color: #7A6CB1;
+    z-index: 5;
 }
 
 .nav__logo {

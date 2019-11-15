@@ -7,9 +7,10 @@ import {
   removeBasedOnIndex,
   removeFirstFoundBasedOnTitle,
   getNote,
-  getFavorites,
+  // getFavorites,
   getAllNotes,
-  setPredefinedNotes
+  setPredefinedNotes,
+  dateHowLongAgo
 } from './modules/notes/note-list.js';
 import {
   options as quillSettings
@@ -63,13 +64,18 @@ function loadEditID() {
 function getTextFromContent(content) {
   let str = '';
   for(let v of content) {
-    str += v.insert;
+    if(typeof v.insert === "string")
+      str += v.insert;
   }
   return str;
 }
 
 function getPreviewTextFromNote(note, from, to) {
-  return `${getTextFromContent(note.content.ops).split('\n').join(' ').substr(from, to)}...`;
+  let previewText = `${getTextFromContent(note.content.ops).split('\n').join(' ').substr(from, to)}`;
+  if(previewText.length > to) {
+    return `${previewText}...`;
+  }
+  return previewText;
 }
 
 function loadItems(note) {
@@ -117,8 +123,14 @@ function loadItems(note) {
   const previewText = document.createElement('p');
   const header2Title = document.createElement('h2');
 
+  const dateParagraph = document.createElement("p");
+  const newdateParagraph = document.createElement("p");
+
   //Setting visual text for every created element
   header2Title.innerHTML = note.title;
+  dateParagraph.innerText = "Last edited"+dateHowLongAgo(note.lastChanged);
+  newdateParagraph.innerText = "Created" +dateHowLongAgo(note.dateOfCreation);
+
   previewText.innerHTML = getPreviewTextFromNote(note, 0, 50);
 
   //Setting attribute for each button
@@ -158,6 +170,7 @@ function makeAndStoreContent() {
     if (note.dateOfCreation === loadID) {
       note.content = editor.getContents();
       counter++;
+      note.lastChanged = Date.now();
       note.title = document.getElementById('editorTitle').value;
       const h2TitleElement = document.querySelector(`h2[data-note-id='${loadID}']`);
       const previewTextElement = document.querySelector(`p[data-note-id='${loadID}']`);
@@ -260,8 +273,6 @@ function saveFunction() {
   makeAndStoreContent();
 }
 
-document.getElementById('save-btn').addEventListener('click', saveFunction)
-
 function editorLoad() {
   const allNotes = getAllNotes();
   const noteIdToLoad = allNotes.findIndex(data => data.dateOfCreation === Number(localStorage.getItem('edit-id')));
@@ -302,10 +313,23 @@ const navbarSlide = () => {
 
 function noteListSlide() {
   const note = document.getElementById('nav-note');
-  const noteList = document.querySelector('.sidebar');
+  const noteList = document.querySelector('#sidebar-notes');
+  const settings = document.getElementById('nav-settings');
+  const settingsList = document.querySelector('#sidebar-settings');
 
   note.addEventListener('click', function() {
+    if (settingsList.classList.contains('sidebar-show')) {
+      settingsList.classList.toggle('sidebar-show'); 
+    }
+    
+    noteList.classList.toggle('sidebar-show');
+  });
+  
+  settings.addEventListener('click', function() {
+    if (noteList.classList.contains('sidebar-show')){
       noteList.classList.toggle('sidebar-show');
+    }
+    settingsList.classList.toggle('sidebar-show');
   });
 }
 
