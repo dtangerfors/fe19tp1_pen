@@ -125,6 +125,9 @@ function loadItems(note) {
 
   const dateParagraph = document.createElement("p");
   const newdateParagraph = document.createElement("p");
+  newdateParagraph.style.setProperty('font-size', '1rem');
+  newdateParagraph.style.setProperty('margin-top', '3rem');
+  dateParagraph.style.setProperty('font-size', '1rem');
 
   //Setting visual text for every created element
   header2Title.innerHTML = note.title;
@@ -156,6 +159,8 @@ function loadItems(note) {
 
   //Attach the child div back to the parent div.
   noteList.append(groupButtonDiv);
+  noteList.append(newdateParagraph);
+  noteList.append(dateParagraph);
 
   //Attach child div to the parent div
   elementNoteList.append(noteList);
