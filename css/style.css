@@ -15,6 +15,7 @@
   --color-accent: var(--light-grey);
   --logo-color: var(--secondary-purple);
   --font-color: #000000;
+  --body-font: 300;
 }
 
 .theme-dark {
@@ -23,6 +24,7 @@
   --color-accent: var(--grey);
   --logo-color: #fbfbfb;
   --font-color: #fbfbfb;
+  --body-font: 400;
 }
 
 
@@ -39,7 +41,7 @@
 
 html {
   font-family: 'Roboto', sans-serif;
-  font-weight: 300;
+  font-weight: var(--body-font);
 }
 
 body {
@@ -81,8 +83,8 @@ h2 {
 /* ------------- EDITOR SECTION -------------*/
 
 .editor-section {
-  margin: 5rem auto 0;
-  width: 60rem;
+  margin: 5rem 15rem;
+  width: calc(100% - 8rem);
   display: flex;
   flex-direction: column;
 }
@@ -100,7 +102,7 @@ h2 {
 
 .editor-section__title:focus {
   outline: none;
-  border: 2px solid var(--color-secondary);
+  border: 2px solid var(--primary-purple);
   padding-left: 1rem;
 }
 
@@ -320,14 +322,6 @@ input:checked+.slider:before {
   .sidebar {
     width: 100%;
   }
-}
-
-:focus {
-  outline:none;
-}
-
-::-moz-focus-inner {
-  border:0;
 }
 
 .note-button-group {
