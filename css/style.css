@@ -127,7 +127,7 @@ h2 {
 .switch {
   margin-right: 1.7rem;
   position: relative;
-  display: inline-block;
+  display: block;
   float: right;
   width: 3rem;
   height: 1.7rem;
@@ -331,6 +331,7 @@ label[for="theme"]{
 }
 
 .aside__settings-list h3 {
+  padding: 1rem;
   font-size: 3rem;
   text-align: center;
   font-weight: bold;
