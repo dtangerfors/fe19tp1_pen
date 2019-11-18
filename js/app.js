@@ -61,34 +61,21 @@ function loadEditID() {
   return parseInt(id);
 }
 
-/**
- * 
- * @param {MouseEvent} event 
- */
-function editNoteEventHandler(event) {
-  const noteIdToEdit = event.target.getAttribute('data-note-id');
-  const index = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToEdit));
-
-  if (index !== -1) {
-    const note = getNote(index);
-    const editorTitle = document.getElementById('editorTitle');
-    editor.setContents(note.content);
-    editorTitle.value = note.title;
-  }
-  saveEditID(noteIdToEdit);
-  storeContent();
-}
-
 function getTextFromContent(content) {
   let str = '';
   for(let v of content) {
-    str += v.insert;
+    if(typeof v.insert === "string")
+      str += v.insert;
   }
   return str;
 }
 
 function getPreviewTextFromNote(note, from, to) {
-  return `${getTextFromContent(note.content.ops).split('\n').join(' ').substr(from, to)}...`;
+  let previewText = `${getTextFromContent(note.content.ops).split('\n').join(' ').substr(from, to)}`;
+  if(previewText.length > to) {
+    return `${previewText}...`;
+  }
+  return previewText;
 }
 
 function loadItems(note) {
@@ -141,21 +128,16 @@ function loadItems(note) {
   const previewText = document.createElement('p');
   const header2Title = document.createElement('h2');
 
-  //Setting visual text for every created element
-  buttonRemove.innerHTML = 'Delete';
-  buttonFavorite.innerHTML = note.isFavorite ? 'Unfavorite' : 'Favorite';
-  header3Title.innerHTML = note.title;
   const dateParagraph = document.createElement("p");
   const newdateParagraph = document.createElement("p");
+  newdateParagraph.style.setProperty('font-size', '1rem');
+  newdateParagraph.style.setProperty('margin-top', '3rem');
+  dateParagraph.style.setProperty('font-size', '1rem');
+
+  //Setting visual text for every created element
+  header2Title.innerHTML = note.title;
   dateParagraph.innerText = "Last edited"+dateHowLongAgo(note.lastChanged);
   newdateParagraph.innerText = "Created" +dateHowLongAgo(note.dateOfCreation);
-  //Setting attribute for each button
-  header3Title.setAttribute("data-note-id", note.dateOfCreation);
-  buttonRemove.setAttribute("data-note-id", note.dateOfCreation);
-  buttonEdit.setAttribute("data-note-id", note.dateOfCreation);
-  buttonFavorite.setAttribute("data-note-id", note.dateOfCreation);
-
-  header2Title.innerHTML = note.title;
   previewText.innerHTML = getPreviewTextFromNote(note, 0, 50);
 
   //Setting attribute for each button
@@ -181,6 +163,8 @@ function loadItems(note) {
 
   //Attach the child div back to the parent div.
   noteList.append(groupButtonDiv);
+  noteList.append(newdateParagraph);
+  noteList.append(dateParagraph);
 
   //Attach child div to the parent div
   elementNoteList.append(noteList);
@@ -298,8 +282,6 @@ function saveFunction() {
   makeAndStoreContent();
 }
 
-document.getElementById('save-btn').addEventListener('click', saveFunction)
-
 function editorLoad() {
   const allNotes = getAllNotes();
   const noteIdToLoad = allNotes.findIndex(data => data.dateOfCreation === Number(localStorage.getItem('edit-id')));
@@ -340,10 +322,23 @@ const navbarSlide = () => {
 
 function noteListSlide() {
   const note = document.getElementById('nav-note');
-  const noteList = document.querySelector('.sidebar');
+  const noteList = document.querySelector('#sidebar-notes');
+  const settings = document.getElementById('nav-settings');
+  const settingsList = document.querySelector('#sidebar-settings');
 
   note.addEventListener('click', function() {
+    if (settingsList.classList.contains('sidebar-show')) {
+      settingsList.classList.toggle('sidebar-show'); 
+    }
+    
+    noteList.classList.toggle('sidebar-show');
+  });
+  
+  settings.addEventListener('click', function() {
+    if (noteList.classList.contains('sidebar-show')){
       noteList.classList.toggle('sidebar-show');
+    }
+    settingsList.classList.toggle('sidebar-show');
   });
 }
 
