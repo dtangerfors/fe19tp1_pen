@@ -127,7 +127,7 @@ h2 {
 .switch {
   margin-right: 1.7rem;
   position: relative;
-  display: block;
+  display: inline-block;
   float: right;
   width: 3rem;
   height: 1.7rem;
