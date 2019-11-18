@@ -10,7 +10,8 @@ import {
   // getFavorites,
   getAllNotes,
   setPredefinedNotes,
-  dateHowLongAgo
+  dateHowLongAgo,
+  getTextFromContent
 } from './modules/notes/note-list.js';
 import {
   options as quillSettings
@@ -20,12 +21,22 @@ import {
   saveUserSettings
 } from './modules/settings/user-settings.js';
 
+import {
+  displayNotes,
+  sortNotesByLatestEdited
+} from './modules/loadnotes.js';
+
+import {
+  showLandingPage,
+  showEditor
+} from './modules/loadpageitems.js';
+
 /**
  * Quill Editor
  */
-if (document.querySelector("#editor-code")) {
-  const editor = new Quill('#editor-code', quillSettings);
-}
+
+const editor = new Quill('#editor-code', quillSettings);
+
 
 /*
   Initialize localStorage keys before usage.
@@ -45,6 +56,11 @@ function initializeLocalStorage() {
 }
 
 /**
+ * Get saved notes from localStorage and parse them
+ */
+const savedNotes = JSON.parse(localStorage.getItem("save-notes"));
+
+/**
  * 
  * @param {number} id 
  */
@@ -61,15 +77,6 @@ function loadEditID() {
     return 0;
   }
   return parseInt(id);
-}
-
-function getTextFromContent(content) {
-  let str = '';
-  for (let v of content) {
-    if (typeof v.insert === "string")
-      str += v.insert;
-  }
-  return str;
 }
 
 function getPreviewTextFromNote(note, from, to) {
@@ -133,8 +140,8 @@ function loadItems(note) {
 
   //Setting visual text for every created element
   header2Title.innerHTML = note.title;
-  dateParagraph.innerText = "Last edited" + dateHowLongAgo(note.lastChanged);
-  newdateParagraph.innerText = "Created" + dateHowLongAgo(note.dateOfCreation);
+  dateParagraph.innerText = "Last edited " + dateHowLongAgo(note.lastChanged);
+  newdateParagraph.innerText = "Created " + dateHowLongAgo(note.dateOfCreation);
 
   previewText.innerHTML = getPreviewTextFromNote(note, 0, 50);
 
@@ -343,12 +350,39 @@ function noteListSlide() {
   });
 }
 
+/**
+ * Sort saved notes by latest edited note
+ */
+let sortedNotesByLastEdit = savedNotes.sort((a, b) => b.lastChanged - a.lastChanged);
+
+/**
+ * Load the page template and displayNotes function
+ */
+function renderLandingPage() {
+  document.querySelector("#main-page-content").innerHTML = "";
+  showLandingPage();
+  displayNotes(sortedNotesByLastEdit.slice(0, 3));
+  document.querySelector(".open-editor").addEventListener("click", renderEditor);
+}
+
+/**
+ * Load the editor on the page
+ */
+function renderEditor() {
+  editorLoad();
+  document.querySelector("#main-page-content").innerHTML = "";
+  showEditor();
+}
+
 function main() {
   initializeLocalStorage();
   navbarSlide();
   noteListSlide();
   renderItems();
   editorLoad();
+  renderLandingPage();
+  document.querySelector("#quire-logo").addEventListener("click", renderLandingPage);
+
 }
 
 /**
