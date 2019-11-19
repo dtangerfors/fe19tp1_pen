@@ -11,7 +11,7 @@
 
 .theme-light {
   --color-primary: #fff;
-  --color-secondary: var(--);
+  --color-secondary: var(--light-grey);
   --color-accent: var(--light-grey);
   --logo-color: var(--secondary-purple);
   --font-color: #000000;
@@ -29,6 +29,8 @@
 
 
 /* -------------  VARIABLES END ------------- */
+
+/* -------------  BASIC SETTINGS ------------- */
 
 *,
 *::before,
@@ -53,6 +55,8 @@ h2 {
   font-size: 1.7rem;
 }
 
+/* -------------  BASIC SETTINGS END ------------- */
+
 /* -------------  TYPOGRAPHY ------------- */
 
 .heading-primary {
@@ -70,6 +74,43 @@ h2 {
 
 /* -------------  TYPOGRAPHY END -------------*/
 
+/* -------------  ANIMATIONS ------------- */
+
+@keyframes navLinkFade {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+@keyframes slideDown {
+  0%    {opacity: 1; transform: translateY(0);}
+  100%  {opacity: 0; transform: translateY(100rem);}
+}
+
+.slideDown {
+  animation: slideDown 1s ease;
+}
+
+@keyframes fadeIn {
+  0%    {opacity: 0;}
+  100%  {opacity: 1;}
+}
+
+.fadeIn {
+  animation: fadeIn .5s ease;
+  animation-fill-mode: backwards;
+}
+
+/* -------------  ANIMATIONS END ------------- */
+
+/* -------------  BUTTONS ------------- */
+
 #save-btn {
   font-family: inherit;
   font-size: 20px;
@@ -80,12 +121,13 @@ h2 {
   background-color: var(--color-accent);
 }
 
+/* -------------  BUTTONS ENS ------------- */
+
 /* ------------- EDITOR SECTION -------------*/
 
 .editor-section {
   margin: 5rem 15rem;
-  width: calc(100% - 8rem);
-  display: flex;
+  display: none;
   flex-direction: column;
 }
 
@@ -139,18 +181,6 @@ h2 {
 
 .nav-active {
   transform: translateX(0%)
-}
-
-@keyframes navLinkFade {
-  from {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0px);
-  }
 }
 
 #printerButton {
@@ -231,29 +261,27 @@ input:checked+.slider:before {
 
 .sidebar { 
   background-color: var(--color-secondary);
-  min-height: 100vh;
-  max-height: 100vh;
   width: 0;
+  height: 100vh;
+  margin-left: 8rem;
+  position: fixed;
+  z-index: 4;
   overflow: hidden scroll;
   overflow-wrap: break-word;
   opacity: 0;
-  transition: all 0.2s linear;
+  box-shadow: .7rem 0 0 0 rgba(0,0,0,.1);
 }
 
 .sidebar-show {
-  width: 45rem;
+  width: 30rem;
   opacity: 1;
   transition: all 0.2s linear; 
 }
 
 .sidebar::-webkit-scrollbar {
-  width: 20px;
+  width: 1rem;
 }
 
-.sidebar::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px #222; 
-  border-radius: 1rem;
-}
 
 .sidebar::-webkit-scrollbar-thumb {
   background: #999;
@@ -364,6 +392,15 @@ input:checked+.slider:before {
 
 /* ------------- Notes Navigation Design Ends -------------*/
 
+/* ------------- MAIN PAGE CONTENT -------------*/
+
+#main-page-content {
+  width: 100%;
+  margin-left: 8rem;
+}
+
+/* ------------- MAIN PAGE CONTENT END -------------*/
+
 /* ------------- LANDING PAGE -------------*/
 
 .landing-page {
@@ -372,7 +409,6 @@ input:checked+.slider:before {
   flex-wrap: wrap;
   margin: auto 15rem;
   padding: 5rem 0;
-  width: calc(100% - 8rem);
   height: 100vh;
 }
 
@@ -518,6 +554,7 @@ input:checked+.slider:before {
 
 .notes {
   margin: 2rem 0 1rem;
+  cursor: pointer;
 }
 
 .notes__title {
