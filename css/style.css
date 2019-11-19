@@ -208,8 +208,7 @@ label[for="theme"]{
 }
 @media screen and (max-width:768px) {
   #sidebar-settings{
-    position: absolute;
-    margin-top: 27.5rem;
+    margin-top: -69.4rem;
   }
 }
 
