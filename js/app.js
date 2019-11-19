@@ -24,6 +24,7 @@ import {
 import {displayNotes} from './modules/loadnotes.js';
 
 import {
+  showEditButton,
   showEditor,
   showLandingPage
 } from './modules/loadpageitems.js'
@@ -142,9 +143,9 @@ function loadItems(note) {
   previewText.innerHTML = getPreviewTextFromNote(note, 0, 50);
 
   //Setting attribute for each button
-  noteList.setAttribute('data-note-id', note.dateOfCreation);
-  header2Title.setAttribute('data-note-id', note.dateOfCreation);
-  previewText.setAttribute('data-note-id', note.dateOfCreation);
+  noteList.setAttribute('note-id', note.dateOfCreation);
+  header2Title.setAttribute('note-id', note.dateOfCreation);
+  previewText.setAttribute('note-id', note.dateOfCreation);
 
   //Setting event handlers
   imgRemove.onclick = removeNoteEventHandler;
@@ -182,8 +183,8 @@ function makeAndStoreContent() {
       counter++;
       note.lastChanged = Date.now();
       note.title = document.getElementById('editorTitle').value;
-      const h2TitleElement = document.querySelector(`h2[data-note-id='${loadID}']`);
-      const previewTextElement = document.querySelector(`p[data-note-id='${loadID}']`);
+      const h2TitleElement = document.querySelector(`h2[note-id='${loadID}']`);
+      const previewTextElement = document.querySelector(`p[note-id='${loadID}']`);
       h2TitleElement.innerHTML = note.title;
       previewTextElement.innerHTML = getPreviewTextFromNote(note, 0, 50);
     }
@@ -205,7 +206,7 @@ function makeAndStoreContent() {
  * @param {MouseEvent} event
  */
 function removeNoteEventHandler(event) {
-  const noteIdToRemove = event.target.parentNode.parentNode.getAttribute('data-note-id');
+  const noteIdToRemove = event.target.parentNode.parentNode.getAttribute('note-id');
   const indexToRemove = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToRemove));
 
   removeBasedOnIndex(indexToRemove);
@@ -220,7 +221,7 @@ function removeNoteEventHandler(event) {
  * @param {MouseEvent} event
  */
 function setFavoriteNoteEventHandler(event) {
-  const favoriteNote = event.target.parentNode.parentNode.getAttribute('data-note-id');
+  const favoriteNote = event.target.parentNode.parentNode.getAttribute('note-id');
   const index = getAllNotes().findIndex(note => note.dateOfCreation === Number(favoriteNote));
   const note = getNote(index);
   const isFavorited = note.setFavorite();
@@ -233,7 +234,7 @@ function setFavoriteNoteEventHandler(event) {
  * @param {MouseEvent} event 
  */
 function button3DotEventHandler(event) {
-  const classID = 'class_' + event.target.parentNode.getAttribute('data-note-id');
+  const classID = 'class_' + event.target.parentNode.getAttribute('note-id');
   const element = document.getElementsByClassName(classID)[0];
   element.style.setProperty('position', 'absolute');
   element.classList.toggle('group-button-show');
@@ -245,7 +246,7 @@ function button3DotEventHandler(event) {
  * @param {MouseEvent} event 
  */
 function editNoteEventHandler(event) {
-  const noteIdToEdit = event.target.getAttribute('data-note-id');
+  const noteIdToEdit = event.target.getAttribute('note-id');
   const index = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToEdit));
   showEditor();
   setTimeout(() => { document.querySelector("#sidebar-notes").classList.remove("sidebar-show")}, 1000)
@@ -364,8 +365,6 @@ document.querySelector("#add-new-note-button").addEventListener("click", () => {
 
 document.querySelector("#quire-logo").addEventListener("click", showLandingPage)
 
-if (JSON.parse(localStorage.getItem("edit-id")) != 0)
-  console.log("edit-id is 0")
 
 function main() {
   initializeLocalStorage();
@@ -374,13 +373,10 @@ function main() {
   renderItems();
   editorLoad();
   displayNotes(sortedNotesByLastEdit.slice(0, 3));
-
+  showEditButton();
   const latestNotes = document.querySelectorAll(".notes");
   latestNotes.forEach((event) => {
-    console.log(event);
-    event.addEventListener('click', () => {
-      console.log("forEach worked");
-    });
+    event.onclick = editNoteEventHandler;
   });
 
 }
