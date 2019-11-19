@@ -399,6 +399,13 @@ input:checked+.slider:before {
   margin-left: 8rem;
 }
 
+@media only screen and (max-width:768px){
+  #main-page-content {
+    margin-top: 2rem;
+  margin-left: 0;
+}
+}
+
 /* ------------- MAIN PAGE CONTENT END -------------*/
 
 /* ------------- LANDING PAGE -------------*/
@@ -562,6 +569,18 @@ input:checked+.slider:before {
   font-size: 2rem;
   color: var(--font-color);
   margin-bottom: .2rem;
+}
+
+.notes__title::after {
+  content:' \00BB';
+  opacity: 0;
+  transition: all .3s ease;
+}
+
+.notes__title:hover::after {
+  content:' \00BB';
+  opacity: 1;
+  margin-left: 1rem;
 }
 
 .notes__lastChanged {
