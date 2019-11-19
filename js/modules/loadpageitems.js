@@ -1,3 +1,23 @@
+const buttonList = document.querySelector(".landing-page__button-list")
+
+const editButtonTemplate = document.querySelector("#edit-note-button");
+
+const editButtonClone = editButtonTemplate.content.cloneNode(true);
+
+const editButton = document.querySelector("#edit-opened-note-button")
+
+export function showEditButton() {
+    // Display "edit last note"-button if edit id is not 0
+    if (JSON.parse(localStorage.getItem("edit-id")) !== 0) {
+        buttonList.insertBefore(editButtonClone, buttonList.childNodes[0])
+        console.log("The edit id is NOT 0")
+    } else {
+        console.log("The edit id is 0")
+        if(editButton)
+        buttonList.removeChild(editButton);
+    }
+}
+
 let landingPage = document.querySelector(".landing-page")
 
 let editorSection = document.querySelector(".editor-section")
@@ -25,4 +45,5 @@ export function showLandingPage() {
         landingPage.classList.add("fadeIn")
         setTimeout(function () { landingPage.classList.remove("fadeIn") }, 1000)
     }, 1000);
+    showEditButton();
 }
