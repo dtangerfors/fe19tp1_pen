@@ -11,9 +11,9 @@ function notesTemplate(note) {
     }
     return `
         <div class="notes" note-id="${note.dateOfCreation}">
-            <h3 class="notes__title">${note.title}</h3>
-            <p class="notes__lastChanged">Last edited ${dateHowLongAgo(note.lastChanged)}</p>
-            <p class="notes__content">${preview}</p>
+            <h3 class="notes__title" note-id="${note.dateOfCreation}">${note.title}</h3>
+            <p class="notes__lastChanged" note-id="${note.dateOfCreation}">Last edited ${dateHowLongAgo(note.lastChanged)}</p>
+            <p class="notes__content" note-id="${note.dateOfCreation}">${preview}</p>
         </div>
     `
 }
