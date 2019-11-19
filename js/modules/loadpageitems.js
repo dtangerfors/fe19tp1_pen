@@ -1,13 +1,28 @@
-export function showLandingPage() {
-    let template = document.querySelector("#landing-page-template");
-    let landingPage = template.content.cloneNode(true);
+let landingPage = document.querySelector(".landing-page")
 
-    document.querySelector("#main-page-content").appendChild(landingPage)
-}
+let editorSection = document.querySelector(".editor-section")
 
 export function showEditor() {
-    let template = document.querySelector("#editor-template");
-    let editorContent = template.content.cloneNode(true);
+    // Add animation to slide landing page away
+    // Add display none to landingpage section
+    // Show the editor 
+    landingPage.classList.add("slideDown")
+    setTimeout(function () {
+        landingPage.style.display = "none";
+        landingPage.classList.remove("slideDown")
+        editorSection.style.display = "flex"
+        editorSection.classList.add("fadeIn")
+        setTimeout(function () { editorSection.classList.remove("fadeIn") }, 1000)
+    }, 1000);
+}
 
-    document.querySelector("#main-page-content").appendChild(editorContent)
+export function showLandingPage() {
+    editorSection.classList.add("slideDown")
+    setTimeout(function () {
+        editorSection.style.display = "none";
+        editorSection.classList.remove("slideDown")
+        landingPage.style.display = "flex"
+        landingPage.classList.add("fadeIn")
+        setTimeout(function () { landingPage.classList.remove("fadeIn") }, 1000)
+    }, 1000);
 }
