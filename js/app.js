@@ -364,16 +364,8 @@ document.querySelector("#add-new-note-button").addEventListener("click", () => {
 
 document.querySelector("#quire-logo").addEventListener("click", showLandingPage)
 
-const latestNotes = document.querySelectorAll(".notes");
-
-latestNotes.forEach((event) => {
-  event.addEventListener('click', () => {
-    console.log("forEach worked");
-  });
-});
-
 if (JSON.parse(localStorage.getItem("edit-id")) != 0)
-console.log("edit-id is 0")
+  console.log("edit-id is 0")
 
 function main() {
   initializeLocalStorage();
@@ -382,6 +374,15 @@ function main() {
   renderItems();
   editorLoad();
   displayNotes(sortedNotesByLastEdit.slice(0, 3));
+
+  const latestNotes = document.querySelectorAll(".notes");
+  latestNotes.forEach((event) => {
+    console.log(event);
+    event.addEventListener('click', () => {
+      console.log("forEach worked");
+    });
+  });
+
 }
 
 /**
