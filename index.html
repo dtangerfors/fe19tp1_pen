@@ -121,10 +121,6 @@
           </svg>
         </div>
         <div class="landing-page__button-list">
-          <button class="landing-page__button" id="edit-opened-note-button">
-            <img src="assets/icons/edit.svg" alt="Edit opened note" class="landing-page__icon">
-            Edit opened note
-          </button>
           <button class="landing-page__button" id="add-new-note-button">
             <img src="assets/icons/note_add.svg" alt="Add new note" class="landing-page__icon">
             Add new note
@@ -154,6 +150,12 @@
       </div>
     </section>
   </main>
+  <template id="edit-note-button">
+    <button class="landing-page__button" id="edit-opened-note-button">
+      <img src="assets/icons/edit.svg" alt="Edit opened note" class="landing-page__icon">
+      Edit opened note
+    </button>
+  </template>
   <script src="js/quill.js"></script>
   <script type="module" src="js/app.js"></script>
 </body>
