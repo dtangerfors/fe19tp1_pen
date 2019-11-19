@@ -21,20 +21,16 @@ import {
   saveUserSettings
 } from './modules/settings/user-settings.js';
 
-import {
-  displayNotes,
-  sortNotesByLatestEdited
-} from './modules/loadnotes.js';
+import {displayNotes} from './modules/loadnotes.js';
 
 import {
-  showLandingPage,
-  showEditor
-} from './modules/loadpageitems.js';
+  showEditor,
+  showLandingPage
+} from './modules/loadpageitems.js'
 
 /**
  * Quill Editor
  */
-
 const editor = new Quill('#editor-code', quillSettings);
 
 
@@ -251,7 +247,8 @@ function button3DotEventHandler(event) {
 function editNoteEventHandler(event) {
   const noteIdToEdit = event.target.getAttribute('data-note-id');
   const index = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToEdit));
-
+  showEditor();
+  setTimeout(() => { document.querySelector("#sidebar-notes").classList.remove("sidebar-show")}, 1000)
   if (index !== -1) {
     const note = getNote(index);
     const editorTitle = document.getElementById('editorTitle');
@@ -262,12 +259,16 @@ function editNoteEventHandler(event) {
   storeContent();
 }
 
-if (document.getElementById('new-document')) {
-  document.getElementById('new-document').addEventListener('click', function () {
-    localStorage.setItem('edit-id', JSON.stringify(0));
-    clearContents();
-    document.getElementById('editorTitle').value = '';
-  });
+
+  document.querySelector('.new-document').addEventListener('click', preNewNote);
+
+  /**
+   * Resets the edit-id and the editor of its content
+   */
+function preNewNote(){
+  localStorage.setItem('edit-id', JSON.stringify(0));
+  clearContents();
+  document.getElementById('editorTitle').value = '';
 }
 
 function clearAllChildren(node) {
@@ -282,9 +283,8 @@ function renderItems(notes = getAllNotes()) {
 }
 
 //save button
-if (document.getElementById('save-btn')) {
-  document.getElementById('save-btn').addEventListener('click', saveFunction);
-}
+document.getElementById('save-btn').addEventListener('click', saveFunction);
+
 
 function saveFunction() {
   makeAndStoreContent();
@@ -296,6 +296,7 @@ function editorLoad() {
   if (noteIdToLoad !== -1) {
     editor.setContents(getNote(noteIdToLoad).content);
   }
+  
 }
 
 function clearContents() {
@@ -355,24 +356,24 @@ function noteListSlide() {
  */
 let sortedNotesByLastEdit = savedNotes.sort((a, b) => b.lastChanged - a.lastChanged);
 
-/**
- * Load the page template and displayNotes function
- */
-function renderLandingPage() {
-  document.querySelector("#main-page-content").innerHTML = "";
-  showLandingPage();
-  displayNotes(sortedNotesByLastEdit.slice(0, 3));
-  document.querySelector(".open-editor").addEventListener("click", renderEditor);
-}
 
-/**
- * Load the editor on the page
- */
-function renderEditor() {
-  editorLoad();
-  document.querySelector("#main-page-content").innerHTML = "";
+document.querySelector("#add-new-note-button").addEventListener("click", () => {
+  preNewNote();
   showEditor();
-}
+});
+
+document.querySelector("#quire-logo").addEventListener("click", showLandingPage)
+
+const latestNotes = document.querySelectorAll(".notes");
+
+latestNotes.forEach((event) => {
+  event.addEventListener('click', () => {
+    console.log("forEach worked");
+  });
+});
+
+if (JSON.parse(localStorage.getItem("edit-id")) != 0)
+console.log("edit-id is 0")
 
 function main() {
   initializeLocalStorage();
@@ -380,18 +381,15 @@ function main() {
   noteListSlide();
   renderItems();
   editorLoad();
-  renderLandingPage();
-  document.querySelector("#quire-logo").addEventListener("click", renderLandingPage);
-
+  displayNotes(sortedNotesByLastEdit.slice(0, 3));
 }
 
 /**
  * Print button
  */
-if (document.getElementById('printerButton')) {
-  document.getElementById('printerButton').addEventListener('click', function () {
+document.getElementById('printerButton').addEventListener('click', function () {
     window.print();
   });
-}
 
-window.addEventListener("DOMContentLoaded", main);
+
+window.addEventListener("load", main);
