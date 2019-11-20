@@ -90,9 +90,9 @@ export function dateHowLongAgo(milliseconds) {
         return monthsArr[dateReturn.getMonth()] + " " + dateReturn.getDate() + ", " + dateReturn.getFullYear()
     } else if (hours > 0) {
         if (hours == 1) {
-            return hours + " hour ago";
+            return  "about " + hours + " hour ago";
         } else {
-            return hours + " hours ago";
+            return "about " + hours + " hours ago";
         }
     }
     else if (minutes > 0) {
