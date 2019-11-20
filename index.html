@@ -121,6 +121,10 @@
           </svg>
         </div>
         <div class="landing-page__button-list">
+          <button class="landing-page__button" id="edit-opened-note-button">
+            <img src="assets/icons/edit.svg" id="icon-edit" alt="Edit opened note" class="landing-page__icon">
+            Edit opened note
+          </button>
           <button class="landing-page__button" id="add-new-note-button">
             <img src="assets/icons/note_add.svg" alt="Add new note" class="landing-page__icon">
             Add new note
@@ -144,17 +148,16 @@
         spellcheck="false">
       <div id="editor-main" class="editor-section__editor">
         <div id="editor-code"></div>
-        <button id="save-btn">Save</button>
-        <button class="new-document">New Document</button>
-        <a href="#"><img src="assets/icons/print.svg" id="printerButton" alt="Print"/>
+        <div class="editor-section__menu">
+          <div class="button-group">
+            <button id="save-btn" class="editor-section__button">Save</button><button id="new-document" class="editor-section__button">New Document</button>
+          </div>
+          <button id="printerButton" class="editor-section__print"><img src="assets/icons/print.svg" class="editor-section__print-icon" alt="Print note"/></button>
+        </div>
       </div>
     </section>
   </main>
   <template id="edit-note-button">
-    <button class="landing-page__button" id="edit-opened-note-button">
-      <img src="assets/icons/edit.svg" alt="Edit opened note" class="landing-page__icon">
-      Edit opened note
-    </button>
   </template>
   <script src="js/quill.js"></script>
   <script type="module" src="js/app.js"></script>
