@@ -7,6 +7,7 @@
   --grey: #888;
   --dark-grey: #575757;
   --black: #171717;
+  --green : #A6C48A;
 }
 
 .theme-light {
@@ -188,6 +189,20 @@ h2 {
 .editor-section__print-icon {
   height: 2rem;
   filter: invert(.8);
+}
+
+#save-btn::after {
+   content: ' \2713';
+   color: white;
+   display: none;
+   animation: saved 2s ease infinite;
+}
+
+@keyframes saved {
+  0%    {opacity: 0;}
+  20%   {opacity: 1;}
+  90%   {opacity: 1;}
+  100%  {opacity: 0;}
 }
 
 /* ------------- EDITOR SECTION END -------------*/
