@@ -208,7 +208,7 @@ label[for="theme"]{
 }
 @media screen and (max-width:768px) {
   #sidebar-settings{
-    margin-top: -69.4rem;
+    margin-top: -100vh;
   }
 }
 
