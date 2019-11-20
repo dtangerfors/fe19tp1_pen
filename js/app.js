@@ -209,8 +209,12 @@ function removeNoteEventHandler(event) {
   const noteIdToRemove = event.target.parentNode.parentNode.getAttribute('note-id');
   const indexToRemove = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToRemove));
 
+  
+  
   removeBasedOnIndex(indexToRemove);
   event.target.parentNode.parentNode.remove();
+
+
 
   //Save our new content
   storeContent();
@@ -261,7 +265,22 @@ function editNoteEventHandler(event) {
 }
 
 
-  document.querySelector('.new-document').addEventListener('click', preNewNote);
+function editOpenedNoteButton() {
+  const noteIdToEdit = JSON.parse(localStorage.getItem('edit-id'));
+  const index = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToEdit));
+  showEditor();
+  setTimeout(() => { document.querySelector("#sidebar-notes").classList.remove("sidebar-show") }, 1000)
+  if (index !== -1) {
+    const note = getNote(index);
+    const editorTitle = document.getElementById('editorTitle');
+    editor.setContents(note.content);
+    editorTitle.value = note.title;
+  }
+  saveEditID(noteIdToEdit);
+  storeContent();
+}
+
+  document.querySelector('#new-document').addEventListener('click', preNewNote);
 
   /**
    * Resets the edit-id and the editor of its content
@@ -284,10 +303,19 @@ function renderItems(notes = getAllNotes()) {
 }
 
 //save button
-document.getElementById('save-btn').addEventListener('click', saveFunction);
+document.querySelector('#save-btn').addEventListener('click', saveFunction);
+
+function saveEventAnimation() {
+  // Change text to Saved! 
+  // 
+  document.querySelector('#save-btn').textContent = "Saved!";
+  document.querySelector('#save-btn').style.backgroundColor = "var(--green)";
+  document.querySelector('#save-btn').style.color = "white"
+}
 
 
 function saveFunction() {
+  setTimeout(saveEventAnimation, 1000);
   makeAndStoreContent();
 }
 
@@ -355,15 +383,30 @@ function noteListSlide() {
 /**
  * Sort saved notes by latest edited note
  */
-let sortedNotesByLastEdit = savedNotes.sort((a, b) => b.lastChanged - a.lastChanged);
+let sortedNotesByLastEdit;
 
+
+/**
+ * Decides what to display if there is any notes in LocalStorage
+ */
+function displayLatestNoteList() {
+  if (savedNotes.length === 0) {
+    document.querySelector("#landing-page__note-list").innerHTML = "No notes, why not write your first note?"
+  } else { 
+    sortedNotesByLastEdit = savedNotes.sort((a, b) => b.lastChanged - a.lastChanged);
+    displayNotes(sortedNotesByLastEdit.slice(0, 3));
+  }
+}
 
 document.querySelector("#add-new-note-button").addEventListener("click", () => {
   preNewNote();
   showEditor();
 });
 
-document.querySelector("#quire-logo").addEventListener("click", showLandingPage)
+document.querySelector("#quire-logo").addEventListener("click", () => {
+  showLandingPage();
+  displayLatestNoteList();
+})
 
 
 function main() {
@@ -372,8 +415,8 @@ function main() {
   noteListSlide();
   renderItems();
   editorLoad();
-  displayNotes(sortedNotesByLastEdit.slice(0, 3));
-  showEditButton();
+  displayLatestNoteList();
+  showEditButton(editOpenedNoteButton);
   const latestNotes = document.querySelectorAll(".notes");
   latestNotes.forEach((event) => {
     event.onclick = editNoteEventHandler;
