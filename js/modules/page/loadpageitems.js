@@ -1,5 +1,3 @@
-const buttonList = document.querySelector(".landing-page__button-list")
-
 const editButton = document.querySelector("#edit-opened-note-button")
 
 export function showEditButton(func) {
