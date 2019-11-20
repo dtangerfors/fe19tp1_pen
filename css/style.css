@@ -330,6 +330,10 @@ label[for="theme"]{
   font-size: 1.45rem;
 }
 
+.preview-highlight {
+  background-color: lime;
+}
+
 .aside__note-list li > * {
   margin-bottom: 0.5rem;
 }
@@ -402,6 +406,15 @@ label[for="theme"]{
 }
 
 /* ------------- Notes Navigation Design Ends -------------*/
+
+/* ------------- Search Input Field Design -------------*/
+
+#search {
+  width: 100%;
+  height: 4%;
+}
+
+/* ------------- Search Input Field Design Ends -------------*/
 
 /* OVERRIDE QUILL DESIGN */
 #ql-picker-options-0 {
