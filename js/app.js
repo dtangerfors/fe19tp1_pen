@@ -21,13 +21,18 @@ import {
   saveUserSettings
 } from './modules/settings/user-settings.js';
 
-import {displayNotes} from './modules/loadnotes.js';
+import {displayNotes} from './modules/page/loadnotes.js';
 
 import {
   showEditButton,
   showEditor,
   showLandingPage
-} from './modules/loadpageitems.js'
+} from './modules/page/loadpageitems.js'
+
+import {
+  navbarSlide,
+  noteListSlide
+} from './modules/page/menu.js'
 
 /**
  * Quill Editor
@@ -264,7 +269,9 @@ function editNoteEventHandler(event) {
   storeContent();
 }
 
-
+/**
+ * Opens last opened note from the landing page
+ */
 function editOpenedNoteButton() {
   const noteIdToEdit = JSON.parse(localStorage.getItem('edit-id'));
   const index = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToEdit));
@@ -280,11 +287,11 @@ function editOpenedNoteButton() {
   storeContent();
 }
 
-  document.querySelector('#new-document').addEventListener('click', preNewNote);
+document.querySelector('#new-document').addEventListener('click', preNewNote);
 
-  /**
-   * Resets the edit-id and the editor of its content
-   */
+/**
+* Resets the edit-id and the editor of its content
+*/
 function preNewNote(){
   localStorage.setItem('edit-id', JSON.stringify(0));
   clearContents();
@@ -336,49 +343,18 @@ function storeContent() {
   localStorage.setItem('save-notes', JSON.stringify(getAllNotes()))
 }
 
-const navbarSlide = () => {
-  const burger = document.querySelector('.hamburger');
-  const nav = document.querySelector('.nav__link-group');
-  const navLinks = document.querySelectorAll('.nav__link-group li');
+const noteList = document.querySelector('#sidebar-notes');
+const settingsList = document.querySelector('#sidebar-settings');
 
-  burger.addEventListener('click', function () {
-    //Toggle nav
-    nav.classList.toggle('nav-active');
+document.body.addEventListener("click", (event) => {
+  const targetName = event.target.id;
 
-    //Animate Links
-    navLinks.forEach((link, index) => {
-      if (link.style.animation) {
-        link.style.animation = ''
-      } else {
-        link.style.animation = `navLinkFade 0.5s ease backwards ${index / 7 + 0.2}s`;
-      }
-    });
-    //burger animation
-    this.classList.toggle('hamburger-toggle')
-  });
-};
+  if ((targetName !== "sidebar-notes") && (targetName !== "nav-note") ) 
+  noteList.classList.remove("sidebar-show")
 
-function noteListSlide() {
-  const note = document.getElementById('nav-note');
-  const noteList = document.querySelector('#sidebar-notes');
-  const settings = document.getElementById('nav-settings');
-  const settingsList = document.querySelector('#sidebar-settings');
-
-  note.addEventListener('click', function () {
-    if (settingsList.classList.contains('sidebar-show')) {
-      settingsList.classList.toggle('sidebar-show');
-    }
-
-    noteList.classList.toggle('sidebar-show');
-  });
-
-  settings.addEventListener('click', function () {
-    if (noteList.classList.contains('sidebar-show')) {
-      noteList.classList.toggle('sidebar-show');
-    }
-    settingsList.classList.toggle('sidebar-show');
-  });
-}
+  if ((targetName !== "sidebar-settings") && (targetName !== "nav-settings"))
+  settingsList.classList.remove("sidebar-show")
+})
 
 /**
  * Sort saved notes by latest edited note
