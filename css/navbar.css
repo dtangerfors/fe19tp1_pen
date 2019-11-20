@@ -36,6 +36,7 @@ html {
     background-color: var(--secondary-purple);
     padding: 1rem;
     width: inherit;
+    cursor: pointer;
 }
 
 #quire-symbol {
