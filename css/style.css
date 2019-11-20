@@ -111,15 +111,6 @@ h2 {
 
 /* -------------  BUTTONS ------------- */
 
-#save-btn {
-  font-family: inherit;
-  font-size: 20px;
-  border: 1px solid var(--black);
-}
-
-#save-btn:hover {
-  background-color: var(--color-accent);
-}
 
 /* -------------  BUTTONS ENS ------------- */
 
@@ -154,6 +145,51 @@ h2 {
   max-height: 842px;
 }
 
+.editor-section__menu {
+  border: 1px solid #ccc;
+  border-top: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.editor-section__button {
+  -webkit-appearance: none;
+  cursor: pointer;
+
+  font-family: inherit;
+  font-size: 1.2rem;
+  color: var(--grey);
+
+  border: none;
+  border-right: 1px solid #ccc;
+
+  padding: 1rem;
+}
+
+.editor-section__button:hover,.editor-section__print:hover {
+  background-color: var(--primary-purple);
+  color: white;
+}
+
+.editor-section__print {
+  -webkit-appearance: none;
+  cursor: pointer;
+
+  border: none;
+  border-left: 1px solid #ccc;
+  padding: 0 1rem;
+}
+
+.editor-section__print:hover .editor-section__print-icon {
+  filter: invert(1);
+}
+
+.editor-section__print-icon {
+  height: 2rem;
+  filter: invert(.8);
+}
+
 /* ------------- EDITOR SECTION END -------------*/
 
 @media print {
@@ -183,11 +219,6 @@ h2 {
   transform: translateX(0%)
 }
 
-#printerButton {
-  float: right;
-  width: 2.5rem;
-  height: 2.5rem;
-}
 
 /* ------------- NAVBAR DESIGN ENDS -------------*/
 
