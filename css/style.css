@@ -380,10 +380,9 @@ label[for="theme"]{
   border: none;
   right: 0;
   margin-right: 2.5rem;
-  background-color: wheat;
-  font-size: 1.5rem;
+  background-color: transparent;
+  font-size: 2.5rem;
   width: 2rem;
-  border-radius: 50%;
   transform: translateX(0);
   -ms-transform: translateX(0);
   -webkit-transform: translateX(0);
@@ -397,6 +396,10 @@ label[for="theme"]{
   transition: all 0.5s ease;
 }
 
+
+.group-button-show img{
+  border-left: 1px solid var(--grey);
+}
 
 /* ------------- Notes Navigation Design Ends -------------*/
 
