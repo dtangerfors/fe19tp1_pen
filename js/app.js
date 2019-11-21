@@ -345,12 +345,13 @@ function storeContent() {
   localStorage.setItem('save-notes', JSON.stringify(getAllNotes()))
 }
 
-const noteList = document.querySelector('#sidebar-notes');
-const settingsList = document.querySelector('#sidebar-settings');
 
-document.body.addEventListener("click", (event) => {
+document.getElementById('main-page-content').addEventListener("click", (event) => {
+  const settingsList = document.querySelector('#sidebar-settings');
+  const noteList = document.querySelector('#sidebar-notes');
+  
   const targetName = event.target.id;
-
+  
   if ((targetName !== "sidebar-notes") && (targetName !== "nav-note") ) 
   noteList.classList.remove("sidebar-show")
 
