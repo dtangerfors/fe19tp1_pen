@@ -112,6 +112,30 @@ h2 {
 
 /* -------------  BUTTONS ------------- */
 
+.button__edit {
+  -webkit-appearance: none;
+  cursor: pointer;
+
+  position: fixed;
+
+  height: 8rem;
+  width: 8rem;
+  padding: 2rem;
+  bottom: 2rem;
+  right: 2rem;
+
+  background-color: var(--primary-purple);
+  border: none;
+  border-radius: 4rem;
+}
+
+.button__edit:hover {
+  background-color: var(--secondary-purple);
+}
+
+.button__edit-inner {
+  filter: invert(1);
+}
 
 /* -------------  BUTTONS ENS ------------- */
 
