@@ -311,13 +311,31 @@ label[for="theme"]{
 }
 
 .aside__note-list li {
+  display: flex;
+  flex-direction: row;
   padding: 2rem;
   height: auto;
   cursor: pointer;
   background-color: #fff;
   border-bottom: 1px solid var(--black);
+  width: 100%;
+}
+.aside__note-list li section:first-child{
+  width:80%;
+}
+.aside__note-list li section:last-child{
+  width:10%;
 }
 
+.aside__note-list li section{
+  height: 100%;
+}
+.aside__note-list li section:last-child div img{
+    width: 45px;
+    height: 104px;
+    margin: 0;
+    padding: 0 1rem;
+}
 .aside__note-list li {
   background-color: var(--color-secondary)
 }
@@ -383,7 +401,7 @@ label[for="theme"]{
   position: absolute;
   border: none;
   right: 0;
-  margin-right: 2.5rem;
+  margin-right: 1.5rem;
   background-color: transparent;
   font-size: 2.5rem;
   width: 2rem;
@@ -391,18 +409,20 @@ label[for="theme"]{
   -ms-transform: translateX(0);
   -webkit-transform: translateX(0);
   transition: all 0.5s ease;
+  padding: 40px 0;
 }
 
 .group-button-show {
-  transform: translateX(-12rem);
-  -ms-transform: translateX(-12rem);
-  -webkit-transform: translateX(-12rem);
+  transform: translateX(-18rem);
+  -ms-transform: translateX(-18rem);
+  -webkit-transform: translateX(-18rem);
   transition: all 0.5s ease;
 }
 
 
 .group-button-show img{
-  border-left: 1px solid var(--grey);
+  border-left: 1px solid var(--font-color);
+   transition: all 0.5s ease;
 }
 
 /* ------------- Notes Navigation Design Ends -------------*/
