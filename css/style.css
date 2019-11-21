@@ -168,6 +168,32 @@ h2 {
   padding: 1rem;
 }
 
+
+.font-option {
+  position: relative;
+  width: 20rem;
+  display: block;
+  height: 1.7rem;
+}
+
+.font-option p {
+  margin-left: 1rem;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.font-option ul li:not(:last-child) {
+  border-bottom: 0.2rem solid gainsboro;
+  margin-left: 1rem;
+}
+
+.font-option ul li {
+  padding: 1rem;
+  font-weight: 500;
+  font-size: 1.75rem;
+  margin-left: 1rem;
+}
+
 .editor-section__button:hover,.editor-section__print:hover {
   background-color: var(--primary-purple);
   color: white;
