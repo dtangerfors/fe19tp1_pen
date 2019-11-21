@@ -25,7 +25,7 @@ window.getNote = getNote;
  */
 const editor = new Quill('#editor-code', quillSettings);
 
-let searchPreviewLength = 20;
+let searchPreviewLength = 0;
 
 /*
   Initialize localStorage keys before usage.
@@ -87,6 +87,9 @@ function loadItems(note) {
   //Creating div for a note list
   const noteList = document.createElement('li');
 
+  //Creating two Div for note list
+  const leftDiv = document.createElement('section');
+  const rightDiv = document.createElement('section');
 
   //Create necessary buttons for a note
   const buttonRemove = document.createElement("button"),
@@ -95,6 +98,7 @@ function loadItems(note) {
   //Create div for favorite and remove buttons
   const groupButtonDiv = document.createElement('div');
   groupButtonDiv.classList.add('class_'+note.dateOfCreation);
+  leftDiv.classList.add('class_' + note.dateOfCreation);
   groupButtonDiv.style.setProperty('position', 'absolute');
   groupButtonDiv.style.setProperty('right', '-14rem');
 
@@ -105,21 +109,21 @@ function loadItems(note) {
   
   //Inline styling for remove button
   imgRemove.src = './assets/remove-bin.svg';
-  imgRemove.width = '20';
-  imgRemove.height = '20';
-  imgRemove.style.setProperty('margin-right', '2.5rem');
+  imgRemove.width = '30';
+  imgRemove.height = '30';
+  imgRemove.style.setProperty('margin-right', '0rem');
 
   //Inline styling for favorite button
   imgFavorite.src = note.isFavorite ? './assets/star.svg' : './assets/star-regular.svg'
-  imgFavorite.width = '20';
-  imgFavorite.height = '20';
-  imgFavorite.style.setProperty('margin-right', '2.5rem');
+  imgFavorite.width = '30';
+  imgFavorite.height = '30';
+  imgFavorite.style.setProperty('margin-right', '0rem');
 
   //Inline styling for print button
   imgPrint.src = './assets/printer.svg';
-  imgPrint.width = '20';
-  imgPrint.height = '20';
-  imgPrint.style.setProperty('margin-right', '2.5rem');
+  imgPrint.width = '30';
+  imgPrint.height = '30';
+  imgPrint.style.setProperty('margin-right', '0rem');
 
   //Create pull button
   const button3Dot = document.createElement('button');
@@ -154,9 +158,9 @@ function loadItems(note) {
   button3Dot.onclick = button3DotEventHandler;
 
   //Attach main elements to the list member
-  noteList.append(header2Title);
-  noteList.append(previewText);
-  noteList.append(button3Dot);
+  leftDiv.append(header2Title);
+  leftDiv.append(previewText);
+  rightDiv.append(button3Dot);
 
   //Attach groupped elements to the child div
   groupButtonDiv.appendChild(imgFavorite);
@@ -164,9 +168,13 @@ function loadItems(note) {
   groupButtonDiv.appendChild(imgRemove);
 
   //Attach the child div back to the parent div.
-  noteList.append(groupButtonDiv);
-  noteList.append(newdateParagraph);
-  noteList.append(dateParagraph);
+  rightDiv.append(groupButtonDiv);
+  leftDiv.append(newdateParagraph);
+  leftDiv.append(dateParagraph);
+
+  // Insert div in notelist
+  noteList.append(leftDiv);
+  noteList.append(rightDiv);
 
   //Attach child div to the parent div
   elementNoteList.append(noteList);
@@ -206,7 +214,7 @@ function makeAndStoreContent() {
  * @param {MouseEvent} event
  */
 function removeNoteEventHandler(event) {
-  const noteIdToRemove = event.target.parentNode.parentNode.getAttribute('data-note-id');
+  const noteIdToRemove = event.target.parentNode.parentNode.parentNode.getAttribute('data-note-id');
   const indexToRemove = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToRemove));
 
   removeBasedOnIndex(indexToRemove);
@@ -221,7 +229,7 @@ function removeNoteEventHandler(event) {
  * @param {MouseEvent} event
  */
 function setFavoriteNoteEventHandler(event) {
-  const favoriteNote = event.target.parentNode.parentNode.getAttribute('data-note-id');
+  const favoriteNote = event.target.parentNode.parentNode.parentNode.getAttribute('data-note-id');
   const index = getAllNotes().findIndex(note => note.dateOfCreation === Number(favoriteNote));
   const note = getNote(index);
   const isFavorited = note.setFavorite();
@@ -234,9 +242,11 @@ function setFavoriteNoteEventHandler(event) {
  * @param {MouseEvent} event 
  */
 function button3DotEventHandler(event) {
-  const classID = 'class_' + event.target.parentNode.getAttribute('data-note-id');
+  const classID = 'class_' + event.target.parentNode.parentNode.getAttribute('data-note-id');
   const element = document.getElementsByClassName(classID)[0];
-  element.style.setProperty('position', 'absolute');
+  const element2 = document.getElementsByClassName(classID)[1];
+  element2.classList.toggle('group-button-show');
+  element2.style.setProperty('position', 'absolute');
   element.classList.toggle('group-button-show');
   this.classList.toggle('group-button-show');
 }
