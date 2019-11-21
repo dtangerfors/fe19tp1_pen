@@ -34,11 +34,13 @@ import {
   noteListSlide
 } from './modules/page/menu.js'
 
+window.getNote = getNote;
 /**
  * Quill Editor
  */
 const editor = new Quill('#editor-code', quillSettings);
 
+let searchPreviewLength = 20;
 
 /*
   Initialize localStorage keys before usage.
@@ -399,6 +401,56 @@ function main() {
   });
 
 }
+
+function searchText(text, word) {
+  text = text.toLowerCase();
+  word = word.toLowerCase().replace(/([()[{*+.$^\\|?])/g, '\\$1');
+
+  const index = text.search(word);
+
+  if (index !== -1) {
+      let start = index - searchPreviewLength < 0 ? 0 : index - searchPreviewLength;
+      let end = start === 0 ? index : searchPreviewLength;
+      return { start, end, index }
+  }
+
+  return false;
+}
+
+document.getElementById('search').addEventListener('input', function() {
+  if(getAllNotes().length > 0) {
+    clearAllChildren(document.querySelector('.aside__note-list'));
+
+    getAllNotes().filter((note, index) => {
+      const word = this.value;
+      const text = getTextFromContent(note.content.ops);
+      const title = note.title;
+
+      const textData = searchText(text, word);
+      const titleData = searchText(title, word);
+
+      if(titleData || textData) {
+        loadItems(note);
+      }
+
+      const previewTemplate = (t, q) => `${t.substr(q.start, q.end)}<span class='preview-highlight'>${t.substr(q.index, word.length)}</span>${t.substr(q.index + word.length, searchPreviewLength)}`;
+      
+      if(titleData) {
+        const titleTextElement = document.querySelector(`h2[note-id='${getNote(index).dateOfCreation}']`);
+        if(titleTextElement) {
+          titleTextElement.innerHTML = previewTemplate(title, titleData);
+        }
+      } else if(textData) {
+        const previewTextElement = document.querySelector(`p[note-id='${getNote(index).dateOfCreation}']`);
+        if(previewTextElement) {
+          previewTextElement.innerHTML = previewTemplate(text, textData);
+        }
+      }
+
+      return textData || titleData;
+    });
+  }
+});
 
 /**
  * Print button
