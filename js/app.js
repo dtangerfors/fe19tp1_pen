@@ -226,13 +226,13 @@ function makeAndStoreContent() {
  * @param {MouseEvent} event
  */
 function removeNoteEventHandler(event) {
-  const noteIdToRemove = event.target.parentNode.parentNode.parentNode.getAttribute('data-note-id');
+  const noteIdToRemove = event.target.parentNode.parentNode.parentNode.getAttribute('note-id');
   const indexToRemove = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToRemove));
 
   
   
   removeBasedOnIndex(indexToRemove);
-  event.target.parentNode.parentNode.remove();
+  event.target.parentNode.parentNode.parentNode.remove();
 
 
 
@@ -245,7 +245,7 @@ function removeNoteEventHandler(event) {
  * @param {MouseEvent} event
  */
 function setFavoriteNoteEventHandler(event) {
-  const favoriteNote = event.target.parentNode.parentNode.parentNode.getAttribute('data-note-id');
+  const favoriteNote = event.target.parentNode.parentNode.parentNode.getAttribute('note-id');
   const index = getAllNotes().findIndex(note => note.dateOfCreation === Number(favoriteNote));
   const note = getNote(index);
   const isFavorited = note.setFavorite();
@@ -258,7 +258,7 @@ function setFavoriteNoteEventHandler(event) {
  * @param {MouseEvent} event 
  */
 function button3DotEventHandler(event) {
-  const classID = 'class_' + event.target.parentNode.parentNode.getAttribute('data-note-id');
+  const classID = 'class_' + event.target.parentNode.parentNode.getAttribute('note-id');
   const element = document.getElementsByClassName(classID)[0];
   const element2 = document.getElementsByClassName(classID)[1];
   element2.classList.toggle('group-button-show');
