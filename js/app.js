@@ -10,7 +10,8 @@ import {
   // getFavorites,
   getAllNotes,
   setPredefinedNotes,
-  dateHowLongAgo
+  dateHowLongAgo,
+  getTextFromContent
 } from './modules/notes/note-list.js';
 import {
   options as quillSettings
@@ -19,6 +20,20 @@ import {
   settings as userSettings,
   saveUserSettings
 } from './modules/settings/user-settings.js';
+
+import {displayNotes} from './modules/page/loadnotes.js';
+
+import {
+  showEditButton,
+  showEditor,
+  showLandingPage
+} from './modules/page/loadpageitems.js'
+
+import {
+  navbarSlide,
+  noteListSlide
+} from './modules/page/menu.js'
+
 window.getNote = getNote;
 /**
  * Quill Editor
@@ -45,6 +60,11 @@ function initializeLocalStorage() {
 }
 
 /**
+ * Get saved notes from localStorage and parse them
+ */
+const savedNotes = JSON.parse(localStorage.getItem("save-notes"));
+
+/**
  * 
  * @param {number} id 
  */
@@ -63,25 +83,16 @@ function loadEditID() {
   return parseInt(id);
 }
 
-function getTextFromContent(content) {
-  let str = '';
-  for(let v of content) {
-    if(typeof v.insert === "string")
-      str += v.insert;
-  }
-  return str;
-}
-
 function getPreviewTextFromNote(note, from, to) {
   let previewText = `${getTextFromContent(note.content.ops).split('\n').join(' ').substr(from, to)}`;
-  if(previewText.length > to) {
+  if (previewText.length > to) {
     return `${previewText}...`;
   }
   return previewText;
 }
 
 function loadItems(note) {
-   //HTML Element that keeps our notes
+  //HTML Element that keeps our notes
   const elementNoteList = document.querySelector('.aside__note-list');
 
   //Creating div for a note list
@@ -89,29 +100,29 @@ function loadItems(note) {
 
   //Create div for favorite and remove buttons
   const groupButtonDiv = document.createElement('div');
-  groupButtonDiv.classList.add('class_'+note.dateOfCreation);
+  groupButtonDiv.classList.add('class_' + note.dateOfCreation);
   groupButtonDiv.style.setProperty('position', 'absolute');
   groupButtonDiv.style.setProperty('right', '-14rem');
 
   //Create necessary buttons (image) for a note
   const imgRemove = document.createElement('img'),
-        imgFavorite = document.createElement('img'),
-        imgPrint = document.createElement('img');
-  
+    imgFavorite = document.createElement('img'),
+    imgPrint = document.createElement('img');
+
   //Inline styling for remove button
-  imgRemove.src = './assets/remove-bin.svg';
+  imgRemove.src = './assets/icons/delete.svg';
   imgRemove.width = '20';
   imgRemove.height = '20';
   imgRemove.style.setProperty('margin-right', '2.5rem');
 
   //Inline styling for favorite button
-  imgFavorite.src = note.isFavorite ? './assets/star.svg' : './assets/star-regular.svg'
+  imgFavorite.src = note.isFavorite ? './assets/icons/star-filled.svg' : './assets/icons/star-outlined.svg'
   imgFavorite.width = '20';
   imgFavorite.height = '20';
   imgFavorite.style.setProperty('margin-right', '2.5rem');
 
   //Inline styling for print button
-  imgPrint.src = './assets/printer.svg';
+  imgPrint.src = './assets/icons/print.svg';
   imgPrint.width = '20';
   imgPrint.height = '20';
   imgPrint.style.setProperty('margin-right', '2.5rem');
@@ -133,15 +144,15 @@ function loadItems(note) {
 
   //Setting visual text for every created element
   header2Title.innerHTML = note.title;
-  dateParagraph.innerText = "Last edited"+dateHowLongAgo(note.lastChanged);
-  newdateParagraph.innerText = "Created" +dateHowLongAgo(note.dateOfCreation);
+  dateParagraph.innerText = "Last edited " + dateHowLongAgo(note.lastChanged);
+  newdateParagraph.innerText = "Created " + dateHowLongAgo(note.dateOfCreation);
 
   previewText.innerHTML = getPreviewTextFromNote(note, 0, 50);
 
   //Setting attribute for each button
-  noteList.setAttribute('data-note-id', note.dateOfCreation);
-  header2Title.setAttribute('data-note-id', note.dateOfCreation);
-  previewText.setAttribute('data-note-id', note.dateOfCreation);
+  noteList.setAttribute('note-id', note.dateOfCreation);
+  header2Title.setAttribute('note-id', note.dateOfCreation);
+  previewText.setAttribute('note-id', note.dateOfCreation);
 
   //Setting event handlers
   imgRemove.onclick = removeNoteEventHandler;
@@ -179,8 +190,8 @@ function makeAndStoreContent() {
       counter++;
       note.lastChanged = Date.now();
       note.title = document.getElementById('editorTitle').value;
-      const h2TitleElement = document.querySelector(`h2[data-note-id='${loadID}']`);
-      const previewTextElement = document.querySelector(`p[data-note-id='${loadID}']`);
+      const h2TitleElement = document.querySelector(`h2[note-id='${loadID}']`);
+      const previewTextElement = document.querySelector(`p[note-id='${loadID}']`);
       h2TitleElement.innerHTML = note.title;
       previewTextElement.innerHTML = getPreviewTextFromNote(note, 0, 50);
     }
@@ -202,11 +213,15 @@ function makeAndStoreContent() {
  * @param {MouseEvent} event
  */
 function removeNoteEventHandler(event) {
-  const noteIdToRemove = event.target.parentNode.parentNode.getAttribute('data-note-id');
+  const noteIdToRemove = event.target.parentNode.parentNode.getAttribute('note-id');
   const indexToRemove = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToRemove));
 
+  
+  
   removeBasedOnIndex(indexToRemove);
   event.target.parentNode.parentNode.remove();
+
+
 
   //Save our new content
   storeContent();
@@ -217,11 +232,11 @@ function removeNoteEventHandler(event) {
  * @param {MouseEvent} event
  */
 function setFavoriteNoteEventHandler(event) {
-  const favoriteNote = event.target.parentNode.parentNode.getAttribute('data-note-id');
+  const favoriteNote = event.target.parentNode.parentNode.getAttribute('note-id');
   const index = getAllNotes().findIndex(note => note.dateOfCreation === Number(favoriteNote));
   const note = getNote(index);
   const isFavorited = note.setFavorite();
-  this.src = isFavorited ? './assets/star.svg' : './assets/star-regular.svg'
+  this.src = isFavorited ? './assets/icons/star-filled.svg' : './assets/icons/star-outlined.svg'
   storeContent();
 }
 
@@ -230,7 +245,7 @@ function setFavoriteNoteEventHandler(event) {
  * @param {MouseEvent} event 
  */
 function button3DotEventHandler(event) {
-  const classID = 'class_' + event.target.parentNode.getAttribute('data-note-id');
+  const classID = 'class_' + event.target.parentNode.getAttribute('note-id');
   const element = document.getElementsByClassName(classID)[0];
   element.style.setProperty('position', 'absolute');
   element.classList.toggle('group-button-show');
@@ -242,9 +257,10 @@ function button3DotEventHandler(event) {
  * @param {MouseEvent} event 
  */
 function editNoteEventHandler(event) {
-  const noteIdToEdit = event.target.getAttribute('data-note-id');
+  const noteIdToEdit = event.target.getAttribute('note-id');
   const index = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToEdit));
-  
+  showEditor();
+  setTimeout(() => { document.querySelector("#sidebar-notes").classList.remove("sidebar-show")}, 1000)
   if (index !== -1) {
     const note = getNote(index);
     const editorTitle = document.getElementById('editorTitle');
@@ -255,12 +271,34 @@ function editNoteEventHandler(event) {
   storeContent();
 }
 
-document.getElementById('new-document').addEventListener('click', function () {
+/**
+ * Opens last opened note from the landing page
+ */
+function editOpenedNoteButton() {
+  const noteIdToEdit = JSON.parse(localStorage.getItem('edit-id'));
+  const index = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToEdit));
+  showEditor();
+  setTimeout(() => { document.querySelector("#sidebar-notes").classList.remove("sidebar-show") }, 1000)
+  if (index !== -1) {
+    const note = getNote(index);
+    const editorTitle = document.getElementById('editorTitle');
+    editor.setContents(note.content);
+    editorTitle.value = note.title;
+  }
+  saveEditID(noteIdToEdit);
+  storeContent();
+}
 
+document.querySelector('#new-document').addEventListener('click', preNewNote);
+
+/**
+* Resets the edit-id and the editor of its content
+*/
+function preNewNote(){
   localStorage.setItem('edit-id', JSON.stringify(0));
   clearContents();
   document.getElementById('editorTitle').value = '';
-});
+}
 
 function clearAllChildren(node) {
   while (node.firstChild) {
@@ -274,9 +312,19 @@ function renderItems(notes = getAllNotes()) {
 }
 
 //save button
-document.getElementById('save-btn').addEventListener('click', saveFunction);
+document.querySelector('#save-btn').addEventListener('click', saveFunction);
+
+function saveEventAnimation() {
+  // Change text to Saved! 
+  // 
+  document.querySelector('#save-btn').textContent = "Saved!";
+  document.querySelector('#save-btn').style.backgroundColor = "var(--green)";
+  document.querySelector('#save-btn').style.color = "white"
+}
+
 
 function saveFunction() {
+  setTimeout(saveEventAnimation, 1000);
   makeAndStoreContent();
 }
 
@@ -286,6 +334,7 @@ function editorLoad() {
   if (noteIdToLoad !== -1) {
     editor.setContents(getNote(noteIdToLoad).content);
   }
+  
 }
 
 function clearContents() {
@@ -296,49 +345,47 @@ function storeContent() {
   localStorage.setItem('save-notes', JSON.stringify(getAllNotes()))
 }
 
-const navbarSlide = () => {
-  const burger = document.querySelector('.hamburger');
-  const nav = document.querySelector('.nav__link-group');
-  const navLinks = document.querySelectorAll('.nav__link-group li');
+const noteList = document.querySelector('#sidebar-notes');
+const settingsList = document.querySelector('#sidebar-settings');
 
-  burger.addEventListener('click', function () {
-    //Toggle nav
-    nav.classList.toggle('nav-active');
+document.body.addEventListener("click", (event) => {
+  const targetName = event.target.id;
 
-    //Animate Links
-    navLinks.forEach((link, index) => {
-      if (link.style.animation) {
-        link.style.animation = ''
-      } else {
-        link.style.animation = `navLinkFade 0.5s ease backwards ${index / 7 + 0.2}s`;
-      }
-    });
-    //burger animation
-    this.classList.toggle('hamburger-toggle')
-  });
-};
+  if ((targetName !== "sidebar-notes") && (targetName !== "nav-note") ) 
+  noteList.classList.remove("sidebar-show")
 
-function noteListSlide() {
-  const note = document.getElementById('nav-note');
-  const noteList = document.querySelector('#sidebar-notes');
-  const settings = document.getElementById('nav-settings');
-  const settingsList = document.querySelector('#sidebar-settings');
+  if ((targetName !== "sidebar-settings") && (targetName !== "nav-settings"))
+  settingsList.classList.remove("sidebar-show")
+})
 
-  note.addEventListener('click', function() {
-    if (settingsList.classList.contains('sidebar-show')) {
-      settingsList.classList.toggle('sidebar-show'); 
-    }
-    
-    noteList.classList.toggle('sidebar-show');
-  });
-  
-  settings.addEventListener('click', function() {
-    if (noteList.classList.contains('sidebar-show')){
-      noteList.classList.toggle('sidebar-show');
-    }
-    settingsList.classList.toggle('sidebar-show');
-  });
+/**
+ * Sort saved notes by latest edited note
+ */
+let sortedNotesByLastEdit;
+
+
+/**
+ * Decides what to display if there is any notes in LocalStorage
+ */
+function displayLatestNoteList() {
+  if (savedNotes.length === 0) {
+    document.querySelector("#landing-page__note-list").innerHTML = "No notes, why not write your first note?"
+  } else { 
+    sortedNotesByLastEdit = savedNotes.sort((a, b) => b.lastChanged - a.lastChanged);
+    displayNotes(sortedNotesByLastEdit.slice(0, 3));
+  }
 }
+
+document.querySelector("#add-new-note-button").addEventListener("click", () => {
+  preNewNote();
+  showEditor();
+});
+
+document.querySelector("#quire-logo").addEventListener("click", () => {
+  showLandingPage();
+  displayLatestNoteList();
+})
+
 
 function main() {
   initializeLocalStorage();
@@ -346,6 +393,13 @@ function main() {
   noteListSlide();
   renderItems();
   editorLoad();
+  displayLatestNoteList();
+  showEditButton(editOpenedNoteButton);
+  const latestNotes = document.querySelectorAll("#landing-page__note-list");
+  latestNotes.forEach((event) => {
+    event.onclick = editNoteEventHandler;
+  });
+
 }
 
 function searchText(text, word) {
@@ -382,12 +436,12 @@ document.getElementById('search').addEventListener('input', function() {
       const previewTemplate = (t, q) => `${t.substr(q.start, q.end)}<span class='preview-highlight'>${t.substr(q.index, word.length)}</span>${t.substr(q.index + word.length, searchPreviewLength)}`;
       
       if(titleData) {
-        const titleTextElement = document.querySelector(`h2[data-note-id='${getNote(index).dateOfCreation}']`);
+        const titleTextElement = document.querySelector(`h2[note-id='${getNote(index).dateOfCreation}']`);
         if(titleTextElement) {
           titleTextElement.innerHTML = previewTemplate(title, titleData);
         }
       } else if(textData) {
-        const previewTextElement = document.querySelector(`p[data-note-id='${getNote(index).dateOfCreation}']`);
+        const previewTextElement = document.querySelector(`p[note-id='${getNote(index).dateOfCreation}']`);
         if(previewTextElement) {
           previewTextElement.innerHTML = previewTemplate(text, textData);
         }
@@ -401,8 +455,9 @@ document.getElementById('search').addEventListener('input', function() {
 /**
  * Print button
  */
-document.getElementById('printerButton').addEventListener('click', function() {
-  window.print();
-});
+document.getElementById('printerButton').addEventListener('click', function () {
+    window.print();
+  });
 
-window.addEventListener("DOMContentLoaded", main);
+
+window.addEventListener("load", main);
