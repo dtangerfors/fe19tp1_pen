@@ -462,7 +462,7 @@ input:checked+.slider:before {
 
 /* ------------- Search Input Field Design Ends -------------*/
 
-/* OVERRIDE QUILL DESIGN */
+/* ------------- OVERRIDE QUILL DESIGN ------------- */
 #ql-picker-options-0 {
   background-color: var(--color-primary);
 }
@@ -471,7 +471,21 @@ input:checked+.slider:before {
   background-color: var(--color-accent);
 }
 
-/* END OVERRIDE QUILL DESIGN */
+.ql-toolbar--hidden {
+  visibility: hidden;
+  height: 0;
+  padding: 0 !important;
+}
+
+.ql-container--hidden {
+  border: none !important;
+}
+
+.editor-section__menu--hidden {
+  visibility: hidden;
+}
+
+/* ------------- END OVERRIDE QUILL DESIGN ------------- */
 
 /* ------------- Notes Navigation Design Ends -------------*/
 
