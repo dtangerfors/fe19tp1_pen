@@ -24,6 +24,10 @@ import {
 import {displayNotes} from './modules/page/loadnotes.js';
 
 import {
+  hideEditorOptions,
+  showEditorOptions} from './modules/notes/edit.js';
+
+import {
   showEditButton,
   showEditor,
   showLandingPage
@@ -73,7 +77,7 @@ function saveEditID(id) {
 }
 
 /**
- * 
+ * Load the editID from LocalStorage
  */
 function loadEditID() {
   const id = JSON.parse(localStorage.getItem('edit-id'));
@@ -260,6 +264,7 @@ function editNoteEventHandler(event) {
   const noteIdToEdit = event.target.getAttribute('note-id');
   const index = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToEdit));
   showEditor();
+  hideEditorOptions();
   setTimeout(() => { document.querySelector("#sidebar-notes").classList.remove("sidebar-show")}, 1000)
   if (index !== -1) {
     const note = getNote(index);
@@ -395,6 +400,7 @@ function main() {
   editorLoad();
   displayLatestNoteList();
   showEditButton(editOpenedNoteButton);
+  hideEditorOptions(event);
   const latestNotes = document.querySelectorAll("#landing-page__note-list");
   latestNotes.forEach((event) => {
     event.onclick = editNoteEventHandler;
@@ -451,6 +457,8 @@ document.getElementById('search').addEventListener('input', function() {
     });
   }
 });
+
+document.querySelector("#button-editNote").addEventListener("click", showEditorOptions)
 
 /**
  * Print button
