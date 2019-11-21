@@ -393,7 +393,7 @@ function main() {
   editorLoad();
   displayLatestNoteList();
   showEditButton(editOpenedNoteButton);
-  const latestNotes = document.querySelectorAll(".notes");
+  const latestNotes = document.querySelectorAll("#landing-page__note-list");
   latestNotes.forEach((event) => {
     event.onclick = editNoteEventHandler;
   });
