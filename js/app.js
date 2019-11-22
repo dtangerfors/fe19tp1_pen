@@ -400,7 +400,7 @@ function main() {
   editorLoad();
   displayLatestNoteList();
   showEditButton(editOpenedNoteButton);
-  hideEditorOptions(event);
+  hideEditorOptions();
   const latestNotes = document.querySelectorAll("#landing-page__note-list");
   latestNotes.forEach((event) => {
     event.onclick = editNoteEventHandler;
