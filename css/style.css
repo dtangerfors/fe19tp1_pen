@@ -518,7 +518,6 @@ input:checked+.slider:before {
 
 .landing-page__start {
   width: 50%;
-  height: 50%;
   padding-right: 1rem;
   padding-bottom: 5rem;
   display: flex;
