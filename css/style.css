@@ -45,11 +45,12 @@
 html {
   font-family: 'Roboto', sans-serif;
   font-weight: var(--body-font);
+  overflow-x: hidden;
 }
 
 body {
   display: flex;
-  background-color: var(--color-primary)
+  background-color: var(--color-primary);
 }
 
 h2 {
@@ -70,7 +71,7 @@ h2 {
 .paragraph-lead {
   font-family: inherit;
   font-size: 1.7rem;
-  color: var(--black);
+  color: var(--font-color);
 }
 
 /* -------------  TYPOGRAPHY END -------------*/
@@ -209,19 +210,19 @@ h2 {
 
 @media print {
   .nav, #note-list, .ql-toolbar, button, a, .editor-section__title, .sidebar-show, .sidebar::-webkit-scrollbar {
-   display: none;
- }
+    display: none;
+  }
 
- #editor-code {
-   border: 0;
-   overflow: hidden;
-   height: auto;
- }
+  #editor-code {
+    border: 0;
+    overflow: hidden;
+    height: auto;
+  }
 
- @page {
-   size: auto;
-   margin: 2cm;
- }
+  @page {
+    size: auto;
+    margin: 2cm;
+  }
 }
 
 @media screen and (max-width:768px) {
@@ -316,18 +317,18 @@ input:checked+.slider:before {
   overflow-wrap: break-word;
   opacity: 0;
   box-shadow: .7rem 0 0 0 rgba(0,0,0,.1);
+  transition: width .3s ease, opacity .3s ease;
 }
 
 .sidebar-show {
   width: 30rem;
   opacity: 1;
-  transition: all 0.2s linear; 
+  transition: all .3s ease;
 }
 
 .sidebar::-webkit-scrollbar {
   width: 1rem;
 }
-
 
 .sidebar::-webkit-scrollbar-thumb {
   background: #999;
@@ -398,7 +399,20 @@ input:checked+.slider:before {
 
 @media screen and (max-width:768px) {
   .sidebar {
+    position: relative;
     width: 100%;
+    height: 0;
+    max-height: 30vh;
+    margin-left: 0;
+    opacity: 0;
+    box-shadow: 0 5px #000;
+    transition: height .3s ease, opacity .3s ease;
+  }
+  
+  .sidebar-show {
+    height: auto;
+    opacity: 1;
+    transition: all .3s ease;
   }
 }
 
@@ -461,8 +475,8 @@ input:checked+.slider:before {
 @media only screen and (max-width:768px){
   #main-page-content {
     margin-top: 2rem;
-  margin-left: 0;
-}
+    margin-left: 0;
+  }
 }
 
 /* ------------- MAIN PAGE CONTENT END -------------*/
@@ -494,24 +508,24 @@ input:checked+.slider:before {
 
 @media only screen and (max-width:768px){
   .landing-page {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  margin: auto 1rem;
-  padding: 0 0;
-  width: 100%;
-  height: auto;
-}
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin: auto 1rem;
+    padding: 0 0;
+    width: 100%;
+    height: auto;
+  }
 
-.landing-page__heading {
-  font-family: 'Playfair Display', serif;
-  font-size: 3rem;
+  .landing-page__heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
 
-  color: var(--primary-purple);
-  border-bottom: 1px solid var(--grey);
+    color: var(--primary-purple);
+    border-bottom: 1px solid var(--grey);
 
-  padding-left: 1rem;
-}
+    padding-left: 1rem;
+  }
 }
 
 /* Landing Page Sections */
@@ -533,7 +547,7 @@ input:checked+.slider:before {
 }
 
 @media only screen and (max-width:768px){
-    .landing-page__start {
+  .landing-page__start {
     width: 100%;
     height: 50%;
     padding-right: 1rem;
