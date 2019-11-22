@@ -216,10 +216,16 @@ function removeNoteEventHandler(event) {
   const noteIdToRemove = event.target.parentNode.parentNode.getAttribute('note-id');
   const indexToRemove = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToRemove));
 
+  const message = window.confirm("Do you want to delete?")
+
+  if (message == true) { 
+    removeBasedOnIndex(indexToRemove);
+    event.target.parentNode.parentNode.remove();
+  } else {
+    return false
+  }
   
   
-  removeBasedOnIndex(indexToRemove);
-  event.target.parentNode.parentNode.remove();
 
 
 
