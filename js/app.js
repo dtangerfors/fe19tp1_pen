@@ -137,8 +137,8 @@ function loadItems(note) {
   imgPrint.style.setProperty('margin-right', '0rem');
 
   //Create pull button
-  const button3Dot = document.createElement('button');
-  button3Dot.innerHTML = '&#8942;';
+  const button3Dot = document.createElement('img');
+  button3Dot.setAttribute('src','assets/icons/drag-indicator.svg');
   button3Dot.setAttribute('class', 'note-button-group');
 
   //Elements for note text and content
