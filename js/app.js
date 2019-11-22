@@ -225,7 +225,7 @@ function removeNoteEventHandler(event) {
     return false
   }
   
-  
+  // om raderad note finns i editor, töm också editorn och ställ om edit-id i localstorage till 0
 
 
 
