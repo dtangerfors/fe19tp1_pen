@@ -12,6 +12,7 @@ export function hideEditorOptions() {
             qlEditor.classList.add("ql-container--hidden")
             qlEditorInner.setAttribute("contenteditable", "false")
             qlEditorMenubar.classList.add("editor-section__menu--hidden")
+            console.log("event listiner click fired")
         } else {
             qlEditorToolbar.classList.remove("ql-toolbar--hidden")
             qlEditor.classList.remove("ql-container--hidden")
