@@ -61,16 +61,16 @@ h2 {
 /* -------------  TYPOGRAPHY ------------- */
 
 .heading-primary {
-  font-weight: 300;
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+
+  color: var(--primary-purple);
+}
+
+.paragraph-lead {
+  font-family: inherit;
+  font-size: 1.7rem;
   color: var(--black);
-}
-
-.heading-primary--sub {
-  font-size: 1.6rem;
-}
-
-.heading-primary--hidden {
-  display: none;
 }
 
 /* -------------  TYPOGRAPHY END -------------*/
@@ -488,6 +488,10 @@ input:checked+.slider:before {
   padding-left: 1rem;
 }
 
+.landing-page__heading--primary {
+  margin-top: -3rem;
+}
+
 @media only screen and (max-width:768px){
   .landing-page {
   display: flex;
@@ -522,16 +526,10 @@ input:checked+.slider:before {
   justify-content: space-between;
 }
 
-.landing-page__statitics {
-  width: 50%;
-  height: 50%;
-  padding-right: 1rem;
-}
-
 .landing-page__latest-notes {
   width: 50%;
   height: 100%;
-  padding-left: 1rem;
+  padding-left: 5rem;
   padding-top: 10rem;
 }
 
@@ -546,12 +544,6 @@ input:checked+.slider:before {
     justify-content: space-between;
   }
 
-  .landing-page__statitics {
-    width: 100%;
-    height: 50%;
-    padding-right: 1rem;
-  }
-
   .landing-page__latest-notes {
     width: 100%;
     height: 100%;
@@ -562,21 +554,25 @@ input:checked+.slider:before {
 
 /* Landing Page Start Section */
 
-.landing-page__logo {
-  width: 50%;
-  fill: var(--logo-color);
+.landing-page__img-note{
+  width: 83%;
+}
+
+.landing-page__intro {
+  margin-top: 2rem;
 }
 
 .landing-page__button-list {
   display: flex;
   flex-direction: row;
 
-  
+  margin-top: 5rem;
 }
 
 .landing-page__button {
   border: none;
   border-radius: 1rem;
+  background-color: var(--primary-purple);
 
   cursor: pointer;
 
@@ -586,7 +582,7 @@ input:checked+.slider:before {
   font-family: inherit;
   font-weight: 400;
   font-size: 1.2rem;
-  color: var(--black);
+  color: white;
   text-decoration: none;
   
   display: flex;
@@ -599,20 +595,15 @@ input:checked+.slider:before {
 }
 
 .landing-page__icon {
+  filter: invert(1);
   width: 5rem;
   margin-bottom: 1rem;
 }
 
 .landing-page__button:hover {
-  background-color: var(--primary-purple);
-  border-radius: 1rem;
-  color: white;
+  background-color: var(--secondary-purple);
 }
 
-.landing-page__button:hover .landing-page__icon {
-  filter: invert(1);
-  transition: all 1s ease;
-}
 
 /* ------------- LANDING PAGE END -------------*/
 
