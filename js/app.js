@@ -258,8 +258,8 @@ function button3DotEventHandler(event) {
  */
 function editNoteEventHandler(event) {
   let filterTarget = event.target.getAttribute('class');
-  let elem = event.target.nodeName;
-  if(filterTarget !== 'note-button-group group-button-show' && filterTarget !== 'note-button-group' && elem.toLowerCase() !== 'img') {
+  let buttonGroup = event.target.nodeName;
+  if(filterTarget !== 'note-button-group group-button-show' && filterTarget !== 'note-button-group' && buttonGroup.toLowerCase() !== 'img') {
     const noteIdToEdit = event.target.getAttribute('note-id');
     const index = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToEdit));
     showEditor();
