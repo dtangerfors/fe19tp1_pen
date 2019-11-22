@@ -325,7 +325,8 @@ label[for="theme"]{
 }
 @media screen and (max-width:768px) {
   #sidebar-settings{
-    margin-top: 38vh;
+    padding: 0;
+    margin-top: 5vh;
   }
 }
 
