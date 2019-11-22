@@ -1,12 +1,10 @@
-export function hideEditorOptions(event) {
+export function hideEditorOptions() {
     const qlEditorToolbar = document.querySelector(".ql-toolbar");
     const qlEditor = document.querySelector(".ql-container");
     const qlEditorInner = document.querySelector(".ql-editor");
     const qlEditorMenubar = document.querySelector(".editor-section__menu");
 
-    const target = event.target
 
-    console.log(target.nodeName)
 
     document.body.addEventListener("click", ()=> {
         if (JSON.parse(localStorage.getItem("edit-id")) !== 0) {
