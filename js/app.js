@@ -355,13 +355,12 @@ document.getElementById('main-page-content').addEventListener("click", (event) =
   const noteList = document.querySelector('#sidebar-notes');
   
   const targetName = event.target.id;
-  
-  if ((targetName !== "sidebar-notes") && (targetName !== "nav-note") ) 
-  noteList.classList.remove("sidebar-show")
+  if ((targetName !== "sidebar-notes") && (targetName !== "nav-note"))
+    noteList.classList.remove("sidebar-show")
 
   if ((targetName !== "sidebar-settings") && (targetName !== "nav-settings"))
-  settingsList.classList.remove("sidebar-show")
-})
+    settingsList.classList.remove("sidebar-show")
+});
 
 /**
  * Sort saved notes by latest edited note
