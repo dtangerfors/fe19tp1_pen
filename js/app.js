@@ -257,18 +257,22 @@ function button3DotEventHandler(event) {
  * @param {MouseEvent} event 
  */
 function editNoteEventHandler(event) {
-  const noteIdToEdit = event.target.getAttribute('note-id');
-  const index = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToEdit));
-  showEditor();
-  setTimeout(() => { document.querySelector("#sidebar-notes").classList.remove("sidebar-show")}, 1000)
-  if (index !== -1) {
-    const note = getNote(index);
-    const editorTitle = document.getElementById('editorTitle');
-    editor.setContents(note.content);
-    editorTitle.value = note.title;
+  let filterTarget = event.target.getAttribute('class');
+  let buttonGroup = event.target.nodeName;
+  if(filterTarget !== 'note-button-group group-button-show' && filterTarget !== 'note-button-group' && buttonGroup.toLowerCase() !== 'img') {
+    const noteIdToEdit = event.target.getAttribute('note-id');
+    const index = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToEdit));
+    showEditor();
+    setTimeout(() => { document.querySelector("#sidebar-notes").classList.remove("sidebar-show")}, 1000)
+    if (index !== -1) {
+      const note = getNote(index);
+      const editorTitle = document.getElementById('editorTitle');
+      editor.setContents(note.content);
+      editorTitle.value = note.title;
+    }
+    saveEditID(noteIdToEdit);
+    storeContent();
   }
-  saveEditID(noteIdToEdit);
-  storeContent();
 }
 
 /**
@@ -345,10 +349,11 @@ function storeContent() {
   localStorage.setItem('save-notes', JSON.stringify(getAllNotes()))
 }
 
-const noteList = document.querySelector('#sidebar-notes');
-const settingsList = document.querySelector('#sidebar-settings');
 
-document.body.addEventListener("click", (event) => {
+document.getElementById('main-page-content').addEventListener("click", (event) => {
+  const settingsList = document.querySelector('#sidebar-settings');
+  const noteList = document.querySelector('#sidebar-notes');
+  
   const targetName = event.target.id;
   if ((targetName !== "sidebar-notes") && (targetName !== "nav-note"))
     noteList.classList.remove("sidebar-show")
