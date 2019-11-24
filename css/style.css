@@ -495,6 +495,7 @@ input:checked+.slider:before {
 .landing-page__heading {
   font-family: 'Playfair Display', serif;
   font-size: 3rem;
+  margin-top: -8rem;
 
   color: var(--primary-purple);
   border-bottom: 1px solid var(--grey);
@@ -503,7 +504,7 @@ input:checked+.slider:before {
 }
 
 .landing-page__heading--primary {
-  margin-top: -3rem;
+  margin-top: 2rem;
 }
 
 @media only screen and (max-width:768px){
@@ -544,6 +545,7 @@ input:checked+.slider:before {
   height: 100%;
   padding-left: 5rem;
   padding-top: 10rem;
+  padding-bottom: 5rem;
 }
 
 @media only screen and (max-width:768px){
@@ -568,6 +570,7 @@ input:checked+.slider:before {
 /* Landing Page Start Section */
 
 .landing-page__img-note{
+  margin-top: 3rem;
   width: 83%;
 }
 
