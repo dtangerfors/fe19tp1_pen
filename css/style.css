@@ -571,6 +571,8 @@ input:checked+.slider:before {
 
 .landing-page__img-note{
   margin-top: 3rem;
+  margin-left: 2rem;
+  margin-right: auto;
   width: 83%;
 }
 
