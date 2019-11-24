@@ -48,7 +48,6 @@ let searchPreviewLength = 20;
 function initializeLocalStorage() {
   if (!localStorage.getItem('save-notes')) {
     localStorage.setItem('save-notes', '[]');
-    
   } else {
     setPredefinedNotes(JSON.parse(localStorage.getItem('save-notes')));
   }
@@ -384,8 +383,7 @@ document.querySelector("#add-new-note-button").addEventListener("click", () => {
 document.querySelector("#quire-logo").addEventListener("click", () => {
   showLandingPage();
   displayLatestNoteList();
-});
-
+})
 
 function main() {
   initializeLocalStorage();
