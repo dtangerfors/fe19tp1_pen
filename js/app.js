@@ -93,8 +93,8 @@ function loadItems(note) {
   const noteList = document.createElement('li');
 
   //Creating two Div for note list
-  const leftDiv = document.createElement('section');
-  const rightDiv = document.createElement('section');
+  const leftSection = document.createElement('section');
+  const rightSection = document.createElement('section');
 
   //Create necessary buttons for a note
   const buttonRemove = document.createElement("button"),
@@ -103,8 +103,8 @@ function loadItems(note) {
   //Create div for favorite and remove buttons
   const groupButtonDiv = document.createElement('div');
   groupButtonDiv.classList.add('class_'+note.dateOfCreation);
-  leftDiv.classList.add('class_' + note.dateOfCreation);
-  rightDiv.classList.add('class','section-right');
+  leftSection.classList.add('class_' + note.dateOfCreation);
+  rightSection.classList.add('class','section-right');
   groupButtonDiv.style.setProperty('position', 'absolute');
   groupButtonDiv.style.setProperty('right', '-14rem');
 
@@ -168,11 +168,11 @@ function loadItems(note) {
   button3Dot.onclick = button3DotEventHandler;
 
   //Attach main elements to the list member
-  leftDiv.append(header2Title);
-  leftDiv.append(newdateParagraph);
-  leftDiv.append(dateParagraph);
-  leftDiv.append(previewText);
-  rightDiv.append(button3Dot);
+  leftSection.append(header2Title);
+  leftSection.append(newdateParagraph);
+  leftSection.append(dateParagraph);
+  leftSection.append(previewText);
+  rightSection.append(button3Dot);
 
   //Attach groupped elements to the child div
   groupButtonDiv.appendChild(imgFavorite);
@@ -180,12 +180,12 @@ function loadItems(note) {
   groupButtonDiv.appendChild(imgRemove);
 
   //Attach the child div back to the parent div.
-  rightDiv.append(groupButtonDiv);
+  rightSection.append(groupButtonDiv);
   
 
   // Insert div in notelist
-  noteList.append(leftDiv);
-  noteList.append(rightDiv);
+  noteList.append(leftSection);
+  noteList.append(rightSection);
 
   //Attach child div to the parent div
   elementNoteList.append(noteList);
