@@ -104,6 +104,7 @@ function loadItems(note) {
   const groupButtonDiv = document.createElement('div');
   groupButtonDiv.classList.add('class_'+note.dateOfCreation);
   leftDiv.classList.add('class_' + note.dateOfCreation);
+  rightDiv.classList.add('class','section-right');
   groupButtonDiv.style.setProperty('position', 'absolute');
   groupButtonDiv.style.setProperty('right', '-14rem');
 
