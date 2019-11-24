@@ -500,7 +500,7 @@ label[for="theme"]{
 .aside__note-list li section:first-child{
   width:80%;
 }
-.aside__note-list li section:last-child{
+.aside__note-list li .section-right{
   width:10%;
   display: flex;
   flex-direction: column;
@@ -510,9 +510,12 @@ label[for="theme"]{
 .aside__note-list li section{
   height: 100%;
 }
-.aside__note-list li section:last-child div img{
-    width: 45px;
-    padding: 0 1rem;
+.aside__note-list li .section-right div img{
+  width: 45px;
+  padding: 0 1rem;
+  height: 12vw;
+  margin-top: -4.5vw;
+
 }
 .aside__note-list li {
   background-color: var(--color-secondary)
@@ -641,10 +644,15 @@ section .group-button-show img:first-child{
   -webkit-transform: translateX(-75vw);
   transition: all 0.5s ease;
 }
-.aside__note-list li section:last-child div img{
-    width: 50px;
+.aside__note-list li .section-right div img{
+    width: 43px;
+        margin-top: -6vw;
     padding: 0 0 0 1rem;
 }
+.input-white {
+  padding:4px 0;
+}
+
 }
 
 /* ------------- Notes Navigation Design Ends -------------*/
