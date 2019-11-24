@@ -493,7 +493,7 @@ label[for="theme"]{
   padding: 2rem;
   height: auto;
   cursor: pointer;
-  background-color: #fff;
+  background-color: var(--light-grey);
   border-bottom: 1px solid var(--black);
   width: 100%;
 }
@@ -535,7 +535,7 @@ label[for="theme"]{
 }
 
 .aside__note-list li:hover {
-  background-color: var(--color-primary);
+  background-color: var(--color-list);
 }
 
 .aside__settings-list h3 {
