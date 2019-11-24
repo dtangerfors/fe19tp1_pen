@@ -8,6 +8,8 @@
   --dark-grey: #575757;
   --black: #171717;
   --green : #A6C48A;
+  --current-body-font: '';
+  --current-header-font: '';
 }
 
 .theme-light {
@@ -167,6 +169,44 @@ h2 {
   border-right: 1px solid #ccc;
 
   padding: 1rem;
+}
+
+
+.font-option {
+  position: relative;
+  width: 20rem;
+  display: block;
+  height: 1.7rem;
+}
+
+.font-option p {
+  margin-left: 2rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: gray;
+  margin-top: 2rem;
+}
+
+.font-option ul {
+  list-style: none;
+}
+
+.font-option ul li:not(:last-child) {
+  border-bottom: 0.2rem solid gainsboro;
+  margin-left: 1rem;
+}
+
+.font-option ul li {
+  padding: 1rem;
+  font-weight: 500;
+  font-size: 1.75rem;
+  margin-left: 1rem;
+}
+
+.span-font-status {
+  position: absolute;
+  right: 0;
+  cursor: pointer;
 }
 
 .editor-section__button:hover,.editor-section__print:hover {
@@ -459,6 +499,14 @@ input:checked+.slider:before {
 
 .ql-picker-item:hover {
   background-color: var(--color-accent);
+}
+
+.ql-editor p, .ql-editor ol, .ql-editor ul, .ql-editor pre {
+  font-family: var(--current-body-font);
+}
+
+.ql-editor h1, .ql-editor h2, .ql-editor h3, .ql-editor h4, .ql-editor h5, .ql-editor h6 {
+  font-family: var(--current-header-font);
 }
 
 /* END OVERRIDE QUILL DESIGN */
