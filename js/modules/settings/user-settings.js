@@ -36,9 +36,10 @@ const fontStatus = {
  */
 const localSettings = JSON.parse(localStorage.getItem('user-settings'));
 if(localSettings) {
-	settings.autoSave = localSettings.autoSave;
-	settings.activeTheme = localSettings.activeTheme;
-  settings.activeFont = localSettings.activeFont;
+	settings.autoSave = localSettings.autoSave || settings.autoSave;
+	settings.activeTheme = localSettings.activeTheme || settings.activeTheme;
+  settings.activeFont = localSettings.activeFont || settings.activeFont;
+  saveUserSettings();
 }
 resetFontStatus();
 setFont(settings.activeFont);
