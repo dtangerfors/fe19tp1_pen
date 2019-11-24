@@ -119,19 +119,19 @@ function loadItems(note) {
     imgPrint = document.createElement('img');
 
   //Inline styling for remove button
-  imgRemove.src = './assets/remove-bin.svg';
+  imgRemove.src = './assets/icons/delete.svg';
   imgRemove.width = '30';
   imgRemove.height = '30';
   imgRemove.style.setProperty('margin-right', '0rem');
 
   //Inline styling for favorite button
-  imgFavorite.src = note.isFavorite ? './assets/star.svg' : './assets/star-regular.svg'
+  imgFavorite.src = note.isFavorite ? './assets/icons/star-filled.svg' : './assets/icons/star-outlined.svg'
   imgFavorite.width = '30';
   imgFavorite.height = '30';
   imgFavorite.style.setProperty('margin-right', '0rem');
 
   //Inline styling for print button
-  imgPrint.src = './assets/printer.svg';
+  imgPrint.src = './assets/icons/print.svg';
   imgPrint.width = '30';
   imgPrint.height = '30';
   imgPrint.style.setProperty('margin-right', '0rem');
@@ -148,8 +148,11 @@ function loadItems(note) {
   const dateParagraph = document.createElement("p");
   const newdateParagraph = document.createElement("p");
   newdateParagraph.style.setProperty('font-size', '1rem');
-  newdateParagraph.style.setProperty('margin-top', '3rem');
+  newdateParagraph.style.setProperty('margin-top', '0.5rem');
+  newdateParagraph.style.setProperty('font-weight','lighter');
   dateParagraph.style.setProperty('font-size', '1rem');
+  dateParagraph.style.setProperty('margin-bottom','1rem');
+  dateParagraph.style.setProperty('font-weight', 'lighter');
 
   //Setting visual text for every created element
   header2Title.innerHTML = note.title;
@@ -171,6 +174,8 @@ function loadItems(note) {
 
   //Attach main elements to the list member
   leftDiv.append(header2Title);
+  leftDiv.append(newdateParagraph);
+  leftDiv.append(dateParagraph);
   leftDiv.append(previewText);
   rightDiv.append(button3Dot);
 
@@ -181,8 +186,7 @@ function loadItems(note) {
 
   //Attach the child div back to the parent div.
   rightDiv.append(groupButtonDiv);
-  leftDiv.append(newdateParagraph);
-  leftDiv.append(dateParagraph);
+  
 
   // Insert div in notelist
   noteList.append(leftDiv);
@@ -263,7 +267,7 @@ function button3DotEventHandler(event) {
   const element2 = document.getElementsByClassName(classID)[1];
   element2.classList.toggle('group-button-show');
   element2.style.setProperty('position', 'absolute');
-  element.classList.toggle('group-button-show');
+  element.classList.toggle('group-button-show-section');
   this.classList.toggle('group-button-show');
 }
 
