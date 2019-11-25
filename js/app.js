@@ -111,8 +111,7 @@ function loadItems(note) {
 
   //Create necessary buttons (image) for a note
   const imgRemove = document.createElement('img'),
-    imgFavorite = document.createElement('img'),
-    imgPrint = document.createElement('img');
+    imgFavorite = document.createElement('img');
 
   //Inline styling for remove button
   imgRemove.src = './assets/icons/delete.svg';
@@ -125,12 +124,6 @@ function loadItems(note) {
   imgFavorite.width = '30';
   imgFavorite.height = '30';
   imgFavorite.style.setProperty('margin-right', '0rem');
-
-  //Inline styling for print button
-  imgPrint.src = './assets/icons/print.svg';
-  imgPrint.width = '30';
-  imgPrint.height = '30';
-  imgPrint.style.setProperty('margin-right', '0rem');
 
   //Create pull button
   const button3Dot = document.createElement('img');
@@ -177,7 +170,6 @@ function loadItems(note) {
 
   //Attach groupped elements to the child div
   groupButtonDiv.appendChild(imgFavorite);
-  groupButtonDiv.appendChild(imgPrint);
   groupButtonDiv.appendChild(imgRemove);
 
   //Attach the child div back to the parent div.
