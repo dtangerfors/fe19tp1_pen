@@ -614,6 +614,9 @@ font-weight: normal;
   border-left: 1px solid var(--grey);
    transition: all 0.5s ease;
 }
+.aside__note-list li:hover .group-button-show img{
+border-color: var(--font-color)
+}
 @media only screen and (max-width:768px){
 .group-button-show{
   transform: translateX(-85vw);
