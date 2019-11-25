@@ -315,6 +315,10 @@ h2 {
 .settings__title-secondary{
   font-size: 1.6rem;
 }
+.settings__heading{
+  padding: 4rem 3rem;
+  font-size: 3rem;
+}
 
 .font-list-option {
   padding: 1rem 0;
