@@ -83,12 +83,12 @@ h2 {
 @keyframes navLinkFade {
   from {
     opacity: 0;
-    transform: translateX(50px);
+    transform: translateX(.5rem);
   }
 
   to {
     opacity: 1;
-    transform: translateX(0px);
+    transform: translateX(0);
   }
 }
 
@@ -139,18 +139,18 @@ h2 {
 
 .editor-section__title:focus {
   outline: none;
-  border: 2px solid var(--primary-purple);
+  border: .2rem solid var(--primary-purple);
   padding-left: 1rem;
 }
 
 .editor-section__editor {
   width: 100%;
-  height: 442px;
-  max-height: 842px;
+  height: 44.2rem;
+  max-height: 84.2rem;
 }
 
 .editor-section__menu {
-  border: 1px solid #ccc;
+  border: .1rem solid #ccc;
   border-top: none;
   display: flex;
   flex-direction: row;
@@ -166,7 +166,7 @@ h2 {
   color: var(--grey);
 
   border: none;
-  border-right: 1px solid #ccc;
+  border-right: .1rem solid #ccc;
 
   padding: 1rem;
 }
@@ -219,7 +219,7 @@ h2 {
   cursor: pointer;
 
   border: none;
-  border-left: 1px solid #ccc;
+  border-left: .1rem solid #ccc;
   padding: 0 1rem;
 }
 
@@ -242,6 +242,7 @@ h2 {
 @media screen and (max-width: 768px) {
   .editor-section {
     margin: 3rem;
+    height: 60rem;
   }
 } 
 
@@ -288,7 +289,7 @@ h2 {
 /* ------------- SETTINGS DESIGN -------------*/
 
 .switch {
-  margin-right: 20px;
+  margin-right: 2rem;
   position: relative;
   display: inline-block;
   width: 3rem;
@@ -331,7 +332,7 @@ input:checked+.slider {
 }
 
 input:focus+.slider {
-  box-shadow: 0 0 1px var(--primary-purple);
+  box-shadow: 0 0 .1rem var(--primary-purple);
 }
 
 input:checked+.slider:before {
@@ -396,7 +397,7 @@ input:checked+.slider:before {
   height: auto;
   cursor: pointer;
   background-color: #fff;
-  border-bottom: 1px solid var(--black);
+  border-bottom: .1rem solid var(--black);
 }
 
 .aside__note-list li {
@@ -452,7 +453,7 @@ input:checked+.slider:before {
     max-height: 99vh;
     margin-left: 0;
     opacity: 0;
-    box-shadow: 0 5px #000;
+    box-shadow: 0 .5rem #000;
     transition: height .3s ease, opacity .3s ease;
   }
   
@@ -467,7 +468,7 @@ input:checked+.slider:before {
   cursor: pointer;
   outline: 0;
   position: absolute;
-  border: 1px solid var(--black);
+  border: .1rem solid var(--black);
   right: 0;
   margin-right: 2.5rem;
   font-size: 1.5rem;
@@ -554,7 +555,7 @@ input:checked+.slider:before {
   margin-top: -8rem;
 
   color: var(--primary-purple);
-  border-bottom: 1px solid var(--grey);
+  border-bottom: .1rem solid var(--grey);
 
   padding-left: 1rem;
 }
@@ -579,7 +580,7 @@ input:checked+.slider:before {
     font-size: 3rem;
 
     color: var(--primary-purple);
-    border-bottom: 1px solid var(--grey);
+    border-bottom: .1rem solid var(--grey);
 
     padding-left: 1rem;
   }
