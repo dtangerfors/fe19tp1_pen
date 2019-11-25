@@ -346,9 +346,9 @@ input:focus+.slider {
 }
 
 input:checked+.slider:before {
-  -webkit-transform: translateX(2.35rem);
-  -ms-transform: translateX(2.35rem);
-  transform: translateX(2.35rem);
+  -webkit-transform: translateX(2.3rem);
+  -ms-transform: translateX(2.3rem);
+  transform: translateX(2.3rem);
 }
 
 .slider.round {
