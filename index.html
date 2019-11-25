@@ -11,10 +11,8 @@
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
   <!-- IMPORT FONTS -->
-  <link
-    href="https://fonts.googleapis.com/css?family=Playfair+Display:700|Roboto:300,300i,400,400i,700,700i&display=swap"
-    rel="stylesheet"
-  >
+  <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i&display=swap" rel="stylesheet">
 
   <!-- Playfair - HEADER -->
   <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700&display=swap" rel="stylesheet">
@@ -73,29 +71,27 @@
     </ul>
   </aside>
   <aside class="sidebar" id="sidebar-settings">
+    <h3>SETTINGS</h3><br><br>
     <ul class="aside__settings-list">
-      <h3>SETTINGS</h3><br><br>
-      <label class="switch">
+      <li class="switch">
         <input type="checkbox" name="auto-save">
         <span class="slider round"></span>
-      </label>
-      <label for="auto-save">Auto-save</label>
-      <br>
-      <br>
-      <label class="switch">
+      </li>
+      <li>Auto-save</li>
+      <li class="switch">
         <input type="checkbox" name="theme">
         <span class="slider round"></span>
-      </label>
-      <label for="theme">Change Theme</label>
+      </li>
+      <li>Change Theme</li>
       
-      <label class="font-option">
+      <li class="font-option">
         <p>FONT THEME<p>
         <ul id="font-list">
           <li>Noto <span id="noto-switch" class="span-font-status">Not in use</span></li>
           <li>Poppins <span id="poppin-switch" class="span-font-status">Not in use</span></li>
           <li>Quire <span id="quire-switch" class="span-font-status">Not in use</span></li>
         </ul>
-      </label>
+      </li>
     </ul>
   </aside>
 
@@ -130,6 +126,7 @@
       </div>
     </section>
     <section class="editor-section">
+      <h2>&nbsp;</h2>
       <input type="text" name="editorTitle" id="editorTitle" class="editor-section__title" placeholder="Untitled"
         spellcheck="false">
       <div id="editor-main" class="editor-section__editor">
