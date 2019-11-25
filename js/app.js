@@ -218,7 +218,10 @@ function removeNoteEventHandler(event) {
 
   const message = window.confirm("Do you want to delete?")
 
-  if (message == true) { 
+  if (message) {
+    localStorage.setItem('edit-id', '0');
+    clearContents();
+    document.getElementById('editorTitle').value = '';
     removeBasedOnIndex(indexToRemove);
     event.target.parentNode.parentNode.remove();
   } else {
