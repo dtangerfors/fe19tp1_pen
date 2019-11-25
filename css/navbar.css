@@ -139,7 +139,8 @@ html {
     }
 
     .nav {
-        position: relative;
+        position: fixed;
+        bottom: 0;
         width: 100%;
         height: auto;
         flex-direction: row;
