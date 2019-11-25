@@ -275,6 +275,12 @@ h2 {
   body {
     overflow-x: hidden;
   }
+
+  #quire-footer {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5rem;
+  }
 }
 
 .nav-active {
@@ -726,3 +732,7 @@ input:checked+.slider:before {
 }
 
 /* ------------- LANDING PAGE NOTES END -------------*/
+
+#quire-footer {
+  display: none;
+}
