@@ -25,7 +25,7 @@ html {
 }
 
 .nav__logo {
-    background-color: var(--secondary-purple);
+    background-color: rgb(var(--secondary-purple));
     padding: 1rem;
     width: inherit;
     cursor: pointer;
