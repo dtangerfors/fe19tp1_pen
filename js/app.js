@@ -63,12 +63,6 @@ function initializeLocalStorage() {
     localStorage.setItem('user-settings', JSON.stringify(userSettings));
   }
 }
-
-/**
- * Get saved notes from localStorage and parse them
- */
-const savedNotes = JSON.parse(localStorage.getItem("save-notes"));
-
 /**
  * 
  * @param {number} id 
@@ -226,10 +220,17 @@ function removeNoteEventHandler(event) {
   removeBasedOnIndex(indexToRemove);
   event.target.parentNode.parentNode.remove();
 
+  const message = window.confirm("Do you want to delete?")
 
-
-  //Save our new content
-  storeContent();
+  if (message) {
+    localStorage.setItem('edit-id', '0');
+    clearContents();
+    document.getElementById('editorTitle').value = '';
+    removeBasedOnIndex(indexToRemove);
+    event.target.parentNode.parentNode.remove();
+    //Save our new content
+    storeContent();
+  }
 }
 
 /**
@@ -272,11 +273,24 @@ function editNoteEventHandler(event) {
     const editorTitle = document.getElementById('editorTitle');
     editor.setContents(note.content);
     editorTitle.value = note.title;
+    let filterTarget = event.target.getAttribute('class');
+    let buttonGroup = event.target.nodeName;
+    if (filterTarget !== 'note-button-group group-button-show' && filterTarget !== 'note-button-group' && buttonGroup.toLowerCase() !== 'img') {
+      const noteIdToEdit = event.target.getAttribute('note-id');
+      const index = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToEdit));
+      showEditor();
+      setTimeout(() => { document.querySelector("#sidebar-notes").classList.remove("sidebar-show") }, 1000)
+      if (index !== -1) {
+        const note = getNote(index);
+        const editorTitle = document.getElementById('editorTitle');
+        editor.setContents(note.content);
+        editorTitle.value = note.title;
+      }
+      saveEditID(noteIdToEdit);
+      storeContent();
+    }
   }
-  saveEditID(noteIdToEdit);
-  storeContent();
 }
-
 /**
  * Opens last opened note from the landing page
  */
@@ -351,10 +365,11 @@ function storeContent() {
   localStorage.setItem('save-notes', JSON.stringify(getAllNotes()))
 }
 
-const noteList = document.querySelector('#sidebar-notes');
-const settingsList = document.querySelector('#sidebar-settings');
 
-document.body.addEventListener("click", (event) => {
+document.getElementById('main-page-content').addEventListener("click", (event) => {
+  const settingsList = document.querySelector('#sidebar-settings');
+  const noteList = document.querySelector('#sidebar-notes');
+
   const targetName = event.target.id;
 
   if ((targetName !== "sidebar-notes") && (targetName !== "nav-note"))
@@ -362,7 +377,7 @@ document.body.addEventListener("click", (event) => {
 
   if ((targetName !== "sidebar-settings") && (targetName !== "nav-settings"))
     settingsList.classList.remove("sidebar-show")
-})
+});
 
 /**
  * Sort saved notes by latest edited note
@@ -374,6 +389,7 @@ let sortedNotesByLastEdit;
  * Decides what to display if there is any notes in LocalStorage
  */
 function displayLatestNoteList() {
+  const savedNotes = JSON.parse(localStorage.getItem("save-notes"));
   if (savedNotes.length === 0) {
     document.querySelector("#landing-page__note-list").innerHTML = "No notes, why not write your first note?"
   } else {
@@ -391,7 +407,6 @@ document.querySelector("#quire-logo").addEventListener("click", () => {
   showLandingPage();
   displayLatestNoteList();
 })
-
 
 function main() {
   initializeLocalStorage();
