@@ -424,13 +424,13 @@ input:checked+.slider:before {
   background-color: var(--color-accent);
 }
 
-.aside__settings-list h3 {
+.sidebar h3 {
   font-size: 3rem;
   text-align: center;
   font-weight: bold;
 }
 
-.aside__settings-list label {
+.aside__settings-list li {
   font-size: 2rem;
 }
 
