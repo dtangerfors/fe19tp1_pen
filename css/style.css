@@ -239,6 +239,12 @@ h2 {
    animation: saved 2s ease infinite;
 }
 
+@media screen and (max-width: 768px) {
+  .editor-section {
+    margin: 3rem;
+  }
+} 
+
 @keyframes saved {
   0%    {opacity: 0;}
   20%   {opacity: 1;}
