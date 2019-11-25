@@ -1,7 +1,7 @@
 /* -------------  VARIABLES ------------- */
 
 :root {
-  --primary-purple: #7A6CB1;
+  --primary-purple: 122, 108, 177;
   --secondary-purple: #3D3658;
   --light-grey: #F8F8F8;
   --grey: #888;
@@ -124,13 +124,18 @@ h2 {
   bottom: 2rem;
   right: 2rem;
 
-  background-color: var(--primary-purple);
+  background-color: rgb(var(--primary-purple));
   border: none;
   border-radius: 4rem;
 }
 
 .button__edit:hover {
   background-color: var(--secondary-purple);
+}
+
+.button__edit:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(var(--primary-purple), .5);
 }
 
 .button__edit-inner {
@@ -152,16 +157,15 @@ h2 {
   font-size: 3rem;
   color: var(--font-color);
   background-color: var(--color-primary);
-  padding: 1rem 0;
+  padding: .5rem 15px;
   margin-bottom: 1rem;
   -webkit-appearance: none;
-  border: 0;
+  border: 2px solid var(--color-primary);
 }
 
 .editor-section__title:focus {
   outline: none;
-  border: 2px solid var(--primary-purple);
-  padding-left: 1rem;
+  border: 2px solid rgb(var(--primary-purple));
 }
 
 .editor-section__editor {
@@ -193,7 +197,7 @@ h2 {
 }
 
 .editor-section__button:hover,.editor-section__print:hover {
-  background-color: var(--primary-purple);
+  background-color: rgb(var(--primary-purple));
   color: white;
 }
 
@@ -304,11 +308,11 @@ h2 {
 }
 
 input:checked+.slider {
-  background-color: var(--primary-purple);
+  background-color: rgb(var(--primary-purple));
 }
 
 input:focus+.slider {
-  box-shadow: 0 0 1px var(--primary-purple);
+  box-shadow: 0 0 1px rgb(var(--primary-purple));
 }
 
 input:checked+.slider:before {
@@ -473,7 +477,6 @@ input:checked+.slider:before {
 
 .ql-toolbar--hidden {
   visibility: hidden;
-  height: 0;
   padding: 0 !important;
 }
 
@@ -520,7 +523,7 @@ input:checked+.slider:before {
   font-family: 'Playfair Display', serif;
   font-size: 3rem;
 
-  color: var(--primary-purple);
+  color: rgb(var(--primary-purple));
   border-bottom: 1px solid var(--grey);
 
   padding-left: 1rem;
@@ -541,7 +544,7 @@ input:checked+.slider:before {
   font-family: 'Playfair Display', serif;
   font-size: 3rem;
 
-  color: var(--primary-purple);
+  color: rgb(var(--primary-purple));
   border-bottom: 1px solid var(--grey);
 
   padding-left: 1rem;
@@ -642,7 +645,7 @@ input:checked+.slider:before {
 }
 
 .landing-page__button:hover {
-  background-color: var(--primary-purple);
+  background-color: rgb(var(--primary-purple));
   border-radius: 1rem;
   color: white;
 }
