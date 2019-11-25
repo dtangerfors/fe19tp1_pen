@@ -149,7 +149,7 @@ h2 {
 }
 
 .editor-section__menu {
-  border: .1rem solid #ccc;
+  border: 0;
   border-top: none;
   display: flex;
   flex-direction: row;
