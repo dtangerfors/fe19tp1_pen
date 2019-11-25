@@ -47,7 +47,6 @@
 html {
   font-family: 'Roboto', sans-serif;
   font-weight: var(--body-font);
-  overflow-x: hidden;
 }
 
 body {
@@ -569,9 +568,8 @@ input:checked+.slider:before {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    margin: auto 1rem;
+    margin: 0 1rem;
     padding: 0 0;
-    width: 100%;
     height: auto;
   }
 
@@ -600,7 +598,7 @@ input:checked+.slider:before {
 .landing-page__latest-notes {
   width: 50%;
   height: 100%;
-  padding-left: 5rem;
+  padding-left: 0;
   padding-top: 10rem;
   padding-bottom: 5rem;
 }
@@ -609,7 +607,7 @@ input:checked+.slider:before {
   .landing-page__start {
     width: 100%;
     height: 50%;
-    padding-right: 1rem;
+    padding-right: 0;
     padding-bottom: 5rem;
     display: flex;
     flex-direction: column;
@@ -619,7 +617,7 @@ input:checked+.slider:before {
   .landing-page__latest-notes {
     width: 100%;
     height: 100%;
-    padding-left: 1rem;
+    padding-left: 0;
     padding-top: 10rem;
   }
 }
