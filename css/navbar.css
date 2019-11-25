@@ -150,8 +150,8 @@ html {
     .nav__logo {
         background-color: #3D3658;
         padding: 1rem;
-        height: 4rem;
-        width: 4rem;
+        height: 6.5rem;
+        width: 6.5rem;
     }
 
     #quire-symbol {
@@ -171,7 +171,9 @@ html {
     }
 
     .nav__icon {
-        width: 2.5rem;
+        padding: 1rem;
+        width: 5rem;
+        height: 5rem;
     }
 
 /* 
