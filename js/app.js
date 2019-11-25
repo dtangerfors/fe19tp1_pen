@@ -16,11 +16,12 @@ import {
 import {
   options as quillSettings
 } from './modules/settings/quill-settings.js';
-/*import {
+
+import {
   settings as userSettings,
   saveUserSettings
 } from './modules/settings/user-settings.js';
-*/
+
 import {displayNotes} from './modules/page/loadnotes.js';
 
 import {
