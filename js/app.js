@@ -224,16 +224,9 @@ function removeNoteEventHandler(event) {
     document.getElementById('editorTitle').value = '';
     removeBasedOnIndex(indexToRemove);
     event.target.parentNode.parentNode.remove();
-  } else {
-    return false
+    //Save our new content
+    storeContent();
   }
-  
-  // om raderad note finns i editor, töm också editorn och ställ om edit-id i localstorage till 0
-
-
-
-  //Save our new content
-  storeContent();
 }
 
 /**
