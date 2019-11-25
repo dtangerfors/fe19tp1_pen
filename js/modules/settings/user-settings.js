@@ -2,27 +2,27 @@
  * End user settings
  */
 export const settings = {
-	autoSave: false,
+  autoSave: false,
   activeTheme: 'light',
   activeFont: 'noto-switch'
 };
 
 const fontStatus = {
-  'noto-switch' : {
-    status: false, 
+  'noto-switch': {
+    status: false,
     fontFamily: {
       header: `'Noto Sans', sans-serif`,
       body: `'Noto Serif', serif`
     }
   },
-  'poppin-switch' : {
+  'poppin-switch': {
     status: false,
     fontFamily: {
       header: `'Poppins', sans-serif`,
       body: `'Noto Sans', sans-serif`
     }
   },
-  'quire-switch' : {
+  'quire-switch': {
     status: false,
     fontFamily: {
       header: `'Playfair Display', serif`,
@@ -35,12 +35,13 @@ const fontStatus = {
  * Load settings from localstorage if it's saved.
  */
 const localSettings = JSON.parse(localStorage.getItem('user-settings'));
-if(localSettings) {
-	settings.autoSave = localSettings.autoSave || settings.autoSave;
-	settings.activeTheme = localSettings.activeTheme || settings.activeTheme;
+if (localSettings) {
+  settings.autoSave = localSettings.autoSave || settings.autoSave;
+  settings.activeTheme = localSettings.activeTheme || settings.activeTheme;
   settings.activeFont = localSettings.activeFont || settings.activeFont;
   saveUserSettings();
 }
+
 resetFontStatus();
 setFont(settings.activeFont);
 
@@ -61,7 +62,7 @@ export function setTheme(theme) {
  * 
  */
 function toggleTheme() {
-  if (settings.activeTheme === 'dark'){
+  if (settings.activeTheme === 'dark') {
     setTheme('light');
     return 'light';
   }
@@ -70,11 +71,11 @@ function toggleTheme() {
 }
 
 (function () {
- if (settings.activeTheme === 'dark') {
-     setTheme('dark');
- } else {
-     setTheme('light');
- }
+  if (settings.activeTheme === 'dark') {
+    setTheme('dark');
+  } else {
+    setTheme('light');
+  }
 })();
 
 /**
@@ -92,9 +93,9 @@ const theme_checkbox = document.querySelector('input[name=theme]');
 theme_checkbox.checked = settings.activeTheme === 'dark';
 
 theme_checkbox.addEventListener('change', function () {
-  if(this.checked) {
+  if (this.checked) {
     setTheme('dark');
-  }else {
+  } else {
     setTheme('light');
   }
   saveUserSettings();
@@ -108,9 +109,9 @@ function resetFontStatus() {
   const root = document.documentElement;
   root.style.setProperty('--current-header-font', '');
   root.style.setProperty('--current-body-font', '');
-  for(let key in fontStatus) {
-    const elem = document.getElementById(key);
-    elem.innerHTML = 'Not in use';
+  for (let key in fontStatus) {
+    const elem = document.querySelector(`#${key} .span-font-status`);
+    elem.innerText = 'Not in use';
     fontStatus[key].status = false;
     elem.style.setProperty('color', 'gray');
   }
@@ -118,8 +119,8 @@ function resetFontStatus() {
 
 function setFont(font) {
   const root = document.documentElement;
-  const elem = document.getElementById(font)
-  elem.innerHTML = 'In use'
+  const elem = document.querySelector(`#${font} .span-font-status`);
+  elem.innerText = 'In use'
   fontStatus[font].status = true
   root.style.setProperty('--current-header-font', fontStatus[font].fontFamily.header);
   root.style.setProperty('--current-body-font', fontStatus[font].fontFamily.body);
@@ -133,7 +134,7 @@ let fontList = document.getElementById('font-list');
  */
 fontList.addEventListener('click', function (e) {
   let target = e.target.id;
-  if(!fontStatus[target]) return;
+  if (!fontStatus[target]) return;
 
   resetFontStatus();
   setFont(target);

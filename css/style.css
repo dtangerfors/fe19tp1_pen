@@ -70,7 +70,18 @@ h2 {
 
   color: var(--primary-purple);
 }
-
+.heading-tertiary{
+  font-weight: 400;
+  font-size: 2rem;
+  color: var(--font-color);
+}
+.heading-quaternary{
+ color: var(--font-color);
+  padding-bottom: .5rem;
+    font-weight: normal;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}
 .paragraph-lead {
   font-family: inherit;
   font-size: 1.7rem;
@@ -189,13 +200,10 @@ h2 {
 }
 
 .font-option ul {
-  list-style: none;
+  
 }
 
-.font-option ul li:not(:last-child) {
-  border-bottom: 0.2rem solid gainsboro;
-  margin-left: 1rem;
-}
+.font-option ul li
 
 .font-option ul li {
   padding: 1rem;
@@ -204,11 +212,7 @@ h2 {
   margin-left: 1rem;
 }
 
-.span-font-status {
-  position: absolute;
-  right: 0;
-  cursor: pointer;
-}
+
 
 .editor-section__button:hover,.editor-section__print:hover {
   background-color: var(--primary-purple);
@@ -289,33 +293,60 @@ h2 {
 
 /* ------------- SETTINGS DESIGN -------------*/
 
+.settings__inner {
+  margin-bottom: 4rem;
+
+}
+.settings__title{
+  margin-left: 3rem;
+}
+.settings__font-list{
+  background-color: var(--color-list);
+  padding: 1rem 3rem;
+  list-style: none;
+}
+.settings__options{
+  background-color: var(--color-list);
+  padding: 1rem 3rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.settings__title-secondary{
+  font-size: 1.6rem;
+}
+
+.font-list-option {
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.font-list-option:not(:last-child) {
+  border-bottom: 1px solid var(--black)
+}
+.span-font-status{
+  font-size: 1.6rem;
+}
 .switch {
   margin-right: 2rem;
   position: relative;
   display: block;
-  float: right;
   width: 3rem;
   height: 1.7rem;
 }
 .switch:nth-of-type(3){
  margin-top:2rem;
 }
-#sidebar-settings{
-    margin: 0;
-    padding-left: 8.5rem;
-  }
 
 .switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
-.input-white{
-  background-color: var(--color-list);
-      height: 25px;
-    padding: 5px 0;
-margin-left: 2px;
-}
+
 
 .slider {
   position: absolute;
@@ -366,34 +397,15 @@ input:checked+.slider:before {
   border-radius: 50%;
 }
 
-label[for="auto-save"]{
-  float: left;
-    margin-top: -0.2rem;
-    padding-left: 0.5rem;
-}
-.aside__settings-list h4{
-  color: var(--font-color);
-  padding-left: 0.5rem;
-    font-weight: normal;
-    font-size: 1.2rem;
-}
 
-label[for="theme"]{
-  float: left;
-  padding: 0;
-  margin-top: -0.2rem;
-  padding-left: 0.5rem;
-}
 #sidebar-notes{
   padding-left:7px; 
 }
 @media screen and (max-width:768px) {
   #sidebar-settings{
     padding: 0;
-    margin-top: 5vh;
   }
   #sidebar-notes{  
-  margin-top: 40px;
   padding:0;
 }
 }
@@ -548,21 +560,8 @@ label[for="theme"]{
   background-color: var(--color-list);
 }
 
-.aside__settings-list h3 {
-  padding: 1rem;
-  font-size: 3rem;
-  text-align: center;
-  font-weight: 300;
-}
 
-.aside__settings-list label {
-  font-size: 1.6rem;
-}
 
-.aside__note-list li h3 {
-  font-weight: bold;
-  font-size: 3rem;
-}
 .aside__note-list li section h2{
 font-size: 3.3rem;
 font-weight: normal;
@@ -668,9 +667,6 @@ section .group-button-show img:first-child{
     width: 43px;
         margin-top: -4vw;
     padding: 0 0 0 1rem;
-}
-.input-white {
-  padding:4px 0;
 }
 
 }
@@ -875,9 +871,7 @@ section .group-button-show img:first-child{
 }
 
 .notes__title {
-  font-weight: 400;
-  font-size: 2rem;
-  color: var(--font-color);
+  
   margin-bottom: .2rem;
 }
 
@@ -895,7 +889,7 @@ section .group-button-show img:first-child{
 
 .notes__lastChanged {
   font-size: 1.3rem;
-  color: var(--dark-grey);
+  color: var(--font-color);
   margin-bottom: 1rem;
 }
 

@@ -22,7 +22,10 @@ import {
   saveUserSettings
 } from './modules/settings/user-settings.js';
 
-import {displayNotes} from './modules/page/loadnotes.js';
+import {
+  displayNotes,
+  notesTemplate,
+} from './modules/page/loadnotes.js';
 
 import {
   showEditButton,
@@ -162,10 +165,13 @@ function loadItems(note) {
   button3Dot.onclick = button3DotEventHandler;
 
   //Attach main elements to the list member
+  leftSection.insertAdjacentHTML('beforeend',notesTemplate(note))
+  /*
   leftSection.append(header2Title);
   leftSection.append(newdateParagraph);
   leftSection.append(dateParagraph);
   leftSection.append(previewText);
+  */
   rightSection.append(button3Dot);
 
   //Attach groupped elements to the child div

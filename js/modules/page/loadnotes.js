@@ -3,7 +3,7 @@ import {
     getTextFromContent
 } from '../notes/note-list.js';
 
-function notesTemplate(note) {
+export function notesTemplate(note) {
     // 360
     let preview = getTextFromContent(note.content.ops);
     if (preview.length > 350) {
@@ -11,7 +11,7 @@ function notesTemplate(note) {
     }
     return `
         <div class="notes" note-id="${note.dateOfCreation}">
-            <h3 class="notes__title" note-id="${note.dateOfCreation}">${note.title}</h3>
+            <h3 class="heading-tertiary notes__title" note-id="${note.dateOfCreation}">${note.title}</h3>
             <p class="notes__lastChanged" note-id="${note.dateOfCreation}">Last edited ${dateHowLongAgo(note.lastChanged)}</p>
             <p class="notes__content" note-id="${note.dateOfCreation}">${preview}</p>
         </div>
