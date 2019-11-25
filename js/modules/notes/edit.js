@@ -1,33 +1,32 @@
+let qlEditorToolbar, qlEditor, qlEditorInner, qlEditorMenubar;
+
+window.addEventListener('DOMContentLoaded', () => {
+    qlEditorToolbar = document.querySelector(".ql-toolbar");
+    qlEditor = document.querySelector(".ql-container");
+    qlEditorInner = document.querySelector(".ql-editor");
+    qlEditorMenubar = document.querySelector(".editor-section__menu");
+
+});
+
+
 export function hideEditorOptions() {
-    const qlEditorToolbar = document.querySelector(".ql-toolbar");
-    const qlEditor = document.querySelector(".ql-container");
-    const qlEditorInner = document.querySelector(".ql-editor");
-    const qlEditorMenubar = document.querySelector(".editor-section__menu");
 
-
-
-    document.body.addEventListener("click", ()=> {
-        if (JSON.parse(localStorage.getItem("edit-id")) !== 0) {
-            qlEditorToolbar.classList.add("ql-toolbar--hidden")
-            qlEditor.classList.add("ql-container--hidden")
-            qlEditorInner.setAttribute("contenteditable", "false")
-            qlEditorMenubar.classList.add("editor-section__menu--hidden")
-            console.log("event listiner click fired")
-        } else {
-            qlEditorToolbar.classList.remove("ql-toolbar--hidden")
-            qlEditor.classList.remove("ql-container--hidden")
-            qlEditorInner.setAttribute("contenteditable", "true")
-            qlEditorMenubar.classList.remove("editor-section__menu--hidden")
-            console.log("else statement fired")
-        }
-    });
+    if (JSON.parse(localStorage.getItem("edit-id")) !== "0") {
+        qlEditorToolbar.classList.add("ql-toolbar--hidden")
+        qlEditor.classList.add("ql-container--hidden")
+        qlEditorInner.setAttribute("contenteditable", "false")
+        qlEditorMenubar.classList.add("editor-section__menu--hidden")
+        console.log("event listiner click fired")
+    } else {
+        qlEditorToolbar.classList.remove("ql-toolbar--hidden")
+        qlEditor.classList.remove("ql-container--hidden")
+        qlEditorInner.setAttribute("contenteditable", "true")
+        qlEditorMenubar.classList.remove("editor-section__menu--hidden")
+        console.log("else statement fired")
+    }
 }
 
 export function showEditorOptions() {
-    const qlEditorToolbar = document.querySelector(".ql-toolbar");
-    const qlEditor = document.querySelector(".ql-container");
-    const qlEditorInner = document.querySelector(".ql-editor");
-    const qlEditorMenubar = document.querySelector(".editor-section__menu");
 
     qlEditorToolbar.classList.remove("ql-toolbar--hidden")
     qlEditor.classList.remove("ql-container--hidden")
