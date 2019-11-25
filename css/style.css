@@ -439,10 +439,11 @@ input:checked+.slider:before {
 
 @media screen and (max-width:768px) {
   .sidebar {
-    position: relative;
+    /* position: relative; */
+    top: 4rem;
     width: 100%;
     height: 0;
-    max-height: 30vh;
+    max-height: 99vh;
     margin-left: 0;
     opacity: 0;
     box-shadow: 0 5px #000;
@@ -450,7 +451,7 @@ input:checked+.slider:before {
   }
   
   .sidebar-show {
-    height: auto;
+    height: 100vh;
     opacity: 1;
     transition: all .3s ease;
   }
@@ -488,6 +489,7 @@ input:checked+.slider:before {
 #search {
   width: 100%;
   height: 4%;
+  color: var(--black);
 }
 
 /* ------------- Search Input Field Design Ends -------------*/
