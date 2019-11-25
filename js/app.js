@@ -21,11 +21,12 @@ import {
   saveUserSettings
 } from './modules/settings/user-settings.js';
 
-import {displayNotes} from './modules/page/loadnotes.js';
+import { displayNotes } from './modules/page/loadnotes.js';
 
 import {
   hideEditorOptions,
-  showEditorOptions} from './modules/notes/edit.js';
+  showEditorOptions
+} from './modules/notes/edit.js';
 
 import {
   showEditButton,
@@ -220,8 +221,8 @@ function removeNoteEventHandler(event) {
   const noteIdToRemove = event.target.parentNode.parentNode.getAttribute('note-id');
   const indexToRemove = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToRemove));
 
-  
-  
+
+
   removeBasedOnIndex(indexToRemove);
   event.target.parentNode.parentNode.remove();
 
@@ -265,7 +266,7 @@ function editNoteEventHandler(event) {
   const index = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToEdit));
   showEditor();
   hideEditorOptions();
-  setTimeout(() => { document.querySelector("#sidebar-notes").classList.remove("sidebar-show")}, 1000)
+  setTimeout(() => { document.querySelector("#sidebar-notes").classList.remove("sidebar-show") }, 1000)
   if (index !== -1) {
     const note = getNote(index);
     const editorTitle = document.getElementById('editorTitle');
@@ -299,7 +300,7 @@ document.querySelector('#new-document').addEventListener('click', preNewNote);
 /**
 * Resets the edit-id and the editor of its content
 */
-function preNewNote(){
+function preNewNote() {
   localStorage.setItem('edit-id', JSON.stringify(0));
   clearContents();
   document.getElementById('editorTitle').value = '';
@@ -339,7 +340,7 @@ function editorLoad() {
   if (noteIdToLoad !== -1) {
     editor.setContents(getNote(noteIdToLoad).content);
   }
-  
+
 }
 
 function clearContents() {
@@ -356,11 +357,11 @@ const settingsList = document.querySelector('#sidebar-settings');
 document.body.addEventListener("click", (event) => {
   const targetName = event.target.id;
 
-  if ((targetName !== "sidebar-notes") && (targetName !== "nav-note") ) 
-  noteList.classList.remove("sidebar-show")
+  if ((targetName !== "sidebar-notes") && (targetName !== "nav-note"))
+    noteList.classList.remove("sidebar-show")
 
   if ((targetName !== "sidebar-settings") && (targetName !== "nav-settings"))
-  settingsList.classList.remove("sidebar-show")
+    settingsList.classList.remove("sidebar-show")
 })
 
 /**
@@ -375,7 +376,7 @@ let sortedNotesByLastEdit;
 function displayLatestNoteList() {
   if (savedNotes.length === 0) {
     document.querySelector("#landing-page__note-list").innerHTML = "No notes, why not write your first note?"
-  } else { 
+  } else {
     sortedNotesByLastEdit = savedNotes.sort((a, b) => b.lastChanged - a.lastChanged);
     displayNotes(sortedNotesByLastEdit.slice(0, 3));
   }
@@ -400,7 +401,6 @@ function main() {
   editorLoad();
   displayLatestNoteList();
   showEditButton(editOpenedNoteButton);
-  hideEditorOptions();
   const latestNotes = document.querySelectorAll("#landing-page__note-list");
   latestNotes.forEach((event) => {
     event.onclick = editNoteEventHandler;
@@ -415,16 +415,16 @@ function searchText(text, word) {
   const index = text.search(word);
 
   if (index !== -1) {
-      let start = index - searchPreviewLength < 0 ? 0 : index - searchPreviewLength;
-      let end = start === 0 ? index : searchPreviewLength;
-      return { start, end, index }
+    let start = index - searchPreviewLength < 0 ? 0 : index - searchPreviewLength;
+    let end = start === 0 ? index : searchPreviewLength;
+    return { start, end, index }
   }
 
   return false;
 }
 
-document.getElementById('search').addEventListener('input', function() {
-  if(getAllNotes().length > 0) {
+document.getElementById('search').addEventListener('input', function () {
+  if (getAllNotes().length > 0) {
     clearAllChildren(document.querySelector('.aside__note-list'));
 
     getAllNotes().filter((note, index) => {
@@ -435,20 +435,20 @@ document.getElementById('search').addEventListener('input', function() {
       const textData = searchText(text, word);
       const titleData = searchText(title, word);
 
-      if(titleData || textData) {
+      if (titleData || textData) {
         loadItems(note);
       }
 
       const previewTemplate = (t, q) => `${t.substr(q.start, q.end)}<span class='preview-highlight'>${t.substr(q.index, word.length)}</span>${t.substr(q.index + word.length, searchPreviewLength)}`;
-      
-      if(titleData) {
+
+      if (titleData) {
         const titleTextElement = document.querySelector(`h2[note-id='${getNote(index).dateOfCreation}']`);
-        if(titleTextElement) {
+        if (titleTextElement) {
           titleTextElement.innerHTML = previewTemplate(title, titleData);
         }
-      } else if(textData) {
+      } else if (textData) {
         const previewTextElement = document.querySelector(`p[note-id='${getNote(index).dateOfCreation}']`);
-        if(previewTextElement) {
+        if (previewTextElement) {
           previewTextElement.innerHTML = previewTemplate(text, textData);
         }
       }
@@ -464,8 +464,8 @@ document.querySelector("#button-editNote").addEventListener("click", showEditorO
  * Print button
  */
 document.getElementById('printerButton').addEventListener('click', function () {
-    window.print();
-  });
+  window.print();
+});
 
 
 window.addEventListener("load", main);
