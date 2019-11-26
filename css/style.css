@@ -302,8 +302,6 @@ h2 {
 
   #quire-footer {
     display: flex;
-    flex-direction: column;
-    margin-bottom: 5rem;
   }
 }
 
@@ -480,7 +478,7 @@ input:checked+.slider:before {
 @media screen and (max-width:768px) {
   .sidebar {
     /* position: relative; */
-    bottom: 4rem;
+    bottom: 0.75rem;
     width: 100%;
     height: 0;
     max-height: 99vh;
@@ -780,6 +778,7 @@ input:checked+.slider:before {
 
 #quire-footer {
   display: none;
+}
 
 @media print {
 
