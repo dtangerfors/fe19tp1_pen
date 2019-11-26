@@ -45,6 +45,14 @@ window.getNote = getNote;
  */
 const editor = new Quill('#editor-code', quillSettings);
 
+editor.on('text-change', (_1, _2, source) => {
+  if(source === 'user') {
+    if(userSettings.autoSave && +loadEditID() !== 0) {
+      makeAndStoreContent();
+    }
+  }
+});
+
 let searchPreviewLength = 20;
 
 /*

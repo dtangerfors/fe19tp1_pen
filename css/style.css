@@ -295,23 +295,6 @@ h2 {
 
 /* ------------- EDITOR SECTION END -------------*/
 
-@media print {
-  .nav, #note-list, .ql-toolbar, button, a, .editor-section__title, .sidebar-show, .sidebar::-webkit-scrollbar {
-    display: none;
-  }
-
-  #editor-code {
-    border: 0;
-    overflow: hidden;
-    height: auto;
-  }
-
-  @page {
-    size: auto;
-    margin: 2cm;
-  }
-}
-
 @media screen and (max-width:768px) {
   body {
     overflow-x: hidden;
@@ -464,13 +447,13 @@ input:checked+.slider:before {
   background-color: var(--color-accent);
 }
 
-.aside__settings-list h3 {
+.sidebar h3 {
   font-size: 3rem;
   text-align: center;
   font-weight: bold;
 }
 
-.aside__settings-list label {
+.aside__settings-list li {
   font-size: 2rem;
 }
 
@@ -777,3 +760,41 @@ input:checked+.slider:before {
 }
 
 /* ------------- LANDING PAGE NOTES END -------------*/
+
+
+@media print {
+
+  .nav, #note-list, .ql-toolbar, button, a, .editor-section__title, .sidebar, .sidebar-show, .sidebar::-webkit-scrollbar {
+    display: none;
+  }
+
+  #editor-code {
+    border: 0;
+    overflow: hidden;
+    height: auto;
+  }
+
+  .editor-section {
+    margin: 0;
+  }
+
+
+  #main-page-content {
+    margin: 0;
+    padding: 0;
+  }
+
+  .editor-section__menu {
+    border: 0;
+  }
+
+  .ql-snow .ql-editor {
+    margin: 0;
+    padding: 0;
+  }
+
+  @page {
+    size: auto;
+    margin: 2cm;
+  }
+}
