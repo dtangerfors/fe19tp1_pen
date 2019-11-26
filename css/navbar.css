@@ -131,7 +131,8 @@ html {
     }
 
     .nav {
-        position: relative;
+        position: fixed;
+        bottom: 0;
         width: 100%;
         height: auto;
         flex-direction: row;
@@ -141,8 +142,8 @@ html {
     .nav__logo {
         background-color: #3D3658;
         padding: 1rem;
-        height: 4rem;
-        width: 4rem;
+        height: 6rem;
+        width: 5.5rem;
     }
 
     #quire-symbol {
@@ -162,7 +163,9 @@ html {
     }
 
     .nav__icon {
-        width: 2.5rem;
+        padding: 1rem;
+        width: 4.5rem;
+        height: 4.5rem;
     }
 
 /* 
