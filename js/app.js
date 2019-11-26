@@ -21,7 +21,12 @@ import {
   saveUserSettings
 } from './modules/settings/user-settings.js';
 
-import {displayNotes} from './modules/page/loadnotes.js';
+import { displayNotes } from './modules/page/loadnotes.js';
+
+import {
+  hideEditorOptions,
+  showEditorOptions
+} from './modules/notes/edit.js';
 
 import {
   showEditButton,
@@ -67,7 +72,7 @@ function saveEditID(id) {
 }
 
 /**
- * 
+ * Load the editID from LocalStorage
  */
 function loadEditID() {
   const id = JSON.parse(localStorage.getItem('edit-id'));
@@ -210,6 +215,11 @@ function removeNoteEventHandler(event) {
   const noteIdToRemove = event.target.parentNode.parentNode.getAttribute('note-id');
   const indexToRemove = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToRemove));
 
+
+
+  removeBasedOnIndex(indexToRemove);
+  event.target.parentNode.parentNode.remove();
+
   const message = window.confirm("Do you want to delete?")
 
   if (message) {
@@ -253,24 +263,34 @@ function button3DotEventHandler(event) {
  * @param {MouseEvent} event 
  */
 function editNoteEventHandler(event) {
-  let filterTarget = event.target.getAttribute('class');
-  let buttonGroup = event.target.nodeName;
-  if(filterTarget !== 'note-button-group group-button-show' && filterTarget !== 'note-button-group' && buttonGroup.toLowerCase() !== 'img') {
-    const noteIdToEdit = event.target.getAttribute('note-id');
-    const index = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToEdit));
-    showEditor();
-    setTimeout(() => { document.querySelector("#sidebar-notes").classList.remove("sidebar-show")}, 1000)
-    if (index !== -1) {
-      const note = getNote(index);
-      const editorTitle = document.getElementById('editorTitle');
-      editor.setContents(note.content);
-      editorTitle.value = note.title;
+  const noteIdToEdit = event.target.getAttribute('note-id');
+  const index = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToEdit));
+  showEditor();
+  hideEditorOptions();
+  setTimeout(() => { document.querySelector("#sidebar-notes").classList.remove("sidebar-show") }, 1000)
+  if (index !== -1) {
+    const note = getNote(index);
+    const editorTitle = document.getElementById('editorTitle');
+    editor.setContents(note.content);
+    editorTitle.value = note.title;
+    let filterTarget = event.target.getAttribute('class');
+    let buttonGroup = event.target.nodeName;
+    if (filterTarget !== 'note-button-group group-button-show' && filterTarget !== 'note-button-group' && buttonGroup.toLowerCase() !== 'img') {
+      const noteIdToEdit = event.target.getAttribute('note-id');
+      const index = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToEdit));
+      showEditor();
+      setTimeout(() => { document.querySelector("#sidebar-notes").classList.remove("sidebar-show") }, 1000)
+      if (index !== -1) {
+        const note = getNote(index);
+        const editorTitle = document.getElementById('editorTitle');
+        editor.setContents(note.content);
+        editorTitle.value = note.title;
+      }
+      saveEditID(noteIdToEdit);
+      storeContent();
     }
-    saveEditID(noteIdToEdit);
-    storeContent();
   }
 }
-
 /**
  * Opens last opened note from the landing page
  */
@@ -294,7 +314,7 @@ document.querySelector('#new-document').addEventListener('click', preNewNote);
 /**
 * Resets the edit-id and the editor of its content
 */
-function preNewNote(){
+function preNewNote() {
   localStorage.setItem('edit-id', JSON.stringify(0));
   clearContents();
   document.getElementById('editorTitle').value = '';
@@ -334,7 +354,7 @@ function editorLoad() {
   if (noteIdToLoad !== -1) {
     editor.setContents(getNote(noteIdToLoad).content);
   }
-  
+
 }
 
 function clearContents() {
@@ -349,8 +369,9 @@ function storeContent() {
 document.getElementById('main-page-content').addEventListener("click", (event) => {
   const settingsList = document.querySelector('#sidebar-settings');
   const noteList = document.querySelector('#sidebar-notes');
-  
+
   const targetName = event.target.id;
+
   if ((targetName !== "sidebar-notes") && (targetName !== "nav-note"))
     noteList.classList.remove("sidebar-show")
 
@@ -371,7 +392,7 @@ function displayLatestNoteList() {
   const savedNotes = JSON.parse(localStorage.getItem("save-notes"));
   if (savedNotes.length === 0) {
     document.querySelector("#landing-page__note-list").innerHTML = "No notes, why not write your first note?"
-  } else { 
+  } else {
     sortedNotesByLastEdit = savedNotes.sort((a, b) => b.lastChanged - a.lastChanged);
     displayNotes(sortedNotesByLastEdit.slice(0, 3));
   }
@@ -409,16 +430,16 @@ function searchText(text, word) {
   const index = text.search(word);
 
   if (index !== -1) {
-      let start = index - searchPreviewLength < 0 ? 0 : index - searchPreviewLength;
-      let end = start === 0 ? index : searchPreviewLength;
-      return { start, end, index }
+    let start = index - searchPreviewLength < 0 ? 0 : index - searchPreviewLength;
+    let end = start === 0 ? index : searchPreviewLength;
+    return { start, end, index }
   }
 
   return false;
 }
 
-document.getElementById('search').addEventListener('input', function() {
-  if(getAllNotes().length > 0) {
+document.getElementById('search').addEventListener('input', function () {
+  if (getAllNotes().length > 0) {
     clearAllChildren(document.querySelector('.aside__note-list'));
 
     getAllNotes().filter((note, index) => {
@@ -429,20 +450,20 @@ document.getElementById('search').addEventListener('input', function() {
       const textData = searchText(text, word);
       const titleData = searchText(title, word);
 
-      if(titleData || textData) {
+      if (titleData || textData) {
         loadItems(note);
       }
 
       const previewTemplate = (t, q) => `${t.substr(q.start, q.end)}<span class='preview-highlight'>${t.substr(q.index, word.length)}</span>${t.substr(q.index + word.length, searchPreviewLength)}`;
-      
-      if(titleData) {
+
+      if (titleData) {
         const titleTextElement = document.querySelector(`h2[note-id='${getNote(index).dateOfCreation}']`);
-        if(titleTextElement) {
+        if (titleTextElement) {
           titleTextElement.innerHTML = previewTemplate(title, titleData);
         }
-      } else if(textData) {
+      } else if (textData) {
         const previewTextElement = document.querySelector(`p[note-id='${getNote(index).dateOfCreation}']`);
-        if(previewTextElement) {
+        if (previewTextElement) {
           previewTextElement.innerHTML = previewTemplate(text, textData);
         }
       }
@@ -452,12 +473,14 @@ document.getElementById('search').addEventListener('input', function() {
   }
 });
 
+document.querySelector("#button-editNote").addEventListener("click", showEditorOptions)
+
 /**
  * Print button
  */
 document.getElementById('printerButton').addEventListener('click', function () {
-    window.print();
-  });
+  window.print();
+});
 
 
 window.addEventListener("load", main);
