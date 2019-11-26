@@ -218,15 +218,17 @@ function removeNoteEventHandler(event) {
   const noteIdToRemove = event.target.parentNode.parentNode.getAttribute('note-id');
   const indexToRemove = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToRemove));
 
-  
-  
-  removeBasedOnIndex(indexToRemove);
-  event.target.parentNode.parentNode.remove();
+  const message = window.confirm("Do you want to delete?")
 
-
-
-  //Save our new content
-  storeContent();
+  if (message) {
+    localStorage.setItem('edit-id', '0');
+    clearContents();
+    document.getElementById('editorTitle').value = '';
+    removeBasedOnIndex(indexToRemove);
+    event.target.parentNode.parentNode.remove();
+    //Save our new content
+    storeContent();
+  }
 }
 
 /**
