@@ -17,12 +17,9 @@ export function hideEditorOptions() {
         qlEditorInner.setAttribute("contenteditable", "false")
         qlEditorMenubar.classList.add("editor-section__menu--hidden")
         editButton.style.visibility = "visible";
+        document.getElementById('editorTitle').readOnly = true;
     } else {
-        qlEditorToolbar.classList.remove("ql-toolbar--hidden")
-        qlEditor.classList.remove("ql-container--hidden")
-        qlEditorInner.setAttribute("contenteditable", "true")
-        qlEditorMenubar.classList.remove("editor-section__menu--hidden")
-        editButton.style.visibility = "hidden";
+        showEditorOptions();
     }
 }
 
@@ -32,4 +29,5 @@ export function showEditorOptions() {
     qlEditorInner.setAttribute("contenteditable", "true")
     qlEditorMenubar.classList.remove("editor-section__menu--hidden")
     editButton.style.visibility = "hidden";
+    document.getElementById('editorTitle').readOnly = false;
 }
