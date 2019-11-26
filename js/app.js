@@ -223,14 +223,9 @@ function removeNoteEventHandler(event) {
   const noteIdToRemove = event.target.parentNode.parentNode.getAttribute('note-id');
   const indexToRemove = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToRemove));
 
-
-
-  removeBasedOnIndex(indexToRemove);
-  event.target.parentNode.parentNode.remove();
-
   const message = window.confirm("Do you want to delete?")
 
-  if (message) {
+  if (message === true) {
     localStorage.setItem('edit-id', '0');
     clearContents();
     document.getElementById('editorTitle').value = '';
