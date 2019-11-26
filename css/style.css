@@ -1,8 +1,8 @@
 /* -------------  VARIABLES ------------- */
 
 :root {
-  --primary-purple: #7A6CB1;
-  --secondary-purple: #3D3658;
+  --primary-purple: 122, 108, 177;
+  --secondary-purple: 61, 54, 88;
   --light-grey: #F8F8F8;
   --grey: #888;
   --dark-grey: #575757;
@@ -16,7 +16,6 @@
   --color-primary: #fff;
   --color-secondary: var(--light-grey);
   --color-accent: var(--light-grey);
-  --logo-color: var(--secondary-purple);
   --font-color: #000000;
   --body-font: 300;
 }
@@ -25,7 +24,6 @@
   --color-primary: var(--black);
   --color-secondary: var(--dark-grey);
   --color-accent: var(--grey);
-  --logo-color: #fbfbfb;
   --font-color: #fbfbfb;
   --body-font: 400;
 }
@@ -66,7 +64,7 @@ h2 {
   font-family: 'Playfair Display', serif;
   font-size: 3rem;
 
-  color: var(--primary-purple);
+  color: rgba(var(--primary-purple));
 }
 
 .paragraph-lead {
@@ -114,6 +112,50 @@ h2 {
 
 /* -------------  BUTTONS ------------- */
 
+.button__edit {
+  -webkit-appearance: none;
+  cursor: pointer;
+
+  position: fixed;
+
+  height: 8rem;
+  width: 8rem;
+  padding: 2rem;
+  bottom: 2rem;
+  right: 2rem;
+
+  background-color: rgb(var(--primary-purple));
+  border: none;
+  border-radius: 4rem;
+}
+
+.button__edit:hover {
+  background-color: rgb(var(--secondary-purple));
+}
+
+.button__edit:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(var(--primary-purple), .5);
+}
+
+.button__edit-inner {
+  filter: invert(1);
+}
+
+@media only screen and (max-width: 768px) {
+  .button__edit {
+
+  height: 6rem;
+  width: 6rem;
+  padding: 1.5rem;
+  bottom: 6rem;
+  right: 2rem;
+
+  background-color: rgb(var(--primary-purple));
+  border: none;
+  border-radius: 4rem;
+}
+}
 
 /* -------------  BUTTONS ENS ------------- */
 
@@ -130,16 +172,15 @@ h2 {
   font-size: 3rem;
   color: var(--font-color);
   background-color: var(--color-primary);
-  padding: 1rem 0;
+  padding: .5rem 15px;
   margin-bottom: 1rem;
   -webkit-appearance: none;
-  border: 0;
+  border: 2px solid var(--color-primary);
 }
 
 .editor-section__title:focus {
   outline: none;
-  border: .2rem solid var(--primary-purple);
-  padding-left: 1rem;
+  border: 2px solid rgb(var(--primary-purple));
 }
 
 .editor-section__editor {
@@ -209,7 +250,7 @@ h2 {
 }
 
 .editor-section__button:hover,.editor-section__print:hover {
-  background-color: var(--primary-purple);
+  background-color: rgb(var(--primary-purple));
   color: white;
 }
 
@@ -331,17 +372,17 @@ h2 {
   width: 2.3rem;
   left: -0.3rem;
   bottom: -.3rem;
-  background-color: var(--secondary-purple);
+  background-color: rgb(var(--secondary-purple));
   -webkit-transition: .4s;
   transition: .4s;
 }
 
 input:checked+.slider {
-  background-color: var(--primary-purple);
+  background-color: rgb(var(--primary-purple));
 }
 
 input:focus+.slider {
-  box-shadow: 0 0 .1rem var(--primary-purple);
+  box-shadow: 0 0 1px rgb(var(--primary-purple));
 }
 
 input:checked+.slider:before {
@@ -510,7 +551,7 @@ input:checked+.slider:before {
 
 /* ------------- Search Input Field Design Ends -------------*/
 
-/* OVERRIDE QUILL DESIGN */
+/* ------------- OVERRIDE QUILL DESIGN ------------- */
 #ql-picker-options-0 {
   background-color: var(--color-primary);
 }
@@ -526,6 +567,20 @@ input:checked+.slider:before {
   border: none !important;
 }
 
+.ql-toolbar--hidden {
+  visibility: hidden;
+  padding: 0 !important;
+}
+
+.ql-container--hidden {
+  border: none !important;
+}
+
+.editor-section__menu--hidden {
+  visibility: hidden;
+}
+
+/* ------------- END OVERRIDE QUILL DESIGN ------------- */
 .ql-editor p, .ql-editor ol, .ql-editor ul, .ql-editor pre {
   font-family: var(--current-body-font);
 }
@@ -570,8 +625,8 @@ input:checked+.slider:before {
   font-size: 3rem;
   margin-top: -8rem;
 
-  color: var(--primary-purple);
-  border-bottom: .1rem solid var(--grey);
+  color: rgb(var(--primary-purple));
+  border-bottom: 1px solid var(--grey);
 
   padding-left: 1rem;
 }
@@ -594,8 +649,8 @@ input:checked+.slider:before {
     font-family: 'Playfair Display', serif;
     font-size: 3rem;
 
-    color: var(--primary-purple);
-    border-bottom: .1rem solid var(--grey);
+  color: rgb(var(--primary-purple));
+  border-bottom: 1px solid var(--grey);
 
     padding-left: 1rem;
   }
@@ -662,7 +717,7 @@ input:checked+.slider:before {
 .landing-page__button {
   border: none;
   border-radius: 1rem;
-  background-color: var(--primary-purple);
+  background-color: rgb(var(--primary-purple));
 
   cursor: pointer;
 
@@ -691,7 +746,7 @@ input:checked+.slider:before {
 }
 
 .landing-page__button:hover {
-  background-color: var(--secondary-purple);
+  background-color: rgb(var(--secondary-purple));
 }
 
 
