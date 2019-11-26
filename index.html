@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,8 +13,7 @@
   <!-- IMPORT FONTS -->
   <link
     href="https://fonts.googleapis.com/css?family=Playfair+Display:700|Roboto:300,300i,400,400i,700,700i&display=swap"
-    rel="stylesheet"
-  >
+    rel="stylesheet">
 
   <!-- Playfair - HEADER -->
   <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700&display=swap" rel="stylesheet">
@@ -61,9 +60,10 @@
       <li>
         <a href="#"><img class="nav__icon" src="assets/icons/stacked-notes.svg" id="nav-note" alt="Show notes" /></a>
       </li>
-      <li> <a href="#"><img class="nav__icon" src="assets/icons/search.svg" alt="Search notes"/></a>
+      <li> <a href="#"><img class="nav__icon" src="assets/icons/search.svg" alt="Search notes" /></a>
       </li>
-      <li> <a href="#"><img class="nav__icon" src="assets/icons/settings.svg" id="nav-settings" alt="View settings"/></a>
+      <li> <a href="#"><img class="nav__icon" src="assets/icons/settings.svg" id="nav-settings"
+            alt="View settings" /></a>
       </li>
     </ul>
   </nav>
@@ -98,21 +98,21 @@
       </label>
     </ul>
   </aside>
-
-  <div id="note-list"></div>
   <main id="main-page-content">
     <section class="landing-page">
       <div class="landing-page__start">
         <div class="heading-group">
-          <img src="assets/quire-start-illustration.svg" alt="Quire – your personal notebook online" class="landing-page__img-note">
+          <img src="assets/quire-start-illustration.svg" alt="Quire – your personal notebook online"
+            class="landing-page__img-note">
           <h1 class="heading-primary landing-page__heading--primary">Welcome to Quire</h1>
         </div>
-        <p class="paragraph-lead landing-page__intro">With Quire you are able to take notes. But that’s not everything – make them as you’d like. Print them. Highlight them.
-        Sort them. Everything stored safely on your device.</p>
+        <p class="paragraph-lead landing-page__intro">With Quire you are able to take notes. But that’s not everything –
+          make them as you’d like. Print them. Highlight them.
+          Sort them. Everything stored safely on your device.</p>
         <div class="landing-page__button-list">
           <button class="landing-page__button" id="edit-opened-note-button">
             <img src="assets/icons/edit.svg" id="icon-edit" alt="Edit opened note" class="landing-page__icon">
-            Edit opened note
+            Open last note
           </button>
           <button class="landing-page__button" id="add-new-note-button">
             <img src="assets/icons/note_add.svg" alt="Add new note" class="landing-page__icon">
@@ -136,11 +136,15 @@
         <div id="editor-code"></div>
         <div class="editor-section__menu">
           <div class="button-group">
-            <button id="save-btn" class="editor-section__button">Save</button><button id="new-document" class="editor-section__button">New Document</button>
+            <button id="save-btn" class="editor-section__button">Save</button><button id="new-document"
+              class="editor-section__button">New Document</button>
           </div>
-          <button id="printerButton" class="editor-section__print"><img src="assets/icons/print.svg" class="editor-section__print-icon" alt="Print note"/></button>
+          <button id="printerButton" class="editor-section__print"><img src="assets/icons/print.svg"
+              class="editor-section__print-icon" alt="Print note" /></button>
         </div>
       </div>
+      <button class="button__edit" id="button-editNote"><img src="assets/icons/edit.svg" alt="Edit note"
+          class="button__edit-inner"></button>
     </section>
   </main>
   <template id="edit-note-button">
