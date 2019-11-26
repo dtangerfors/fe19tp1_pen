@@ -816,3 +816,9 @@ input:checked+.slider:before {
     margin: 2cm;
   }
 }
+
+#toolbar-container {
+  position: absolute;
+  top: 0;
+  text-align: center;
+}
