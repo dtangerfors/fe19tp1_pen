@@ -113,7 +113,7 @@ function resetFontStatus() {
     const elem = document.querySelector(`#${key} .span-font-status`);
     elem.innerText = 'Not in use';
     fontStatus[key].status = false;
-    elem.style.setProperty('color', 'gray');
+    elem.style.setProperty('color', 'var(--font-color)');
   }
 }
 
@@ -134,7 +134,15 @@ let fontList = document.getElementById('font-list');
  */
 fontList.addEventListener('click', function (e) {
   let target = e.target.id;
-  if (!fontStatus[target]) return;
+  let parent = e.target.parentNode.id;
+  if (!fontStatus[target]) {
+    if (fontStatus[parent]) {
+      target = parent;
+    } else {
+      return;
+    }
+
+  }
 
   resetFontStatus();
   setFont(target);

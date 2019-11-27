@@ -35,11 +35,10 @@ import {
 } from './modules/page/loadpageitems.js'
 
 import {
-  navbarSlide,
   noteListSlide
 } from './modules/page/menu.js'
 
-import {showEditorOptions} from './modules/notes/edit.js'
+import { showEditorOptions } from './modules/notes/edit.js'
 
 window.getNote = getNote;
 /**
@@ -103,7 +102,7 @@ function getPreviewTextFromNote(note, from, to) {
 function loadItems(note) {
   console.log(note)
   //HTML Element that keeps our notes
-  
+
   const elementNoteList = document.querySelector('.aside__note-list');
 
   //Creating div for a note list
@@ -119,9 +118,9 @@ function loadItems(note) {
     buttonFavorite = document.createElement("button");
   //Create div for favorite and remove buttons
   const groupButtonDiv = document.createElement('div');
-  groupButtonDiv.classList.add('class_'+note.dateOfCreation);
+  groupButtonDiv.classList.add('class_' + note.dateOfCreation);
   leftSection.classList.add('class_' + note.dateOfCreation);
-  rightSection.classList.add('class','section-right');
+  rightSection.classList.add('class', 'section-right');
   groupButtonDiv.style.setProperty('position', 'absolute');
   groupButtonDiv.style.setProperty('right', '-14rem');
 
@@ -144,12 +143,12 @@ function loadItems(note) {
   //Setting div for img buttons
   const divFavorite = document.createElement("div");
   const divRemove = document.createElement("div");
-  divFavorite.setAttribute('class','img-div img-favorite')
+  divFavorite.setAttribute('class', 'img-div img-favorite')
   //divRemove.classList.setAttribute('class','img-div img-remove')
 
   //Create pull button
   const button3Dot = document.createElement('img');
-  button3Dot.setAttribute('src','assets/icons/drag-indicator.svg');
+  button3Dot.setAttribute('src', 'assets/icons/drag-indicator.svg');
   button3Dot.setAttribute('class', 'note-button-group');
 
   //Elements for note text and content
@@ -160,9 +159,9 @@ function loadItems(note) {
   const newdateParagraph = document.createElement("p");
   newdateParagraph.style.setProperty('font-size', '1rem');
   newdateParagraph.style.setProperty('margin-top', '0.5rem');
-  newdateParagraph.style.setProperty('font-weight','lighter');
+  newdateParagraph.style.setProperty('font-weight', 'lighter');
   dateParagraph.style.setProperty('font-size', '1rem');
-  dateParagraph.style.setProperty('margin-bottom','1rem');
+  dateParagraph.style.setProperty('margin-bottom', '1rem');
   dateParagraph.style.setProperty('font-weight', 'lighter');
 
   //Setting visual text for every created element
@@ -203,7 +202,7 @@ function loadItems(note) {
 
   //Attach the child div back to the parent div.
   rightSection.append(groupButtonDiv);
-  
+
 
   // Insert div in notelist
   noteList.append(leftSection);
@@ -284,11 +283,11 @@ function setFavoriteNoteEventHandler(event) {
 function button3DotEventHandler(event) {
   if (!(event.target.getAttribute('class'))) {
     const classID = event.target.parentNode.parentNode.getAttribute('note-id');
-    const element = document.getElementsByClassName('note-class_'+classID)[0];
-    const element2 = document.getElementsByClassName('note-class_'+classID)[1];
-    element2.classList.toggle('group-button-menue'); 
+    const element = document.getElementsByClassName('note-class_' + classID)[0];
+    const element2 = document.getElementsByClassName('note-class_' + classID)[1];
+    element2.classList.toggle('group-button-menue');
     element.classList.toggle('group-button-show-inner');
-  }  
+  }
 }
 
 /**
@@ -446,7 +445,7 @@ function addEventhandler() {
     event.onclick = button3DotEventHandler;
   });
   const deleteItem = document.querySelectorAll('.note-delete');
-  deleteItem.forEach((event) =>{
+  deleteItem.forEach((event) => {
     event.onclick = removeNoteEventHandler;
   })
   const favoriteItem = document.querySelectorAll('.note-favorite');
@@ -461,7 +460,6 @@ function addEventhandler() {
 
 function main() {
   initializeLocalStorage();
-  navbarSlide();
   noteListSlide();
   //renderItems();
   editorLoad();

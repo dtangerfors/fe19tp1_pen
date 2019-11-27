@@ -523,7 +523,7 @@ input:checked+.slider:before {
 /* ------------- Notes Navigation Design -------------*/
 
 .sidebar { 
-  background-color: var(--light-grey);
+  background-color: var(--color-secondary);
   width: 0;
   height: 100vh;
   margin-left: 8rem;
@@ -547,19 +547,6 @@ input:checked+.slider:before {
   width: 30rem;
   opacity: 1;
   z-index: 3;
-}
-
-.sidebar::-webkit-scrollbar {
-  width: 1rem;
-}
-
-.sidebar::-webkit-scrollbar-thumb {
-  background: #999;
-  border-radius: 1rem;
-}
-
-.sidebar::-webkit-scrollbar-thumb:hover {
-  background: #aaa;
 }
 
 .aside__note-list {
@@ -687,7 +674,7 @@ transform: translateX(-16rem);
 }
 
 .note-container:hover{
-  background-color:#fff;
+  background-color: var(--color-list);
 }
 .note-container__inner{
   width: 24rem;
