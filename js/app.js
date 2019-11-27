@@ -302,16 +302,16 @@ function editOpenedNoteButton() {
   storeContent();
 }
 
-//document.querySelector('#new-document').addEventListener('click', preNewNote);
+document.querySelector('#new-document').addEventListener('click', preNewNote);
 
 /**
 * Resets the edit-id and the editor of its content
 */
-/*function preNewNote() {
+function preNewNote() {
   localStorage.setItem('edit-id', JSON.stringify(0));
   clearContents();
   document.getElementById('editorTitle').value = '';
-}*/
+}
 
 function clearAllChildren(node) {
   while (node.firstChild) {
@@ -396,7 +396,7 @@ function displayLatestNoteList() {
 }
 
 document.querySelector("#add-new-note-button").addEventListener("click", () => {
-  //  preNewNote();
+  preNewNote();
   showEditor();
 });
 
@@ -479,5 +479,9 @@ document.getElementById('printerButton').addEventListener('click', function () {
   window.print();
 });
 
+document.querySelector('#editor-menu-item-show').addEventListener('click', () => {
+  const editorOptions = document.querySelector('#editor-menu-item-options')
+  editorOptions.classList.toggle('editor-options-menu-show')
+})
 
 window.addEventListener("load", main);
