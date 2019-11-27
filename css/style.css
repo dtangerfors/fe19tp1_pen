@@ -1,11 +1,11 @@
 /* -------------  VARIABLES ------------- */
 
 :root {
-  --primary-purple: #7A6CB1;
-  --secondary-purple: #3D3658;
+  --primary-purple: 122, 108, 177;
+  --secondary-purple: 61, 54, 88;
   --light-grey: #F8F8F8;
   --grey: #888;
-  --dark-grey: #575757;
+  --dark-grey: 87, 87, 87;
   --black: #171717;
   --green : #A6C48A;
   --current-body-font: '';
@@ -17,7 +17,6 @@
   --color-primary: #fff;
   --color-secondary: var(--light-grey);
   --color-accent: var(--light-grey);
-  --logo-color: var(--secondary-purple);
   --font-color: #000000;
   --body-font: 300;
 }
@@ -25,9 +24,8 @@
 .theme-dark {
   --color-list:var(--grey);
   --color-primary: var(--black);
-  --color-secondary: var(--dark-grey);
+  --color-secondary: rgb(var(--dark-grey));
   --color-accent: var(--grey);
-  --logo-color: #fbfbfb;
   --font-color: #fbfbfb;
   --body-font: 400;
 }
@@ -68,7 +66,7 @@ h2 {
   font-family: 'Playfair Display', serif;
   font-size: 3rem;
 
-  color: var(--primary-purple);
+  color: rgba(var(--primary-purple));
 }
 .heading-tertiary{
   font-weight: 400;
@@ -131,46 +129,101 @@ h2 {
   animation-fill-mode: backwards;
 }
 
+@keyframes savedAnimation {
+  0%    {opacity: 0;}
+  25%   {opacity: 1; transform: translateX(.8rem);}
+  30%   {opacity: 1; transform: translateX(1rem);}
+  85%   {opacity: 1; transform: translateX(1rem);}
+  100%  {opacity: 0;}
+
+}
+
 /* -------------  ANIMATIONS END ------------- */
 
 /* -------------  BUTTONS ------------- */
 
+.button__edit {
+  -webkit-appearance: none;
+  cursor: pointer;
+
+  position: fixed;
+
+  height: 8rem;
+  width: 8rem;
+  padding: 2rem;
+  bottom: 2rem;
+  right: 2rem;
+
+  background-color: rgb(var(--primary-purple));
+  border: none;
+  border-radius: 4rem;
+}
+
+.button__edit:hover {
+  background-color: rgb(var(--secondary-purple));
+}
+
+.button__edit:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(var(--primary-purple), .5);
+}
+
+.button__edit-inner {
+  filter: invert(1);
+}
 
 /* -------------  BUTTONS ENS ------------- */
 
 /* ------------- EDITOR SECTION -------------*/
 
 .editor-section {
-  margin: 5rem 15rem;
+  /* margin: 5rem 15rem; */
   display: none;
   flex-direction: column;
 }
+
+.editor-section__toolbar {
+  border: 0 !important;
+  box-shadow: 0 .3rem 0 0 rgba(var(--dark-grey), .1);
+  
+  top: 0;
+  position: fixed;
+  z-index: 3;
+  background-color: var(--color-accent);
+
+  width: 100%;
+  padding: 1rem 15rem !important;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 
 .editor-section__title {
   font-family: 'Playfair Display', serif;
   font-size: 3rem;
   color: var(--font-color);
   background-color: var(--color-primary);
-  padding: 1rem 0;
-  margin-bottom: 1rem;
+  padding: .5rem 15px;
+  margin: 15rem 15rem 1rem 15rem;
   -webkit-appearance: none;
-  border: 0;
+  border: 2px solid var(--color-primary);
 }
 
 .editor-section__title:focus {
   outline: none;
-  border: .2rem solid var(--primary-purple);
-  padding-left: 1rem;
+  border: 2px solid rgb(var(--primary-purple));
 }
 
 .editor-section__editor {
-  width: 100%;
-  height: 44.2rem;
-  max-height: 84.2rem;
+  width: inherit;
+  min-height: 100vh;
+  margin: 5rem 15rem;
 }
 
 .editor-section__menu {
-  border: .1rem solid #ccc;
+  border: 0;
   border-top: none;
   display: flex;
   flex-direction: row;
@@ -179,16 +232,6 @@ h2 {
 
 .editor-section__button {
   -webkit-appearance: none;
-  cursor: pointer;
-
-  font-family: inherit;
-  font-size: 1.2rem;
-  color: var(--grey);
-
-  border: none;
-  border-right: .1rem solid #ccc;
-
-  padding: 1rem;
 }
 
 
@@ -222,42 +265,62 @@ h2 {
 
 
 
-.editor-section__button:hover,.editor-section__print:hover {
-  background-color: var(--primary-purple);
+
+.editor-section__toolbar-icon {
+  -webkit-appearance: none;
+}
+
+.editor-section__toolbar-icon:hover {
+  fill: rgb(var(--primary-purple));
+}
+
+.saved-notification {
+  position: fixed;
+  right: 0;
+  bottom: 15rem;
+  transform: translateX(14rem);
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  background-color: rgb(var(--primary-purple));
+  padding: 1.5rem 5rem 1.5rem 2rem;
+
+  border-radius: 3rem;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.saved-notification--show {
+  animation: savedAnimation 5s ease infinite;
+}
+
+
+.saved-notification__text {
+  font-size: 1.4rem;
+  font-weight: 400;
+  text-transform: uppercase;
   color: white;
 }
 
-.editor-section__print {
-  -webkit-appearance: none;
-  cursor: pointer;
+.saved-notification__checkmark {
+  content: '';
 
-  border: none;
-  border-left: .1rem solid #ccc;
-  padding: 0 1rem;
+  width: 1rem;
+  height: .7rem;
+
+  margin-left: 1rem;
+  margin-top: -.5rem;
+
+  border-bottom: 2px solid white;
+  border-left: 2px solid white;
+
+  transform: rotate(-45deg);
 }
 
-.editor-section__print:hover .editor-section__print-icon {
-  filter: invert(1);
-}
 
-.editor-section__print-icon {
-  height: 2rem;
-  filter: invert(.8);
-}
 
-#save-btn::after {
-   content: ' \2713';
-   color: white;
-   display: none;
-   animation: saved 2s ease infinite;
-}
-
-@media screen and (max-width: 768px) {
-  .editor-section {
-    margin: 3rem;
-    height: 60rem;
-  }
-} 
 
 @keyframes saved {
   0%    {opacity: 0;}
@@ -268,28 +331,7 @@ h2 {
 
 /* ------------- EDITOR SECTION END -------------*/
 
-@media print {
-  .nav, #note-list, .ql-toolbar, button, a, .editor-section__title, .sidebar-show, .sidebar::-webkit-scrollbar {
-    display: none;
-  }
 
-  #editor-code {
-    border: 0;
-    overflow: hidden;
-    height: auto;
-  }
-
-  @page {
-    size: auto;
-    margin: 2cm;
-  }
-}
-
-@media screen and (max-width:768px) {
-  body {
-    overflow-x: hidden;
-  }
-}
 
 .nav-active {
   transform: translateX(0%)
@@ -343,7 +385,7 @@ h2 {
   font-size: 1.6rem;
 }
 .switch {
-  margin-right: 2rem;
+  margin-left: 2rem;
   position: relative;
   display: block;
   width: 3rem;
@@ -351,6 +393,10 @@ h2 {
 }
 .switch:nth-of-type(3){
  margin-top:2rem;
+}
+
+.checkbox-label {
+  margin-left: 2rem;
 }
 
 .switch input {
@@ -573,7 +619,6 @@ input:checked+.slider:before {
 }
 
 
-
 .aside__note-list li section h2{
 font-size: 3.3rem;
 font-weight: normal;
@@ -585,25 +630,7 @@ font-weight: normal;
   background-color: var(--black);
 }
 
-@media screen and (max-width:768px) {
-  .sidebar {
-    /* position: relative; */
-    top: 4rem;
-    width: 100%;
-    height: 0;
-    max-height: 99vh;
-    margin-left: 0;
-    opacity: 0;
-    box-shadow: 0 .5rem #000;
-    transition: height .3s ease, opacity .3s ease;
-  }
-  
-  .sidebar-show {
-    height: 100vh;
-    opacity: 1;
-    transition: all .3s ease;
-  }
-}
+
 
 .note-button-group {
   cursor: pointer;
@@ -737,7 +764,7 @@ transform: translateX(-16rem);
 
 /* ------------- Search Input Field Design Ends -------------*/
 
-/* OVERRIDE QUILL DESIGN */
+/* ------------- OVERRIDE QUILL DESIGN ------------- */
 #ql-picker-options-0 {
   background-color: var(--color-primary);
 }
@@ -746,6 +773,27 @@ transform: translateX(-16rem);
   background-color: var(--color-accent);
 }
 
+#editor-code {
+  border: 0;
+}
+/* .ql-toolbar {
+  border: none !important;
+} */
+
+.ql-toolbar--hidden {
+  visibility: hidden;
+  padding: 0 !important;
+}
+
+.ql-container--hidden {
+  border: none !important;
+}
+
+.editor-section__menu--hidden {
+  visibility: hidden;
+}
+
+/* ------------- END OVERRIDE QUILL DESIGN ------------- */
 .ql-editor p, .ql-editor ol, .ql-editor ul, .ql-editor pre {
   font-family: var(--current-body-font);
 }
@@ -765,12 +813,7 @@ transform: translateX(-16rem);
   margin-left: 8rem;
 }
 
-@media only screen and (max-width:768px){
-  #main-page-content {
-    margin-top: 2rem;
-    margin-left: 0;
-  }
-}
+
 
 /* ------------- MAIN PAGE CONTENT END -------------*/
 
@@ -790,8 +833,8 @@ transform: translateX(-16rem);
   font-size: 3rem;
   margin-top: -8rem;
 
-  color: var(--primary-purple);
-  border-bottom: .1rem solid var(--grey);
+  color: rgb(var(--primary-purple));
+  border-bottom: 1px solid var(--grey);
 
   padding-left: 1rem;
 }
@@ -800,26 +843,7 @@ transform: translateX(-16rem);
   margin-top: 2rem;
 }
 
-@media only screen and (max-width:768px){
-  .landing-page {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    margin: 0 1rem;
-    padding: 0 0;
-    height: auto;
-  }
 
-  .landing-page__heading {
-    font-family: 'Playfair Display', serif;
-    font-size: 3rem;
-
-    color: var(--primary-purple);
-    border-bottom: .1rem solid var(--grey);
-
-    padding-left: 1rem;
-  }
-}
 
 /* Landing Page Sections */
 
@@ -840,24 +864,7 @@ transform: translateX(-16rem);
   padding-bottom: 5rem;
 }
 
-@media only screen and (max-width:768px){
-  .landing-page__start {
-    width: 100%;
-    height: 50%;
-    padding-right: 0;
-    padding-bottom: 5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
 
-  .landing-page__latest-notes {
-    width: 100%;
-    height: 100%;
-    padding-left: 0;
-    padding-top: 10rem;
-  }
-}
 
 /* Landing Page Start Section */
 
@@ -882,7 +889,7 @@ transform: translateX(-16rem);
 .landing-page__button {
   border: none;
   border-radius: 1rem;
-  background-color: var(--primary-purple);
+  background-color: rgb(var(--primary-purple));
 
   cursor: pointer;
 
@@ -911,7 +918,7 @@ transform: translateX(-16rem);
 }
 
 .landing-page__button:hover {
-  background-color: var(--secondary-purple);
+  background-color: rgb(var(--secondary-purple));
 }
 
 
@@ -957,3 +964,48 @@ transform: translateX(-16rem);
 }
 
 /* ------------- LANDING PAGE NOTES END -------------*/
+
+#quire-footer {
+  display: none;
+}
+
+@media print {
+
+  .nav, #note-list, .ql-toolbar, .editor-section__toolbar, button, .editor-section__title, .sidebar, .sidebar-show, .sidebar::-webkit-scrollbar {
+    display: none;
+  }
+
+  #editor-code {
+    border: 0;
+    overflow: hidden;
+    height: auto;
+  }
+
+  .editor-section__editor {
+    margin: 0;
+  }
+
+  .editor-section {
+    margin: 0;
+  }
+
+
+  #main-page-content {
+    margin: 0;
+    padding: 0;
+  }
+
+  .editor-section__menu {
+    border: 0;
+  }
+
+  .ql-snow .ql-editor {
+    margin: 0;
+    padding: 0;
+  }
+
+  @page {
+    size: auto;
+    margin: 2cm;
+  }
+}
