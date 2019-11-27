@@ -209,6 +209,14 @@ h2 {
   -webkit-appearance: none;
 }
 
+ .editor-options-menu {
+      order: 2;
+      width: 100%;
+      display: flex;
+      flex-direction: row; 
+    }
+
+
 
 .font-option {
   position: relative;

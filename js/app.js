@@ -482,6 +482,8 @@ document.getElementById('printerButton').addEventListener('click', function () {
 document.querySelector('#editor-menu-item-show').addEventListener('click', () => {
   const editorOptions = document.querySelector('#editor-menu-item-options')
   editorOptions.classList.toggle('editor-options-menu-show')
+
+  document.querySelector('.editor-section__menu').classList.toggle('editor-section__menu-opened')
 })
 
 window.addEventListener("load", main);
