@@ -46,8 +46,8 @@ window.getNote = getNote;
 const editor = new Quill('#editor-code', quillSettings);
 
 editor.on('text-change', (_1, _2, source) => {
-  if(source === 'user') {
-    if(userSettings.autoSave && +loadEditID() !== 0) {
+  if (source === 'user') {
+    if (userSettings.autoSave && +loadEditID() !== 0) {
       makeAndStoreContent();
     }
   }
@@ -328,16 +328,20 @@ function renderItems(notes = getAllNotes()) {
 document.querySelector('#save-btn').addEventListener('click', saveFunction);
 
 function saveEventAnimation() {
-  // Change text to Saved! 
-  // 
-  document.querySelector('#save-btn').textContent = "Saved!";
-  document.querySelector('#save-btn').style.backgroundColor = "var(--green)";
-  document.querySelector('#save-btn').style.color = "white"
+  const saveNotification = document.querySelector("#saved-notification");
+
+  setTimeout(() => {
+    saveNotification.classList.add("saved-notification--show")
+  }, 1000)
+
+  setTimeout(() => {
+    saveNotification.classList.remove("saved-notification--show")
+  }, 6000)
 }
 
 
 function saveFunction() {
-  setTimeout(saveEventAnimation, 1000);
+  saveEventAnimation();
   makeAndStoreContent();
 }
 
@@ -392,7 +396,7 @@ function displayLatestNoteList() {
 }
 
 document.querySelector("#add-new-note-button").addEventListener("click", () => {
-//  preNewNote();
+  //  preNewNote();
   showEditor();
 });
 
