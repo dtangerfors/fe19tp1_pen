@@ -838,7 +838,7 @@ input:checked+.slider:before {
 
 @media print {
 
-  .nav, #note-list, .ql-toolbar, button, a, .editor-section__title, .sidebar, .sidebar-show, .sidebar::-webkit-scrollbar {
+  .nav, #note-list, .ql-toolbar, .editor-section__toolbar, button, .editor-section__title, .sidebar, .sidebar-show, .sidebar::-webkit-scrollbar {
     display: none;
   }
 
@@ -846,6 +846,10 @@ input:checked+.slider:before {
     border: 0;
     overflow: hidden;
     height: auto;
+  }
+
+  .editor-section__editor {
+    margin: 0;
   }
 
   .editor-section {
