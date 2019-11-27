@@ -82,6 +82,14 @@ h2 {
     font-size: 1.2rem;
     text-transform: uppercase;
 }
+.paragraph{
+  font-size: 1.3rem;
+}
+.paragraph-date{
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: var(--dark-grey)
+}
 .paragraph-lead {
   font-family: inherit;
   font-size: 1.7rem;
@@ -402,9 +410,6 @@ input:checked+.slider:before {
 }
 
 
-#sidebar-notes{
-  padding-left:7px; 
-}
 @media screen and (max-width:768px) {
   #sidebar-settings{
     padding: 0;
@@ -472,7 +477,7 @@ input:checked+.slider:before {
 /* ------------- Notes Navigation Design -------------*/
 
 .sidebar { 
-  background-color: var(--color-secondary);
+  background-color: var(--light-grey);
   width: 0;
   height: 100vh;
   margin-left: 8rem;
@@ -489,6 +494,13 @@ input:checked+.slider:before {
   width: 30rem;
   opacity: 1;
   transition: all .3s ease;
+}
+
+#sidebar-notes-2 {
+  display: none;
+  width: 30rem;
+  opacity: 1;
+  z-index: 3;
 }
 
 .sidebar::-webkit-scrollbar {
@@ -533,11 +545,10 @@ input:checked+.slider:before {
 .aside__note-list li section{
   height: 100%;
 }
-.aside__note-list li .section-right div img{
-  width: 45px;
-  padding: 0 1rem;
-  height: 12vw;
-  margin-top: -4.5vw;
+.aside__note-list li .section-right div{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 
 }
 .aside__note-list li {
@@ -548,9 +559,6 @@ input:checked+.slider:before {
   font-size: 2rem;
 }
 
-.aside__note-list p {
-  font-size: 1.45rem;
-}
 
 .preview-highlight {
   background-color: lime;
@@ -569,9 +577,6 @@ input:checked+.slider:before {
 .aside__note-list li section h2{
 font-size: 3.3rem;
 font-weight: normal;
-}
-.aside__note-list li section p{
-  font-size: 1.8rem
 }
 
 .aside__note-list li:after {
@@ -616,10 +621,22 @@ font-weight: normal;
   transition: all 0.5s ease;
 }
 
+.group-button-show-inner{
+  transform: translateX(-14rem);
+  -ms-transform: translateX(-14rem);
+  -webkit-transform: translateX(-14rem);
+  transition: all 0.5s ease;
+}
+.group-button-menue{
+transform: translateX(-16rem);
+  -ms-transform: translateX(-16rem);
+  -webkit-transform: translateX(-16rem);
+  transition: all 0.5s ease;
+}
 .group-button-show {
-  transform: translateX(-18rem);
-  -ms-transform: translateX(-18rem);
-  -webkit-transform: translateX(-18rem);
+  transform: translateX(-8rem);
+  -ms-transform: translateX(-8rem);
+  -webkit-transform: translateX(-8rem);
   transition: all 0.5s ease;
 }
 .group-button-show-section{
@@ -630,51 +647,84 @@ font-weight: normal;
 }
 
 
-.group-button-show img{
-  border-left: 1px solid var(--grey);
+.group-button-show div{
    transition: all 0.5s ease;
 }
-.aside__note-list li:hover .group-button-show img{
-border-color: var(--font-color)
+
+.note-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  overflow: auto;
+  width: 30rem;
+}
+
+.note-container:hover{
+  background-color:#fff;
+}
+.note-container__inner{
+  width: 24rem;
+  margin:0 3rem;
+  padding: 2rem 0;
+  border-bottom: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-grow: 1;
+  flex-shrink: 0;
+  transition: all 0.5s ease;
+}
+
+.note-container__inner:hover {
+  border-bottom: none;
+}
+
+.note-container__text-content{
+  display: flex;
+  cursor: pointer;
+  flex-direction: column;
+}
+
+.note-container__drag-indicator{
+  align-self: center;
+  padding-left: 2rem;
+  height: fit-content;
+}
+
+.note-container__drag-indicator img{
+  height: 2rem;
+  cursor: pointer;
+}
+
+.note-container__menue{
+  width: 30rem;
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  flex-shrink: 0;
+  margin: 2rem;
+  transition: all 0.5s ease;
+}
+.note-container__menue-item{
+      display: flex;
+    justify-content: center;
+    align-items: center;
+  border-left: 1px solid black;
+}
+.note-container__icon{
+  height: 3rem;
+  margin: 0 2rem;
+  transition: all 0.5s ease;
+  cursor: pointer;
 }
 @media only screen and (max-width:768px){
-.group-button-show{
-  transform: translateX(-85vw);
-  -ms-transform: translateX(-85vw);
-  -webkit-transform: translateX(-85vw);
-  transition: all 0.5s ease;
+.note-container{
+  width: 100%;
 }
-section .group-button-show img:last-child{
-   transform: translateX(55vw);
-  -ms-transform: translateX(55vw);
-  -webkit-transform: translateX(55vw);
-  transition: all 0.5s ease;
+.note-container__inner{
+  width: 90vw;
 }
-section .group-button-show img:nth-child(2){
-   transform: translateX(25vw);
-  -ms-transform: translateX(25vw);
-  -webkit-transform: translateX(25vw);
-  transition: all 0.5s ease;
 }
-section .group-button-show img:first-child{
-   transform: translateX(0vw);
-  -ms-transform: translateX(0vw);
-  -webkit-transform: translateX(0vw);
-}
-.group-button-show-section{
-  transform: translateX(-75vw);
-  -ms-transform: translateX(-75vw);
-  -webkit-transform: translateX(-75vw);
-  transition: all 0.5s ease;
-}
-.aside__note-list li .section-right div img{
-    width: 43px;
-        margin-top: -4vw;
-    padding: 0 0 0 1rem;
-}
-
-}
-
 /* ------------- Notes Navigation Design Ends -------------*/
 
 /* ------------- Search Input Field Design -------------*/

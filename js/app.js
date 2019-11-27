@@ -25,6 +25,7 @@ import {
 import {
   displayNotes,
   notesTemplate,
+  displayListNotes
 } from './modules/page/loadnotes.js';
 
 import {
@@ -90,7 +91,9 @@ function getPreviewTextFromNote(note, from, to) {
 }
 
 function loadItems(note) {
+  console.log(note)
   //HTML Element that keeps our notes
+  
   const elementNoteList = document.querySelector('.aside__note-list');
 
   //Creating div for a note list
@@ -128,6 +131,12 @@ function loadItems(note) {
   imgFavorite.height = '30';
   imgFavorite.style.setProperty('margin-right', '0rem');
 
+  //Setting div for img buttons
+  const divFavorite = document.createElement("div");
+  const divRemove = document.createElement("div");
+  divFavorite.setAttribute('class','img-div img-favorite')
+  //divRemove.classList.setAttribute('class','img-div img-remove')
+
   //Create pull button
   const button3Dot = document.createElement('img');
   button3Dot.setAttribute('src','assets/icons/drag-indicator.svg');
@@ -159,13 +168,15 @@ function loadItems(note) {
   previewText.setAttribute('note-id', note.dateOfCreation);
 
   //Setting event handlers
+
+
   imgRemove.onclick = removeNoteEventHandler;
   noteList.onclick = editNoteEventHandler;
   imgFavorite.onclick = setFavoriteNoteEventHandler;
-  button3Dot.onclick = button3DotEventHandler;
+  //button3Dot.onclick = button3DotEventHandler;
 
   //Attach main elements to the list member
-  leftSection.insertAdjacentHTML('beforeend',notesTemplate(note))
+  //leftSection.insertAdjacentHTML('beforeend',notesTemplate(note))
   /*
   leftSection.append(header2Title);
   leftSection.append(newdateParagraph);
@@ -175,8 +186,10 @@ function loadItems(note) {
   rightSection.append(button3Dot);
 
   //Attach groupped elements to the child div
-  groupButtonDiv.appendChild(imgFavorite);
-  groupButtonDiv.appendChild(imgRemove);
+  divFavorite.appendChild(imgFavorite);
+  divRemove.appendChild(imgRemove);
+  groupButtonDiv.appendChild(divFavorite);
+  groupButtonDiv.appendChild(divRemove);
 
   //Attach the child div back to the parent div.
   rightSection.append(groupButtonDiv);
@@ -187,7 +200,7 @@ function loadItems(note) {
   noteList.append(rightSection);
 
   //Attach child div to the parent div
-  elementNoteList.append(noteList);
+  //elementNoteList.append(noteList);
 }
 
 function makeAndStoreContent() {
@@ -201,9 +214,9 @@ function makeAndStoreContent() {
       counter++;
       note.lastChanged = Date.now();
       note.title = document.getElementById('editorTitle').value;
-      const h2TitleElement = document.querySelector(`h2[note-id='${loadID}']`);
+      const h3TitleElement = document.querySelector(`h3[note-id='${loadID}']`);
       const previewTextElement = document.querySelector(`p[note-id='${loadID}']`);
-      h2TitleElement.innerHTML = note.title;
+      h3TitleElement.innerHTML = note.title;
       previewTextElement.innerHTML = getPreviewTextFromNote(note, 0, 50);
     }
   });
@@ -214,9 +227,10 @@ function makeAndStoreContent() {
       content: editor.getContents()
     });
     addNote(newNote);
-    loadItems(newNote);
+    //loadItems(newNote);
   }
   storeContent();
+  displayListNotes(getAllNotes());
 }
 
 /**
@@ -224,17 +238,15 @@ function makeAndStoreContent() {
  * @param {MouseEvent} event
  */
 function removeNoteEventHandler(event) {
-  const noteIdToRemove = event.target.parentNode.parentNode.parentNode.getAttribute('note-id');
+  const noteIdToRemove = event.target.parentNode.getAttribute('note-id');
   const indexToRemove = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToRemove));
-
-  const message = window.confirm("Do you want to delete?")
-
+  const message = window.confirm("Do you want to delete?");
   if (message) {
     localStorage.setItem('edit-id', '0');
     clearContents();
     document.getElementById('editorTitle').value = '';
     removeBasedOnIndex(indexToRemove);
-    event.target.parentNode.parentNode.remove();
+    event.target.parentNode.parentNode.parentNode.remove();
     //Save our new content
     storeContent();
   }
@@ -245,7 +257,7 @@ function removeNoteEventHandler(event) {
  * @param {MouseEvent} event
  */
 function setFavoriteNoteEventHandler(event) {
-  const favoriteNote = event.target.parentNode.parentNode.parentNode.getAttribute('note-id');
+  const favoriteNote = event.target.parentNode.getAttribute('note-id');
   const index = getAllNotes().findIndex(note => note.dateOfCreation === Number(favoriteNote));
   const note = getNote(index);
   const isFavorited = note.setFavorite();
@@ -258,13 +270,13 @@ function setFavoriteNoteEventHandler(event) {
  * @param {MouseEvent} event 
  */
 function button3DotEventHandler(event) {
-  const classID = 'class_' + event.target.parentNode.parentNode.getAttribute('note-id');
-  const element = document.getElementsByClassName(classID)[0];
-  const element2 = document.getElementsByClassName(classID)[1];
-  element2.classList.toggle('group-button-show');
-  element2.style.setProperty('position', 'absolute');
-  element.classList.toggle('group-button-show-section');
-  this.classList.toggle('group-button-show');
+  if (!(event.target.getAttribute('class'))) {
+    const classID = event.target.parentNode.parentNode.getAttribute('note-id');
+    const element = document.getElementsByClassName('note-class_'+classID)[0];
+    const element2 = document.getElementsByClassName('note-class_'+classID)[1];
+    element2.classList.toggle('group-button-menue'); 
+    element.classList.toggle('group-button-show-inner');
+  }  
 }
 
 /**
@@ -324,11 +336,12 @@ function clearAllChildren(node) {
     node.removeChild(node.firstChild);
   }
 }
-
+/*
 function renderItems(notes = getAllNotes()) {
   clearAllChildren(document.querySelector('.aside__note-list'));
   notes.forEach(note => loadItems(note));
 }
+*/
 
 //save button
 document.querySelector('#save-btn').addEventListener('click', saveFunction);
@@ -382,12 +395,13 @@ document.getElementById('main-page-content').addEventListener("click", (event) =
  */
 let sortedNotesByLastEdit;
 
+const savedNotes = JSON.parse(localStorage.getItem("save-notes"));
+
 
 /**
  * Decides what to display if there is any notes in LocalStorage
  */
 function displayLatestNoteList() {
-  const savedNotes = JSON.parse(localStorage.getItem("save-notes"));
   if (savedNotes.length === 0) {
     document.querySelector("#landing-page__note-list").innerHTML = "No notes, why not write your first note?"
   } else { 
@@ -405,19 +419,39 @@ document.querySelector("#quire-logo").addEventListener("click", () => {
   showLandingPage();
   displayLatestNoteList();
 })
+function addEventhandler() {
+  const latestNotes = document.querySelectorAll("#landing-page__note-list");
+  latestNotes.forEach((event) => {
+    event.onclick = editNoteEventHandler;
+  });
+  const dragIndicator = document.querySelectorAll('.note-container__drag-indicator');
+  dragIndicator.forEach((event) => {
+    event.onclick = button3DotEventHandler;
+  });
+  const deleteItem = document.querySelectorAll('.note-delete');
+  deleteItem.forEach((event) =>{
+    event.onclick = removeNoteEventHandler;
+  })
+  const favoriteItem = document.querySelectorAll('.note-favorite');
+  favoriteItem.forEach((event) => {
+    event.onclick = setFavoriteNoteEventHandler;
+  });
+  const editTextList = document.querySelectorAll('.note-container__text-content');
+  editTextList.forEach((event) => {
+    event.onclick = editNoteEventHandler;
+  })
+}
 
 function main() {
   initializeLocalStorage();
   navbarSlide();
   noteListSlide();
-  renderItems();
+  //renderItems();
   editorLoad();
   displayLatestNoteList();
+  displayListNotes(savedNotes);
   showEditButton(editOpenedNoteButton);
-  const latestNotes = document.querySelectorAll("#landing-page__note-list");
-  latestNotes.forEach((event) => {
-    event.onclick = editNoteEventHandler;
-  });
+  addEventhandler()
 
 }
 
@@ -440,18 +474,13 @@ document.getElementById('search').addEventListener('input', function() {
   if(getAllNotes().length > 0) {
     clearAllChildren(document.querySelector('.aside__note-list'));
 
-    getAllNotes().filter((note, index) => {
+    const foundNotes = getAllNotes().filter((note, index) => {
       const word = this.value;
       const text = getTextFromContent(note.content.ops);
       const title = note.title;
 
       const textData = searchText(text, word);
       const titleData = searchText(title, word);
-
-      if(titleData || textData) {
-        loadItems(note);
-      }
-
       const previewTemplate = (t, q) => `${t.substr(q.start, q.end)}<span class='preview-highlight'>${t.substr(q.index, word.length)}</span>${t.substr(q.index + word.length, searchPreviewLength)}`;
       
       if(titleData) {
@@ -468,6 +497,8 @@ document.getElementById('search').addEventListener('input', function() {
 
       return textData || titleData;
     });
+
+    displayListNotes(foundNotes);
   }
 });
 
