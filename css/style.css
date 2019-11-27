@@ -414,7 +414,7 @@ h2 {
   right: 0;
   bottom: 0;
   width:4rem;
-  background-color: var(--dark-grey);
+  background-color: rgb(var(--dark-grey));
   -webkit-transition: .4s;
   transition: .4s;
 }

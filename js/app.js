@@ -39,6 +39,8 @@ import {
   noteListSlide
 } from './modules/page/menu.js'
 
+import {showEditorOptions} from './modules/notes/edit.js'
+
 window.getNote = getNote;
 /**
  * Quill Editor

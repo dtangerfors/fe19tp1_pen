@@ -67,6 +67,181 @@
        c58.5-61.9,103.4-148.6,134.7-259.9c31.3-111.4,47-238.7,47-382.1c0-144.7-17.7-272.1-53.2-382.1s-83.5-194.9-144.1-254.7
        c-60.6-59.9-127.7-89.8-201.5-89.8c-76.6,0-144.1,31-202.5,92.9c-58.5,61.9-103.4,148.6-134.7,260c-31.3,111.4-47,238.7-47,382.1
        C575.1,967.3,592.8,1094.7,628.3,1204.6z" />
+          </g>
+        </svg>
+      </div>
+      <div class="hamburger">
+        <div class="hamburger__inner"></div>
+      </div>
+      <ul class="nav__link-group">
+        <li>
+          <a href="#"><img class="nav__icon"
+              src="assets/icons/stacked-notes.svg"
+              id="nav-note"
+              alt="Show notes" /></a>
+        </li>
+        <li> <a href="#"><img class="nav__icon"
+              src="assets/icons/search.svg"
+              alt="Search notes" /></a>
+        </li>
+        <li> <a href="#"><img class="nav__icon"
+              src="assets/icons/settings.svg"
+              id="nav-settings"
+              alt="View settings" /></a>
+        </li>
+      </ul>
+    </nav>
+    <aside class="sidebar"
+      id="sidebar-notes-2">
+      
+      <ul class="aside__note-list">
+      </ul>
+    </aside>
+    <aside class="sidebar"
+      id="sidebar-notes">
+      <div id="note-search-list">
+        <input type="text"
+        name="search"
+        id="search"
+        placeholder="Search...">
+      </div>
+      <div id="note-list-sidebar">
+
+      </div>
+    </aside>
+    <aside class="sidebar"
+      id="sidebar-settings">
+      <div class="settings">
+        <h3 class="heading-tertiary settings__heading">Settings</h3>
+        <div class="settings__inner">
+          <h4 class="heading-quaternary settings__title">GENERAL</h4>
+          <div class="settings__options">
+            <label class="settings__title-secondary"
+              for="auto-save">Save automatically</label>
+            <label class="switch">
+              <input id="auto-save"
+                type="checkbox"
+                name="auto-save">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+        <div class="settings__inner">
+          <h4 class="heading-quaternary settings__title">APPEARANCE</h4>
+          <div class="settings__options">
+            <label class="settings__title-secondary"
+              for="theme">Darkmode</label>
+            <label class="switch">
+              <input id="theme"
+                type="checkbox"
+                name="theme">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+        <div class="settings__inner">
+          <h4 class="heading-quaternary settings__title">Font theme</h4>
+          <ul class="settings__font-list"
+            id="font-list">
+            <li id="noto-switch"
+              class="font-list-option">
+              <p class="settings__title-secondary">
+                Noto
+              </p>
+              <span class="span-font-status">Not in use</span>
+            </li>
+            <li id="poppin-switch"
+              class="font-list-option">
+              <p class="settings__title-secondary">
+                Poppins
+              </p>
+              <span class="span-font-status">Not in use</span>
+            </li>
+            <li id="quire-switch"
+              class="font-list-option">
+              <p class="settings__title-secondary">
+                Quire
+              </p>
+              <span class="span-font-status">Not in use</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </aside>
+
+    <div id="note-list"></div>
+    <main id="main-page-content">
+      <section class="landing-page">
+        <div class="landing-page__start">
+          <div class="heading-group">
+            <img src="assets/quire-start-illustration.svg"
+              alt="Quire – your personal notebook online"
+              class="landing-page__img-note">
+            <h1 class="heading-primary landing-page__heading--primary">Welcome to Quire</h1>
+          </div>
+          <p class="paragraph-lead landing-page__intro">With Quire you are able to take notes. But that’s not everything
+            – make them as you’d like. Print them. Highlight them.
+            Sort them. Everything stored safely on your device.</p>
+          <div class="landing-page__button-list">
+            <button class="landing-page__button"
+              id="edit-opened-note-button">
+              <img src="assets/icons/edit.svg"
+                id="icon-edit"
+                alt="Edit opened note"
+                class="landing-page__icon">
+              Edit opened note
+            </button>
+            <button class="landing-page__button"
+              id="add-new-note-button">
+              <img src="assets/icons/note_add.svg"
+                alt="Add new note"
+                class="landing-page__icon">
+              Add new note
+            </button>
+            <button class="landing-page__button">
+              <img src="assets/icons/help.svg"
+                alt="Learn how to use Quire"
+                class="landing-page__icon">
+              Learn Quire
+            </button>
+          </div>
+        </div>
+        <div class="landing-page__latest-notes">
+          <h2 class="heading-secondary landing-page__heading">Latest notes</h2>
+          <div id="landing-page__note-list"></div>
+        </div>
+      </section>
+      <section class="editor-section">
+        <input type="text"
+          name="editorTitle"
+          id="editorTitle"
+          class="editor-section__title"
+          placeholder="Untitled"
+          spellcheck="false">
+        <div id="editor-main"
+          class="editor-section__editor">
+          <div id="editor-code"></div>
+          <div class="editor-section__menu">
+            <div class="button-group">
+              <button id="save-btn"
+                class="editor-section__button">Save</button><button id="new-document"
+                class="editor-section__button">New Document</button>
+            </div>
+            <button id="printerButton"
+              class="editor-section__print"><img src="assets/icons/print.svg"
+                class="editor-section__print-icon"
+                alt="Print note" /></button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <template id="edit-note-button">
+    </template>
+    <script src="js/quill.js"></script>
+    <script type="module"
+      src="js/app.js"></script>
+      
+  </body>
         </g>
       </svg>
     </div>
