@@ -14,7 +14,7 @@
 }
 
 .theme-light {
-  --purple-text:rgb(var(--secondary-purple));
+  --purple-text:rgb(var(--primary-purple));
   --color-primary: #fff;
   --color-secondary: var(--light-grey);
   --color-accent: var(--light-grey);
