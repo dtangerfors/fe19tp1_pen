@@ -494,8 +494,8 @@ var check = 0;
 document.querySelector('#sort-icon').addEventListener('click',function () {
 if (check===0) {
    const getALLDates = getAllNotes().sort((noteA,notesB) => {
-    let noteADate = noteA.dateOfCreation;
-    let notesBDate = notesB.dateOfCreation;
+     let noteADate = noteA.lastChanged;
+     let notesBDate = notesB.lastChanged;
     const sortReturn =noteADate-notesBDate;
     return sortReturn;
   })
@@ -503,8 +503,8 @@ if (check===0) {
   check=1;
 } else {
   const getALLDates = getAllNotes().sort((noteA, notesB) => {
-    let noteADate = noteA.dateOfCreation;
-    let notesBDate = notesB.dateOfCreation;
+    let noteADate = noteA.lastChanged;
+    let notesBDate = notesB.lastChanged;
     const sortReturn = notesBDate -  noteADate ;
     return sortReturn;
   })
