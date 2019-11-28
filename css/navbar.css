@@ -55,11 +55,14 @@ html {
 .nav__icon {
     width: 100%;
     filter: invert(1);
+    cursor: pointer;
 }
 
 .nav__icon:hover {
     transform: scale(1.1);
+    opacity: 1;
 }
+
 
 /* Navbar end */
 
