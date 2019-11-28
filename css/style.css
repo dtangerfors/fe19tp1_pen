@@ -43,7 +43,7 @@
 }
 
 html {
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--current-body-font);
   font-weight: var(--body-font);
 }
 
@@ -61,7 +61,7 @@ h2 {
 /* -------------  TYPOGRAPHY ------------- */
 
 .heading-primary {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--current-header-font);
   font-size: 3rem;
 
   color: rgba(var(--primary-purple));
@@ -180,7 +180,7 @@ h2 {
 
 
 .editor-section__title {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--current-header-font);
   font-size: 3rem;
   color: var(--font-color);
   background-color: var(--color-primary);
@@ -537,6 +537,10 @@ input:checked+.slider:before {
   background-color: var(--color-accent);
 }
 
+.ql-snow.ql-toolbar button:hover, .ql-snow .ql-toolbar button:hover, .ql-snow.ql-toolbar button:focus, .ql-snow .ql-toolbar button:focus, .ql-snow.ql-toolbar button.ql-active, .ql-snow .ql-toolbar button.ql-active, .ql-snow.ql-toolbar .ql-picker-label:hover, .ql-snow .ql-toolbar .ql-picker-label:hover, .ql-snow.ql-toolbar .ql-picker-label.ql-active, .ql-snow .ql-toolbar .ql-picker-label.ql-active, .ql-snow.ql-toolbar .ql-picker-item:hover, .ql-snow .ql-toolbar .ql-picker-item:hover, .ql-snow.ql-toolbar .ql-picker-item.ql-selected, .ql-snow .ql-toolbar .ql-picker-item.ql-selected {
+  color: #7A6CB1 !important;
+}
+
 #editor-code {
   border: 0;
 }
@@ -593,7 +597,7 @@ input:checked+.slider:before {
 }
 
 .landing-page__heading {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--current-header-font);
   font-size: 3rem;
   margin-top: -8rem;
 
