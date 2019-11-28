@@ -72,6 +72,10 @@
 
 }
 
+.editor-section__button:not(:first-child){
+  margin-left: 1.5rem;
+}
+
   .editor-section__toolbar-group:first-child::-webkit-scrollbar {
     display: none;
   }
@@ -79,7 +83,7 @@
   .editor-section__title {
     color: var(--font-color);
     background-color: var(--color-primary);
-    margin: 12rem 1rem 1rem 2rem;
+    margin: 5rem 1rem 1rem 1rem;
     -webkit-appearance: none;
     border: 2px solid var(--color-primary);
   }
@@ -99,6 +103,8 @@
 
   #editor-menu-item-show {
       order: 1;
+      width: 50%;
+      justify-content: flex-start;
   }
 
   .editor-options-menu {
@@ -114,6 +120,9 @@
       opacity: 1;
       display: flex;
       flex-direction: column;
+      border-top: 1px solid rgb(var(--dark-grey));
+      margin-top: .5rem;
+     padding-top: 1rem;
   }
 
   .toolbar-group {
@@ -125,6 +134,7 @@
   #editor-menu-item-save {
       order: 2;
       width: 50%;
+      justify-content: flex-end;
   }
 
   .sidebar {
