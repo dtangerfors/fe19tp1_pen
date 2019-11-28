@@ -11,7 +11,7 @@ function notesTemplate(note) {
     }
     return `
         <div class="notes" note-id="${note.dateOfCreation}">
-            <h3 class="notes__title" note-id="${note.dateOfCreation}">${note.title}</h3>
+            <h3 class="heading-tertiary notes__title" note-id="${note.dateOfCreation}">${note.title}</h3>
             <p class="notes__lastChanged" note-id="${note.dateOfCreation}">Last edited ${dateHowLongAgo(note.lastChanged)}</p>
             <p class="notes__content" note-id="${note.dateOfCreation}">${preview}</p>
         </div>
@@ -20,4 +20,34 @@ function notesTemplate(note) {
 
 export function displayNotes(note) {
     return document.querySelector("#landing-page__note-list").innerHTML = note.map(notesTemplate).join("");
+}
+
+function listNoteTemplate(note) {
+    let preview = getTextFromContent(note.content.ops);
+    const imgSource = note.isFavorite ? './assets/icons/star-filled.svg' : './assets/icons/star-outlined.svg';
+    if (preview.length > 50) {
+        preview = preview.substring(0, 49) + "..."
+    }
+    return `
+        <div class="note-container">
+            <div class="note-container__inner note-class_${note.dateOfCreation}" note-id="${note.dateOfCreation}">
+                <div class="note-container__text-content">
+                    <h3 class="heading-tertiary" note-id="${note.dateOfCreation}">${note.title}</h3>
+                    <p class="paragraph-date" note-id="${note.dateOfCreation}">${dateHowLongAgo(note.lastChanged)}</p>
+                    <p class="paragraph" note-id="${note.dateOfCreation}">${preview}</p>
+                </div>
+            <div class="note-container__drag-indicator">
+                <img src="assets/icons/drag-indicator.svg" alt="open sidemenue">
+            </div>
+        </div>
+        <div class="note-container__menue note-class_${note.dateOfCreation}">
+            <div note-id="${note.dateOfCreation}" class="note-container__menue-item"><img src="${imgSource}" alt="favorite note" class="note-container__icon note-favorite"></div>
+            <div note-id="${note.dateOfCreation}" class="note-container__menue-item"><img src="assets/icons/delete.svg" alt="delete note" class="note-container__icon note-delete"></div>
+        </div>
+    </div>
+    `
+}
+
+export function displayListNotes(note) {
+    return document.querySelector('#note-list-sidebar').innerHTML = note.map(listNoteTemplate).join('');
 }
