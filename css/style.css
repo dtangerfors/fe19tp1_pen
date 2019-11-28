@@ -14,6 +14,7 @@
 }
 
 .theme-light {
+  --purple-text:rgb(var(--secondary-purple));
   --color-primary: #fff;
   --color-secondary: var(--light-grey);
   --color-accent: var(--light-grey);
@@ -22,6 +23,7 @@
 }
 
 .theme-dark {
+  --purple-text:rgb(var(--tertiary-purple));
   --color-primary: var(--black);
   --color-secondary: rgb(var(--dark-grey));
   --color-accent: var(--grey);
@@ -69,7 +71,7 @@ h2 {
   font-family: var(--current-header-font);
   font-size: 3rem;
 
-  color: rgba(var(--primary-purple));
+  color: var(--purple-text);
 }
 
 .paragraph-lead {
@@ -605,7 +607,7 @@ input:checked+.slider:before {
   font-size: 3rem;
   margin-top: -8rem;
 
-  color: rgb(var(--primary-purple));
+  color: var(--purple-text);
   border-bottom: 1px solid var(--grey);
 
   padding-left: 1rem;
