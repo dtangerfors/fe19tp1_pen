@@ -8,6 +8,8 @@
   --dark-grey: 87, 87, 87;
   --black: #171717;
   --green : #A6C48A;
+  --purple-nav-light:rgb(var(--primary-purple));
+  --purple-nav-dark:#555379;
   --current-body-font: '';
   --current-header-font: '';
 }
@@ -19,6 +21,7 @@
   --color-accent: var(--light-grey);
   --font-color: #000000;
   --body-font: 300;
+  --purple-button:var(--purple-nav-light);
 }
 
 .theme-dark {
@@ -28,6 +31,7 @@
   --color-accent: var(--grey);
   --font-color: #fbfbfb;
   --body-font: 400;
+   --purple-button:var(--purple-nav-dark);
 }
 
 
@@ -894,7 +898,7 @@ transform: all 0.5s ease;
 .landing-page__button {
   border: none;
   border-radius: 1rem;
-  background-color: rgb(var(--primary-purple));
+  background-color: var(--purple-button);
 
   cursor: pointer;
 
