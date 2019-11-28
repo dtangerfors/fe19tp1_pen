@@ -56,11 +56,11 @@
       </svg>
     </div>
     <ul class="nav__link-group">
-      <li>
+      <li class="nav__link" id="nav-link-note">
         <img class="nav__icon" src="assets/icons/stacked-notes-outlined.svg" id="nav-note" alt="Show notes" />
       </li>
-      <li>
-        <img class="nav__icon" src="assets/icons/settings-outlined.svg" id="nav-settings" alt="View settings" />
+      <li class="nav__link" id="nav-link-settings">
+        <img class="nav__icon" src="assets/icons/settings.svg" id="nav-settings" alt="View settings" />
       </li>
     </ul>
   </nav>
@@ -210,10 +210,11 @@
             </svg>
           </button>
           <button id="new-document" class="editor-section__button">
-            <svg class="editor-section__toolbar-icon" viewBox="0 0 24 24">
-              <path d="M14,2H6C4.9,2,4,2.9,4,4l0,16c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2V8L14,2z M16,16h-3v3h-2v-3H8v-2h3v-3h2v3h3V16z M13,9V3.5
-                      	L18.5,9H13z" />
+            <svg viewBox="0 0 24 24">
+              <path d="M17,19.2H5V7h7V5H5C3.9,5,3,5.9,3,7v12c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2v-7h-2V19.2z M19,2h-2v3h-3v2h3v3h2V7h3V5h-3V2z
+            	 M7,9h8v2H7V9z M7,12v2h8v-2h-3H7z M7,15h8v2H7V15z" />
             </svg>
+
           </button>
           <button id="save-btn" class="editor-section__button">
             <svg class="editor-section__toolbar-icon" viewBox="0 0 24 24">
