@@ -98,7 +98,7 @@ function getPreviewTextFromNote(note, from, to) {
   }
   return previewText;
 }
-
+/*
 function loadItems(note) {
   console.log(note)
   //HTML Element that keeps our notes
@@ -186,12 +186,12 @@ function loadItems(note) {
 
   //Attach main elements to the list member
   //leftSection.insertAdjacentHTML('beforeend',notesTemplate(note))
-  /*
+  
   leftSection.append(header2Title);
   leftSection.append(newdateParagraph);
   leftSection.append(dateParagraph);
   leftSection.append(previewText);
-  */
+  
   rightSection.append(button3Dot);
 
   //Attach groupped elements to the child div
@@ -211,7 +211,7 @@ function loadItems(note) {
   //Attach child div to the parent div
   //elementNoteList.append(noteList);
 }
-
+*/
 function makeAndStoreContent() {
   const allNotes = getAllNotes();
   const loadID = Number(loadEditID());
@@ -478,9 +478,65 @@ function searchText(text, word) {
   return false;
 }
 
+
+document.querySelector('#search-icon').addEventListener('click', function () {
+  const searchBar = document.querySelector('#note-search-list');
+  const classConditon = searchBar.classList.contains('hide-search');
+  if (classConditon) {
+      searchBar.classList.remove('hide-search');
+      searchBar.classList.add('show-search');
+  } else {
+    searchBar.classList.remove('show-search');
+    searchBar.classList.add('hide-search');
+  }
+});
+var check = 0;
+document.querySelector('#sort-icon').addEventListener('click',function () {
+if (check===0) {
+   const getALLDates = getAllNotes().sort((noteA,notesB) => {
+    let noteADate = noteA.dateOfCreation;
+    let notesBDate = notesB.dateOfCreation;
+    const sortReturn =noteADate-notesBDate;
+    return sortReturn;
+  })
+  displayListNotes(getALLDates);
+  check=1;
+} else {
+  const getALLDates = getAllNotes().sort((noteA, notesB) => {
+    let noteADate = noteA.dateOfCreation;
+    let notesBDate = notesB.dateOfCreation;
+    const sortReturn = notesBDate -  noteADate ;
+    return sortReturn;
+  })
+  displayListNotes(getALLDates);
+  check=0;
+}
+ 
+
+
+});
+
+document.querySelector('#favorite-icon').addEventListener('click', function () {
+  const getFavoriteIcon = document.querySelector('#favorite-icon');
+  const getSrc = getFavoriteIcon.getAttribute('src');
+  if (getSrc ==='assets/icons/star-outlined.svg') {
+    const favorite = getAllNotes().filter((note, index) => {
+      const getFavorites = note.isFavorite;
+      if (getFavorites === true) {
+        return getFavorites;
+      }
+    });
+    displayListNotes(favorite);
+    getFavoriteIcon.setAttribute('src','assets/icons/star-filled.svg')
+  } else {
+   displayListNotes(getAllNotes());
+    getFavoriteIcon.setAttribute('src','assets/icons/star-outlined.svg')
+  }
+})
+
 document.getElementById('search').addEventListener('input', function () {
   if (getAllNotes().length > 0) {
-    clearAllChildren(document.querySelector('.aside__note-list'));
+    clearAllChildren(document.querySelector('#note-list-sidebar'));
 
     const foundNotes = getAllNotes().filter((note, index) => {
       const word = this.value;

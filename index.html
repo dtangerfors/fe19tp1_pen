@@ -97,19 +97,24 @@
     </nav>
     <aside class="sidebar"
       id="sidebar-notes">
-      <div id="note-search-list">
+     
+      <div class="note-top-menue">
+        <div class="menue-item">
+          <img id="favorite-icon" class="favorite-top-icon menue-icon" src="assets/icons/star-outlined.svg" alt="Sort by favorite notes">
+        </div>
+        <div class="menue-item">
+          <img id="sort-icon" class="sort-top-icon menue-icon" src="assets/icons/sort.svg" alt="Sort notes">
+        </div>
+        <div class="menue-item">
+          <img class="search-top-icon menue-icon" id="search-icon" src="assets/icons/search.svg">
+        </div>
+      </div>
+      <div id="note-search-list"
+        class="hide-search">
         <input type="text"
           name="search"
           id="search"
           placeholder="Search...">
-      </div>
-      <div class="note-top-menue">
-        <div class="menue-item">
-          <img class="favorite-top-icon menue-icon" src="assets/icons/star-filled.svg" alt="Sort by favorite notes">
-        </div>
-        <div class="menue-item">
-          <img class="sort-top-icon menue-icon" src="assets/icons/sort.svg" alt="Sort notes">
-        </div>
       </div>
       <div id="note-list-sidebar">
 

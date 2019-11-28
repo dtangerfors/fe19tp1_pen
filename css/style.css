@@ -748,12 +748,24 @@ transform: translateX(-16rem);
 /* ------------- Notes Navigation Design Ends -------------*/
 
 /* ------------- Search Input Field Design -------------*/
+#note-search-list{
+  margin: 0 2rem;
+  padding: 2rem 0;
+transform: all 0.5s ease;
+}
+.hide-search{
+  display: none;
+}
+.show-search{
+  display: block;
+}
 
 #search {
   width: 100%;
-  height: 4%;
+  height: 3rem;
   color: var(--black);
 }
+
 
 /* ------------- Search Input Field Design Ends -------------*/
 
