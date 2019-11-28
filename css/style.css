@@ -250,9 +250,6 @@ h2 {
   margin-top: 2rem;
 }
 
-.font-option ul {
-  
-}
 
 .font-option ul li
 
@@ -542,11 +539,8 @@ input:checked+.slider:before {
   transition: all .3s ease;
 }
 
-#sidebar-notes-2 {
-  display: none;
-  width: 30rem;
-  opacity: 1;
-  z-index: 3;
+#sidebar-notes {
+  overflow: hidden;
 }
 
 .aside__note-list {
@@ -669,7 +663,7 @@ transform: translateX(-16rem);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  overflow: auto;
+  overflow: hidden;
   width: 30rem;
 }
 
@@ -688,9 +682,21 @@ transform: translateX(-16rem);
   flex-shrink: 0;
   transition: all 0.5s ease;
 }
-
-.note-container__inner:hover {
-  border-bottom: none;
+.note-top-menue{
+    width: 100%;
+    margin: 0 2rem;
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: row;
+}
+.menue-icon{
+  height: 3rem;
+  margin: 0 1rem;
+}
+.menue-item{
+  display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .note-container__text-content{
