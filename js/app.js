@@ -35,7 +35,6 @@ import {
 } from './modules/page/loadpageitems.js'
 
 import {
-  navbarSlide,
   noteListSlide
 } from './modules/page/menu.js'
 
@@ -400,7 +399,6 @@ document.querySelector("#quire-logo").addEventListener("click", () => {
 
 function main() {
   initializeLocalStorage();
-  navbarSlide();
   noteListSlide();
   renderItems();
   editorLoad();
