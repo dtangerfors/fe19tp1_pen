@@ -297,6 +297,7 @@ function editOpenedNoteButton() {
     const editorTitle = document.getElementById('editorTitle');
     editor.setContents(note.content);
     editorTitle.value = note.title;
+    document.getElementById('button-editNote').style.visibility = 'hidden';
   }
   saveEditID(noteIdToEdit);
   storeContent();
