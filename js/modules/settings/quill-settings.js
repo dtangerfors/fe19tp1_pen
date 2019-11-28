@@ -7,5 +7,5 @@ export const options = {
     },
     readOnly: false,
     theme: 'snow',
-    placeholder: 'Start typing'
+    placeholder: "What's on your mind …?"
 };
