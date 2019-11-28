@@ -3,6 +3,7 @@
 :root {
   --primary-purple: 122, 108, 177;
   --secondary-purple: 61, 54, 88;
+  --tertiary-purple: 166, 154, 216;
   --light-grey: #F8F8F8;
   --grey: #888;
   --dark-grey: 87, 87, 87;
@@ -49,7 +50,7 @@
 }
 
 html {
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--current-body-font);
   font-weight: var(--body-font);
 }
 
@@ -62,12 +63,16 @@ h2 {
   font-size: 1.7rem;
 }
 
+*:focus {
+  outline: 2px solid rgba(var(--primary-purple), 1);
+}
+
 /* -------------  BASIC SETTINGS END ------------- */
 
 /* -------------  TYPOGRAPHY ------------- */
 
 .heading-primary {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--current-header-font);
   font-size: 3rem;
 
   color: rgba(var(--primary-purple));
@@ -205,7 +210,7 @@ h2 {
 
 
 .editor-section__title {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--current-header-font);
   font-size: 3rem;
   color: var(--font-color);
   background-color: var(--color-primary);
@@ -222,21 +227,24 @@ h2 {
 
 .editor-section__editor {
   width: inherit;
-  min-height: 100vh;
   margin: 5rem 15rem;
 }
 
 .editor-section__menu {
-  border: 0;
-  border-top: none;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  display: none;
 }
 
 .editor-section__button {
   -webkit-appearance: none;
 }
+
+ .editor-options-menu {
+      order: 2;
+      width: 100%;
+      display: flex;
+      flex-direction: row; 
+    }
+
 
 
 .font-option {
@@ -318,16 +326,6 @@ h2 {
   border-left: 2px solid white;
 
   transform: rotate(-45deg);
-}
-
-
-
-
-@keyframes saved {
-  0%    {opacity: 0;}
-  20%   {opacity: 1;}
-  90%   {opacity: 1;}
-  100%  {opacity: 0;}
 }
 
 /* ------------- EDITOR SECTION END -------------*/
@@ -782,6 +780,10 @@ transform: all 0.5s ease;
   background-color: var(--color-accent);
 }
 
+.ql-snow.ql-toolbar button:hover, .ql-snow .ql-toolbar button:hover, .ql-snow.ql-toolbar button:focus, .ql-snow .ql-toolbar button:focus, .ql-snow.ql-toolbar button.ql-active, .ql-snow .ql-toolbar button.ql-active, .ql-snow.ql-toolbar .ql-picker-label:hover, .ql-snow .ql-toolbar .ql-picker-label:hover, .ql-snow.ql-toolbar .ql-picker-label.ql-active, .ql-snow .ql-toolbar .ql-picker-label.ql-active, .ql-snow.ql-toolbar .ql-picker-item:hover, .ql-snow .ql-toolbar .ql-picker-item:hover, .ql-snow.ql-toolbar .ql-picker-item.ql-selected, .ql-snow .ql-toolbar .ql-picker-item.ql-selected {
+  color: #7A6CB1 !important;
+}
+
 #editor-code {
   border: 0;
 }
@@ -796,6 +798,12 @@ transform: all 0.5s ease;
 
 .ql-container--hidden {
   border: none !important;
+}
+
+#editor-menu-item-save {
+  order: 3;
+  display: flex;
+  flex-direction: row;
 }
 
 .editor-section__menu--hidden {
@@ -838,7 +846,7 @@ transform: all 0.5s ease;
 }
 
 .landing-page__heading {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--current-header-font);
   font-size: 3rem;
   margin-top: -8rem;
 
@@ -970,6 +978,12 @@ transform: all 0.5s ease;
   overflow: hidden;
   white-space: wrap;
   text-overflow: ellipsis;
+}
+
+.no-notes {
+  margin: 1rem;
+  font-family: var(--current-body-font);
+  font-size: 1.6rem;
 }
 
 /* ------------- LANDING PAGE NOTES END -------------*/
