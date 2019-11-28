@@ -1,10 +1,12 @@
 const editButton = document.querySelector("#edit-opened-note-button")
+const editDocumentButton = document.getElementById('button-editNote');
 
 export function showEditButton(func) {
     // Display "edit last note"-button if edit id is not 0
     if (JSON.parse(localStorage.getItem("edit-id")) !== 0) {
         editButton.style.display = "flex"
         editButton.addEventListener("click", func)
+        editDocumentButton.style.visibility = 'hidden';
     } else {
         editButton.style.display = "none"
     }
@@ -23,6 +25,7 @@ export function showEditor() {
         landingPage.style.display = "none";
         landingPage.classList.remove("slideDown")
         editorSection.style.display = "flex"
+        editDocumentButton.style.visibility = 'visibile';
         editorSection.classList.add("fadeIn")
         setTimeout(function () { editorSection.classList.remove("fadeIn") }, 1000)
     }, 1000);
