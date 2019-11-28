@@ -6,9 +6,9 @@ export function showEditButton(func) {
     if (JSON.parse(localStorage.getItem("edit-id")) !== 0) {
         editButton.style.display = "flex"
         editButton.addEventListener("click", func)
-        editDocumentButton.style.visibility = 'hidden';
     } else {
         editButton.style.display = "none"
+        editDocumentButton.style.visibility = 'visible';
     }
 }
 
@@ -25,7 +25,9 @@ export function showEditor() {
         landingPage.style.display = "none";
         landingPage.classList.remove("slideDown")
         editorSection.style.display = "flex"
-        editDocumentButton.style.visibility = 'visibile';
+        if (JSON.parse(localStorage.getItem("edit-id")) === 0) {
+            editDocumentButton.style.visibility = 'hidden';
+        }
         editorSection.classList.add("fadeIn")
         setTimeout(function () { editorSection.classList.remove("fadeIn") }, 1000)
     }, 1000);
