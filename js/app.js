@@ -397,6 +397,8 @@ function displayLatestNoteList() {
 
 document.querySelector("#add-new-note-button").addEventListener("click", () => {
   //  preNewNote();
+  //Reset edit id
+  localStorage.setItem('edit-id', '0');
   showEditor();
 });
 
