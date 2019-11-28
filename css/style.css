@@ -197,21 +197,24 @@ h2 {
 
 .editor-section__editor {
   width: inherit;
-  min-height: 100vh;
   margin: 5rem 15rem;
 }
 
 .editor-section__menu {
-  border: 0;
-  border-top: none;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  display: none;
 }
 
 .editor-section__button {
   -webkit-appearance: none;
 }
+
+ .editor-options-menu {
+      order: 2;
+      width: 100%;
+      display: flex;
+      flex-direction: row; 
+    }
+
 
 
 .font-option {
@@ -303,16 +306,6 @@ h2 {
   border-left: 2px solid white;
 
   transform: rotate(-45deg);
-}
-
-
-
-
-@keyframes saved {
-  0%    {opacity: 0;}
-  20%   {opacity: 1;}
-  90%   {opacity: 1;}
-  100%  {opacity: 0;}
 }
 
 /* ------------- EDITOR SECTION END -------------*/
@@ -555,6 +548,12 @@ input:checked+.slider:before {
 
 .ql-container--hidden {
   border: none !important;
+}
+
+#editor-menu-item-save {
+  order: 3;
+  display: flex;
+  flex-direction: row;
 }
 
 .editor-section__menu--hidden {
