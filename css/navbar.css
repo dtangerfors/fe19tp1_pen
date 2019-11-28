@@ -31,6 +31,10 @@ html {
     cursor: pointer;
 }
 
+.nav__logo:hover #quire-symbol, #quire-symbol:hover {
+    transform: scale(1.05);
+}
+
 #quire-symbol {
     fill: white;
     width: 100%;
@@ -43,84 +47,28 @@ html {
     justify-content: space-between;
 }
 
-.nav__link-group li {
+.nav__link {
     list-style: none;
     padding: 2.5rem;
+}
+
+.nav__link--active {
+    background-color: rgb(var(--tertiary-purple));
 }
 
 .nav__icon {
     width: 100%;
     filter: invert(1);
+    cursor: pointer;
 }
 
 .nav__icon:hover {
     transform: scale(1.1);
+    opacity: 1;
 }
+
 
 /* Navbar end */
-
-/* Burger */
-/* .hamburger {
-    width: 2rem;
-    height: 2rem;
-    display: none;
-    position: relative;
-    cursor: pointer;
-}
-
-.hamburger__inner {
-    top: 50%;
-    position: absolute;
-}
-
-.hamburger__inner::before,
-.hamburger__inner::after {
-    width: 2rem;
-    height: 2px;
-    content: "";
-    position: absolute;
-    display: block;
-    background-color: white;
-}
-
-.hamburger__inner::before {
-    transform: translateY(-.5rem);
-}
-
-.a__inner::after {
-    transform: translateY(.5rem);
-}
-
-.hamburger:hover .hamburger__inner::before {
-    transform: translateY(-.8rem);
-}
-
-.hamburger:hover .hamburger__inner::after {
-    transform: translateY(.8rem);
-}
-
-.hamburger__top,
-.hamburger__middle,
-.hamburger__bottom {
-    width: 2rem;
-    height: 1px;
-    background-color: white;
-    margin: 5px;
-    transition: all 0.3s ease;
-}
-
-.hamburger:hover .hamburger__top {
-    transform: translateY(-3px);
-}
-
-.hamburger:hover .hamburger__bottom {
-    transform: translateY(3px);
-} */
-
-
-/* Burger end */
-
-
 
 
 /* Small screen */
@@ -136,14 +84,14 @@ html {
         width: 100%;
         height: auto;
         flex-direction: row;
-        box-shadow: none;
+        box-shadow: 0 -.7rem 0 0 rgba(0,0,0,.1);
     }
 
     .nav__logo {
         background-color: #3D3658;
         padding: 1rem;
         height: 6rem;
-        width: 5.5rem;
+        width: 6.5rem;
     }
 
     #quire-symbol {
@@ -168,11 +116,6 @@ html {
         height: 4.5rem;
     }
 
-/* 
-    .hamburger {
-        display: inline-block;
-        margin: 1rem;
-    } */
 
 
     .nav-active {
@@ -184,38 +127,7 @@ html {
         background-color: #7A6CB1;
         z-index: 5;
     }
-
-
-    /* Small screen ends */
-    /* Rotation of the Hamburger */
-    /*
-    .hamburger-toggle .hamburger__inner::before {
-        transform: translateY(0px) rotate(45deg);
-    }*/
-
-    /*  .hamburger-toggle .hamburger__middle {
-        opacity: 0;
-    } */
-
-    /*.hamburger-toggle .hamburger__inner::after {
-        transform: translateY(0px) rotate(-45deg);
-    }*/
 }
 
-/* Rotation of the Hamburger END*/
-
-/* ANIMATIONS */
-/* 
-@keyframes navLinkFade {
-    from {
-        opacity: 0;
-        transform: translateX(50px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0px);
-    }
-} */
-
-/* ANIMATIONS END */
+    /* Small screen ends */
+    

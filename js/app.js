@@ -35,7 +35,6 @@ import {
 } from './modules/page/loadpageitems.js'
 
 import {
-  navbarSlide,
   noteListSlide
 } from './modules/page/menu.js'
 
@@ -354,15 +353,22 @@ function storeContent() {
 
 document.getElementById('main-page-content').addEventListener("click", (event) => {
   const settingsList = document.querySelector('#sidebar-settings');
+  const navLinkSettings = document.querySelector("#nav-link-settings");
   const noteList = document.querySelector('#sidebar-notes');
+  const navLinkNote = document.querySelector("#nav-link-note");
 
   const targetName = event.target.id;
 
-  if ((targetName !== "sidebar-notes") && (targetName !== "nav-note"))
-    noteList.classList.remove("sidebar-show")
-
-  if ((targetName !== "sidebar-settings") && (targetName !== "nav-settings"))
-    settingsList.classList.remove("sidebar-show")
+  if ((targetName !== "sidebar-notes") && (targetName !== "nav-note")) {
+    noteList.classList.remove("sidebar-show");
+    navLinkNote.classList.remove('nav__link--active');
+    navLinkSettings.classList.remove('nav__link--active');
+  }
+  if ((targetName !== "sidebar-settings") && (targetName !== "nav-settings")) {
+    settingsList.classList.remove("sidebar-show");
+    navLinkNote.classList.remove('nav__link--active');
+    navLinkSettings.classList.remove('nav__link--active');
+  }
 });
 
 /**
@@ -370,6 +376,11 @@ document.getElementById('main-page-content').addEventListener("click", (event) =
  */
 let sortedNotesByLastEdit;
 
+function noNotes() {
+  return `
+    <p class="no-notes">No notes, why not write your first note?</p>
+  `
+}
 
 /**
  * Decides what to display if there is any notes in LocalStorage
@@ -377,7 +388,7 @@ let sortedNotesByLastEdit;
 function displayLatestNoteList() {
   const savedNotes = JSON.parse(localStorage.getItem("save-notes"));
   if (savedNotes.length === 0) {
-    document.querySelector("#landing-page__note-list").innerHTML = "No notes, why not write your first note?"
+    document.querySelector("#landing-page__note-list").innerHTML = noNotes();
   } else {
     sortedNotesByLastEdit = savedNotes.sort((a, b) => b.lastChanged - a.lastChanged);
     displayNotes(sortedNotesByLastEdit.slice(0, 3));
@@ -400,7 +411,6 @@ document.querySelector("#quire-logo").addEventListener("click", () => {
 
 function main() {
   initializeLocalStorage();
-  navbarSlide();
   noteListSlide();
   renderItems();
   editorLoad();

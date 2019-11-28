@@ -9,7 +9,8 @@
   <link rel="stylesheet" href="css/navbar.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/mobile-style.css">
-  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+  <link rel="shortcut icon" href="assets/quire-logo-purple.ico" type="image/x-icon">
 
   <!-- IMPORT FONTS -->
   <link
@@ -29,7 +30,7 @@
   <!--Poppins - HEADER -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:700&display=swap" rel="stylesheet">
 
-  <title>Quire - Home Page</title>
+  <title>Quire - Notebook</title>
 </head>
 
 <body>
@@ -54,15 +55,12 @@
         </g>
       </svg>
     </div>
-    <div class="hamburger">
-      <div class="hamburger__inner"></div>
-    </div>
     <ul class="nav__link-group">
-      <li>
-        <img class="nav__icon" src="assets/icons/stacked-notes.svg" id="nav-note" alt="Show notes" />
+      <li class="nav__link" id="nav-link-note">
+        <img class="nav__icon" src="assets/icons/stacked-notes-outlined.svg" id="nav-note" alt="Show notes" />
       </li>
-
-      <li> <img class="nav__icon" src="assets/icons/settings.svg" id="nav-settings" alt="View settings" />
+      <li class="nav__link" id="nav-link-settings">
+        <img class="nav__icon" src="assets/icons/settings.svg" id="nav-settings" alt="View settings" />
       </li>
     </ul>
   </nav>
@@ -108,17 +106,13 @@
           make them as you’d like. Print them. Highlight them.
           Sort them. Everything stored safely on your device.</p>
         <div class="landing-page__button-list">
+          <button class="landing-page__button" id="add-new-note-button">
+            <img src="assets/icons/post_add.svg" alt="Add new note" class="landing-page__icon">
+            Add new note
+          </button>
           <button class="landing-page__button" id="edit-opened-note-button">
             <img src="assets/icons/edit.svg" id="icon-edit" alt="Edit opened note" class="landing-page__icon">
             Open last note
-          </button>
-          <button class="landing-page__button" id="add-new-note-button">
-            <img src="assets/icons/note_add.svg" alt="Add new note" class="landing-page__icon">
-            Add new note
-          </button>
-          <button class="landing-page__button">
-            <img src="assets/icons/help.svg" alt="Learn how to use Quire" class="landing-page__icon">
-            Learn Quire
           </button>
         </div>
       </div>
@@ -216,10 +210,11 @@
             </svg>
           </button>
           <button id="new-document" class="editor-section__button">
-            <svg class="editor-section__toolbar-icon" viewBox="0 0 24 24">
-              <path d="M14,2H6C4.9,2,4,2.9,4,4l0,16c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2V8L14,2z M16,16h-3v3h-2v-3H8v-2h3v-3h2v3h3V16z M13,9V3.5
-                      	L18.5,9H13z" />
+            <svg viewBox="0 0 24 24">
+              <path d="M17,19.2H5V7h7V5H5C3.9,5,3,5.9,3,7v12c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2v-7h-2V19.2z M19,2h-2v3h-3v2h3v3h2V7h3V5h-3V2z
+            	 M7,9h8v2H7V9z M7,12v2h8v-2h-3H7z M7,15h8v2H7V15z" />
             </svg>
+
           </button>
           <button id="save-btn" class="editor-section__button">
             <svg class="editor-section__toolbar-icon" viewBox="0 0 24 24">
@@ -231,8 +226,7 @@
         </div>
       </div>
       <input type="text" name="editorTitle" id="editorTitle" class="editor-section__title" placeholder="New document"
-        spellcheck="false"
-        autocomplete="off">
+        spellcheck="false" autocomplete="off">
       <div id="editor-main" class="editor-section__editor">
         <div id="editor-code"></div>
       </div>

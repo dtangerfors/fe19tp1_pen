@@ -196,4 +196,9 @@
     padding-top: 10rem;
   }
 
+  .notes__title::after {
+  content:' \00BB';
+  opacity: 1;
+  margin-left: 1rem;
+}
 }
