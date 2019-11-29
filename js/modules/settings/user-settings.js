@@ -1,11 +1,11 @@
 /**
  * End user settings
  */
-export const settings = {
-  autoSave: false,
-  activeTheme: 'light',
-  activeFont: 'noto-switch'
-};
+
+export const STATES = {
+  "LANDING_PAGE": 0,
+  "EDITOR": 1
+}
 
 const fontStatus = {
   'noto-switch': {
@@ -31,6 +31,13 @@ const fontStatus = {
   }
 }
 
+export const settings = {
+  autoSave: false,
+  activeTheme: 'light',
+  activeFont: 'noto-switch',
+  state: STATES.LANDING_PAGE
+};
+
 /**
  * Load settings from localstorage if it's saved.
  */
@@ -39,6 +46,7 @@ if (localSettings) {
   settings.autoSave = localSettings.autoSave || settings.autoSave;
   settings.activeTheme = localSettings.activeTheme || settings.activeTheme;
   settings.activeFont = localSettings.activeFont || settings.activeFont;
+  settings.state = localSettings.state || settings.state;
   saveUserSettings();
 }
 
@@ -56,6 +64,15 @@ export function saveUserSettings() {
 export function setTheme(theme) {
   settings.activeTheme = theme;
   document.documentElement.className = `theme-${settings.activeTheme}`;
+}
+
+export function setState(state) {
+  settings.state = state;
+  saveUserSettings();
+}
+
+export function getCurrentState() {
+  return settings.state;
 }
 
 /**
