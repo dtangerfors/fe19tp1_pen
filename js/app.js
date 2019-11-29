@@ -113,6 +113,7 @@ function makeAndStoreContent() {
       content: editor.getContents()
     });
     addNote(newNote);
+    saveEditID(newNote.dateOfCreation);
   }
   storeContent();
   displayListNotes(getAllNotes());
@@ -205,10 +206,16 @@ function noteOnClickEventHandler(event) {
  * Opens last opened note from the landing page
  */
 function editOpenedNoteButton() {
-  const noteIdToEdit = JSON.parse(localStorage.getItem('edit-id'));
+  const noteIdToEdit = loadEditID();
   const index = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToEdit));
+
   showEditor();
-  setTimeout(() => { document.querySelector("#sidebar-notes").classList.remove("sidebar-show") }, 1000);
+
+  setTimeout(() => {
+    document.querySelector("#sidebar-notes").classList.remove("sidebar-show")
+  }, 1000);
+
+  console.log(index)
   if (index !== -1) {
     const note = getNote(index);
     const editorTitle = document.getElementById('editorTitle');
@@ -229,6 +236,9 @@ function clearAllChildren(node) {
 //save button
 document.querySelector('#save-btn').addEventListener('click', saveFunction);
 
+//Create a new document button
+document.querySelector('#new-document').addEventListener('click', createNewDocument);
+
 function saveEventAnimation() {
   const saveNotification = document.querySelector("#saved-notification");
 
@@ -245,6 +255,13 @@ function saveEventAnimation() {
 function saveFunction() {
   saveEventAnimation();
   makeAndStoreContent();
+}
+
+function createNewDocument() {
+    //Reset edit id, clear editor content and its title
+    saveEditID(0);
+    clearContents();
+    document.getElementById('editorTitle').value = '';
 }
 
 function editorLoad() {
@@ -290,8 +307,6 @@ document.getElementById('main-page-content').addEventListener("click", (event) =
  */
 let sortedNotesByLastEdit;
 
-const savedNotes = JSON.parse(localStorage.getItem("save-notes"));
-
 function noNotes() {
   return `
     <p class="no-notes">No notes, why not write your first note?</p>
@@ -302,25 +317,22 @@ function noNotes() {
  * Decides what to display if there is any notes in LocalStorage
  */
 function displayLatestNoteList() {
-  if (savedNotes.length === 0) {
+  const notes = getAllNotes();
+  if (notes.length === 0) {
     document.querySelector("#landing-page__note-list").innerHTML = noNotes();
   } else {
-    sortedNotesByLastEdit = getNotesFromNewestToOldest(savedNotes);
+    sortedNotesByLastEdit = getNotesFromNewestToOldest(notes);
     displayNotes(sortedNotesByLastEdit.slice(0, 3));
   }
 }
 
 document.querySelector("#add-new-note-button").addEventListener("click", () => {
-  //Reset edit id, clear editor content and its title
-  localStorage.setItem('edit-id', '0');
-  clearContents();
-  document.getElementById('editorTitle').value = '';
-
+  createNewDocument();
   showEditor();
 });
 
 document.querySelector("#quire-logo").addEventListener("click", () => {
-  showLandingPage();
+  showLandingPage(editOpenedNoteButton);
   displayLatestNoteList();
 });
 
@@ -337,7 +349,7 @@ function main() {
   noteListSlide();
   editorLoad();
   displayLatestNoteList();
-  displayListNotes(savedNotes);
+  displayListNotes(getAllNotes());
   showEditButton(editOpenedNoteButton);
   addEventhandler();
 }
