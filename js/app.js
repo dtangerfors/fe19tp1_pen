@@ -163,10 +163,14 @@ function setFavoriteNoteEventHandler(event) {
 function button3DotEventHandler(event) {
   if (!(event.target.getAttribute('class'))) {
     const classID = event.target.parentNode.parentNode.getAttribute('note-id');
-    const element = document.getElementsByClassName('note-class_' + classID)[0];
-    const element2 = document.getElementsByClassName('note-class_' + classID)[1];
-    element2.classList.toggle('group-button-menue');
-    element.classList.toggle('group-button-show-inner');
+    
+    const textContent = document.querySelector(`.note-class_${classID} .note-container__text-content`);
+    const indicator = document.querySelector(`.note-class_${classID} .note-container__drag-indicator`);
+    const indicatorChildren = document.querySelector(`.note-container__menue.note-class_${classID}`);
+
+    textContent.classList.toggle('group-button-show-inner');
+    indicator.classList.toggle('group-button-show-inner');
+    indicatorChildren.classList.toggle('group-button-menue');
   }
 }
 
@@ -215,7 +219,6 @@ function editOpenedNoteButton() {
     document.querySelector("#sidebar-notes").classList.remove("sidebar-show")
   }, 1000);
 
-  console.log(index)
   if (index !== -1) {
     const note = getNote(index);
     const editorTitle = document.getElementById('editorTitle');
