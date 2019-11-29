@@ -18,7 +18,12 @@ import {
   options as quillSettings
 } from './modules/settings/quill-settings.js';
 
-import { settings as userSettings } from './modules/settings/user-settings.js';
+import {
+  settings as userSettings,
+  getCurrentState,
+  setState,
+  STATES
+} from './modules/settings/user-settings.js';
 
 import {
   displayNotes,
@@ -40,6 +45,7 @@ import { showEditorOptions, hideEditorOptions } from './modules/notes/edit.js';
 /**
  * Quill Editor
  */
+
 
 const editor = new Quill('#editor-code', quillSettings);
 
@@ -174,6 +180,20 @@ function button3DotEventHandler(event) {
   }
 }
 
+function populateEditor(noteId) {
+  const index = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteId));
+  if(index !== -1) {
+    const note = getNote(index);
+    const editorTitle = document.getElementById('editorTitle');
+    editor.setContents(note.content);
+    editorTitle.value = note.title;
+    hideEditorOptions();
+    setTimeout(() => document.querySelector("#sidebar-notes").classList.remove("sidebar-show"), 1000);
+    saveEditID(noteId);
+    storeContent();
+  }
+}
+
 /**
  * Event handler for editing selected note
  * @param {MouseEvent} event 
@@ -183,18 +203,9 @@ function noteOnClickEventHandler(event) {
   let buttonGroup = event.target.nodeName;
   if (filterTarget !== 'note-button-group group-button-show' && filterTarget !== 'note-button-group' && buttonGroup.toLowerCase() !== 'img') {
     const noteIdToEdit = event.target.getAttribute('note-id');
-    const index = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToEdit));
-    if (index !== -1) {
-      const note = getNote(index);
-      const editorTitle = document.getElementById('editorTitle');
-      editor.setContents(note.content);
-      editorTitle.value = note.title;
-      showEditor();
-      hideEditorOptions();
-      setTimeout(() => { document.querySelector("#sidebar-notes").classList.remove("sidebar-show") }, 1000);
-      saveEditID(noteIdToEdit);
-      storeContent();
-    }
+    populateEditor(noteIdToEdit);
+    showEditor();
+    setState(STATES.EDITOR);
   } else if(event.target.classList.contains('note-container__drag-indicator') || event.target.parentNode.classList.contains('note-container__drag-indicator')) {
     button3DotEventHandler(event);
   } else if(event.target.classList.contains('note-favorite')) {
@@ -224,7 +235,6 @@ function editOpenedNoteButton() {
     const editorTitle = document.getElementById('editorTitle');
     editor.setContents(note.content);
     editorTitle.value = note.title;
-    document.getElementById('button-editNote').style.visibility = 'hidden';
   }
   saveEditID(noteIdToEdit);
   storeContent();
@@ -337,6 +347,7 @@ document.querySelector("#add-new-note-button").addEventListener("click", () => {
 document.querySelector("#quire-logo").addEventListener("click", () => {
   showLandingPage(editOpenedNoteButton);
   displayLatestNoteList();
+  setState(STATES.LANDING_PAGE);
 });
 
 function addEventhandler() {
@@ -355,7 +366,21 @@ function main() {
   displayListNotes(getAllNotes());
   showEditButton(editOpenedNoteButton);
   addEventhandler();
+
+  switch(getCurrentState()) {
+
+    case STATES.LANDING_PAGE:
+
+    break;
+
+    case STATES.EDITOR:
+        populateEditor(loadEditID());
+        showEditor(false);
+        showEditorOptions();
+    break;
+  }
 }
+
 
 function searchText(text, word) {
   text = text.toLowerCase();
