@@ -4,7 +4,6 @@ const editButton = document.querySelector("#edit-opened-note-button")
 const editDocumentButton = document.getElementById('button-editNote');
 
 export function showEditButton(func) {
-    console.log(typeof func)
     // Display "edit last note"-button if edit id is not 0
     if (JSON.parse(localStorage.getItem("edit-id")) !== 0) {
         editButton.style.display = "flex"
