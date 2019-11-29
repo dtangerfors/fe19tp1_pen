@@ -47,6 +47,26 @@ export function getNote(index) {
     return Notes[index]
 }
 
+export function getFavorites() {
+    return getAllNotes().filter(v => v.isFavorite);
+}
+
+export function getNotesFromNewestToOldest(notes = getAllNotes()) {
+    return notes.sort((noteA,noteB) => noteB.lastChanged - noteA.lastChanged);
+}
+
+export function getNotesFromOldestToNewest(notes = getAllNotes()) {
+    return notes.sort((noteA, noteB) => noteA.lastChanged - noteB.lastChanged);
+}
+
+export function getPreviewTextFromNote(note, from, to) {
+    let previewText = `${getTextFromContent(note.content.ops).split('\n').join(' ').substr(from, to)}`;
+    if (previewText.length > to) {
+        return `${previewText}...`;
+    }
+    return previewText;
+}
+
 /**
  * Retrieve all notes
  */

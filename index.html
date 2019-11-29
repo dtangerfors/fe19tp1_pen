@@ -64,36 +64,90 @@
       </li>
     </ul>
   </nav>
-  <aside class="sidebar" id="sidebar-notes">
-    <input type="text" name="search" id="search" placeholder="Search..." autocomplete="off">
-    <ul class="aside__note-list">
-    </ul>
-  </aside>
-  <aside class="sidebar" id="sidebar-settings">
-    <ul class="aside__settings-list">
-      <h3>SETTINGS</h3><br><br>
-      <label class="switch">
-        <input type="checkbox" name="auto-save">
-        <span class="slider round"></span>
-      </label>
-      <label for="auto-save" class="checkbox-label">Auto-save</label>
-      <br>
-      <br>
-      <label class="switch">
-        <input type="checkbox" name="theme">
-        <span class="slider round"></span>
-      </label>
-      <label for="theme" class="checkbox-label">Change Theme</label>
-      <label class="font-option">
-        <p>FONT THEME</p>
-        <ul id="font-list">
-          <li>Noto <span id="noto-switch" class="span-font-status">Not in use</span></li>
-          <li>Poppins <span id="poppin-switch" class="span-font-status">Not in use</span></li>
-          <li>Quire <span id="quire-switch" class="span-font-status">Not in use</span></li>
-        </ul>
-      </label>
-    </ul>
-  </aside>
+  <aside class="sidebar"
+      id="sidebar-notes">
+     
+      <div class="note-top-menue">
+        <div class="menue-item">
+          <img id="favorite-icon" class="favorite-top-icon menue-icon" src="assets/icons/star-outlined.svg" alt="Sort by favorite notes">
+        </div>
+        <div class="menue-item">
+          <img id="sort-icon" class="sort-top-icon menue-icon" src="assets/icons/sort.svg" alt="Sort notes">
+        </div>
+        <div class="menue-item">
+          <img class="search-top-icon menue-icon" id="search-icon" src="assets/icons/search.svg">
+        </div>
+      </div>
+      <div id="note-search-list"
+        class="hide-search">
+        <input type="text"
+          name="search"
+          id="search"
+          placeholder="Search...">
+      </div>
+      <div id="note-list-sidebar">
+
+      </div>
+    </aside>
+    <aside class="sidebar"
+      id="sidebar-settings">
+      <div class="settings">
+        <h3 class="heading-tertiary settings__heading">Settings</h3>
+        <div class="settings__inner">
+          <h4 class="heading-quaternary settings__title">GENERAL</h4>
+          <div class="settings__options">
+            <label class="settings__title-secondary"
+              for="auto-save">Save automatically</label>
+            <label class="switch">
+              <input id="auto-save"
+                type="checkbox"
+                name="auto-save">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+        <div class="settings__inner">
+          <h4 class="heading-quaternary settings__title">APPEARANCE</h4>
+          <div class="settings__options">
+            <label class="settings__title-secondary"
+              for="theme">Darkmode</label>
+            <label class="switch">
+              <input id="theme"
+                type="checkbox"
+                name="theme">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+        <div class="settings__inner">
+          <h4 class="heading-quaternary settings__title">Font theme</h4>
+          <ul class="settings__font-list"
+            id="font-list">
+            <li id="noto-switch"
+              class="font-list-option">
+              <p class="settings__title-secondary">
+                Noto
+              </p>
+              <span class="span-font-status">Not in use</span>
+            </li>
+            <li id="poppin-switch"
+              class="font-list-option">
+              <p class="settings__title-secondary">
+                Poppins
+              </p>
+              <span class="span-font-status">Not in use</span>
+            </li>
+            <li id="quire-switch"
+              class="font-list-option">
+              <p class="settings__title-secondary">
+                Quire
+              </p>
+              <span class="span-font-status">Not in use</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </aside>
   <main id="main-page-content">
     <section class="landing-page">
       <div class="landing-page__start">
