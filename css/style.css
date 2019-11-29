@@ -996,7 +996,7 @@ transform: all 0.5s ease;
 
 @media print {
 
-  .nav, #note-list, .ql-toolbar, .editor-section__toolbar, button, .editor-section__title, .sidebar, .sidebar-show, .sidebar::-webkit-scrollbar {
+  .nav, #note-list, .ql-toolbar, .editor-section__toolbar, button, .sidebar, .sidebar-show, .sidebar::-webkit-scrollbar {
     display: none;
   }
 
@@ -1004,6 +1004,11 @@ transform: all 0.5s ease;
     border: 0;
     overflow: hidden;
     height: auto;
+  }
+
+  .editor-section__title {
+    margin: 0;
+    text-align: center;
   }
 
   .editor-section__editor {
