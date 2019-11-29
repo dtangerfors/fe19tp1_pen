@@ -29,17 +29,18 @@ import {
   showEditButton,
   showEditor,
   showLandingPage
-} from './modules/page/loadpageitems.js'
+} from './modules/page/loadpageitems.js';
 
 import {
   noteListSlide
-} from './modules/page/menu.js'
+} from './modules/page/menu.js';
 
-import { showEditorOptions, hideEditorOptions } from './modules/notes/edit.js'
+import { showEditorOptions, hideEditorOptions } from './modules/notes/edit.js';
 
 /**
  * Quill Editor
  */
+
 const editor = new Quill('#editor-code', quillSettings);
 
 editor.on('text-change', (_1, _2, source) => {
@@ -73,7 +74,7 @@ function initializeLocalStorage() {
  * @param {number} id 
  */
 function saveEditID(id) {
-  localStorage.setItem('edit-id', JSON.stringify(id))
+  localStorage.setItem('edit-id', JSON.stringify(id));
 }
 
 /**
@@ -117,6 +118,9 @@ function makeAndStoreContent() {
   displayListNotes(getAllNotes());
 }
 
+
+/////////////////// EVENT HANDLERS ///////////////////
+
 /**
  * Event handler for mouse click to remove a Note
  * @param {MouseEvent} event
@@ -147,7 +151,7 @@ function setFavoriteNoteEventHandler(event) {
   const index = getAllNotes().findIndex(note => note.dateOfCreation === Number(favoriteNote));
   const note = getNote(index);
   const isFavorited = note.setFavorite();
-  this.src = isFavorited ? './assets/icons/star-filled.svg' : './assets/icons/star-outlined.svg'
+  event.target.src = isFavorited ? './assets/icons/star-filled.svg' : './assets/icons/star-outlined.svg';
   storeContent();
 }
 
@@ -169,7 +173,7 @@ function button3DotEventHandler(event) {
  * Event handler for editing selected note
  * @param {MouseEvent} event 
  */
-function editNoteEventHandler(event) {
+function noteOnClickEventHandler(event) {
   let filterTarget = event.target.getAttribute('class');
   let buttonGroup = event.target.nodeName;
   if (filterTarget !== 'note-button-group group-button-show' && filterTarget !== 'note-button-group' && buttonGroup.toLowerCase() !== 'img') {
@@ -182,12 +186,21 @@ function editNoteEventHandler(event) {
       editorTitle.value = note.title;
       showEditor();
       hideEditorOptions();
-      setTimeout(() => { document.querySelector("#sidebar-notes").classList.remove("sidebar-show") }, 1000)
+      setTimeout(() => { document.querySelector("#sidebar-notes").classList.remove("sidebar-show") }, 1000);
       saveEditID(noteIdToEdit);
       storeContent();
     }
+  } else if(event.target.classList.contains('note-container__drag-indicator') || event.target.parentNode.classList.contains('note-container__drag-indicator')) {
+    button3DotEventHandler(event);
+  } else if(event.target.classList.contains('note-favorite')) {
+    setFavoriteNoteEventHandler(event);
+  } else if(event.target.classList.contains('note-delete')){
+    removeNoteEventHandler(event);
   }
 }
+
+/////////////////// END EVENT HANDLERS ///////////////////
+
 /**
  * Opens last opened note from the landing page
  */
@@ -195,7 +208,7 @@ function editOpenedNoteButton() {
   const noteIdToEdit = JSON.parse(localStorage.getItem('edit-id'));
   const index = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToEdit));
   showEditor();
-  setTimeout(() => { document.querySelector("#sidebar-notes").classList.remove("sidebar-show") }, 1000)
+  setTimeout(() => { document.querySelector("#sidebar-notes").classList.remove("sidebar-show") }, 1000);
   if (index !== -1) {
     const note = getNote(index);
     const editorTitle = document.getElementById('editorTitle');
@@ -220,12 +233,12 @@ function saveEventAnimation() {
   const saveNotification = document.querySelector("#saved-notification");
 
   setTimeout(() => {
-    saveNotification.classList.add("saved-notification--show")
-  }, 1000)
+    saveNotification.classList.add("saved-notification--show");
+  }, 1000);
 
   setTimeout(() => {
-    saveNotification.classList.remove("saved-notification--show")
-  }, 6000)
+    saveNotification.classList.remove("saved-notification--show");
+  }, 6000);
 }
 
 
@@ -248,7 +261,7 @@ function clearContents() {
 }
 
 function storeContent() {
-  localStorage.setItem('save-notes', JSON.stringify(getAllNotes()))
+  localStorage.setItem('save-notes', JSON.stringify(getAllNotes()));
 }
 
 
@@ -282,7 +295,7 @@ const savedNotes = JSON.parse(localStorage.getItem("save-notes"));
 function noNotes() {
   return `
     <p class="no-notes">No notes, why not write your first note?</p>
-  `
+  `;
 }
 
 /**
@@ -309,28 +322,14 @@ document.querySelector("#add-new-note-button").addEventListener("click", () => {
 document.querySelector("#quire-logo").addEventListener("click", () => {
   showLandingPage();
   displayLatestNoteList();
-})
+});
+
 function addEventhandler() {
-  const latestNotes = document.querySelectorAll("#landing-page__note-list");
-  latestNotes.forEach((event) => {
-    event.onclick = editNoteEventHandler;
-  });
-  const dragIndicator = document.querySelectorAll('.note-container__drag-indicator');
-  dragIndicator.forEach((event) => {
-    event.onclick = button3DotEventHandler;
-  });
-  const deleteItem = document.querySelectorAll('.note-delete');
-  deleteItem.forEach((event) => {
-    event.onclick = removeNoteEventHandler;
-  })
-  const favoriteItem = document.querySelectorAll('.note-favorite');
-  favoriteItem.forEach((event) => {
-    event.onclick = setFavoriteNoteEventHandler;
-  });
-  const editTextList = document.querySelectorAll('.note-container__text-content');
-  editTextList.forEach((event) => {
-    event.onclick = editNoteEventHandler;
-  })
+  const latestNotes = document.querySelector("#landing-page__note-list");
+  const editTextList = document.querySelector("#note-list-sidebar");
+  
+  latestNotes.addEventListener('click', noteOnClickEventHandler);
+  editTextList.addEventListener('click', noteOnClickEventHandler);
 }
 
 function main() {
@@ -340,7 +339,7 @@ function main() {
   displayLatestNoteList();
   displayListNotes(savedNotes);
   showEditButton(editOpenedNoteButton);
-  addEventhandler()
+  addEventhandler();
 }
 
 function searchText(text, word) {
@@ -352,7 +351,7 @@ function searchText(text, word) {
   if (index !== -1) {
     let start = index - searchPreviewLength < 0 ? 0 : index - searchPreviewLength;
     let end = start === 0 ? index : searchPreviewLength;
-    return { start, end, index }
+    return { start, end, index };
   }
 
   return false;
@@ -388,7 +387,6 @@ document.querySelector('#sort-icon').addEventListener('click', function() {
   }
 
   displayListNotes(notes);
-  addEventhandler();
 
 });
 
@@ -400,8 +398,7 @@ document.querySelector('#favorite-icon').addEventListener('click', function () {
   } else {
     displayListNotes(getAllNotes());
   }
-  getFavoriteIcon.setAttribute('src', `assets/icons/star-${sortByFavoriteActive ? 'filled' : 'outlined'}.svg`)
-  addEventhandler();
+  getFavoriteIcon.setAttribute('src', `assets/icons/star-${sortByFavoriteActive ? 'filled' : 'outlined'}.svg`);
 });
 
 document.getElementById('search').addEventListener('input', function () {
@@ -419,11 +416,10 @@ document.getElementById('search').addEventListener('input', function () {
     });
 
     displayListNotes(foundNotes);
-    addEventhandler();
   }
 });
 
-document.querySelector("#button-editNote").addEventListener("click", showEditorOptions)
+document.querySelector("#button-editNote").addEventListener("click", showEditorOptions);
 
 /**
  * Print button
@@ -433,10 +429,10 @@ document.getElementById('printerButton').addEventListener('click', function () {
 });
 
 document.querySelector('#editor-menu-item-show').addEventListener('click', () => {
-  const editorOptions = document.querySelector('#editor-menu-item-options')
-  editorOptions.classList.toggle('editor-options-menu-show')
+  const editorOptions = document.querySelector('#editor-menu-item-options');
+  editorOptions.classList.toggle('editor-options-menu-show');
 
-  document.querySelector('.editor-section__menu').classList.toggle('editor-section__menu-opened')
+  document.querySelector('.editor-section__menu').classList.toggle('editor-section__menu-opened');
 })
 
 window.addEventListener("load", main);
