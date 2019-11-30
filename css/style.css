@@ -7,10 +7,9 @@
   --light-grey: #F8F8F8;
   --grey: #888;
   --dark-grey: 87, 87, 87;
-  --black: #171717;
+  --white: 248, 248, 248;
+  --black: 23, 23, 23;
   --green : #A6C48A;
-  --purple-nav-light:rgb(var(--primary-purple));
-  --purple-nav-dark:#555379;
   --current-body-font: '';
   --current-header-font: '';
 }
@@ -21,9 +20,11 @@
   --color-primary: #fff;
   --color-secondary: var(--light-grey);
   --color-accent: var(--light-grey);
-  --font-color: #000000;
+  --font-color: var(--black);
   --body-font: 300;
-  --purple-button:var(--purple-nav-light);
+  --icons: invert(0);
+  --border: var(--grey);
+  --disabled: var(--grey);
 }
 
 .theme-dark {
@@ -32,9 +33,11 @@
   --color-primary: var(--black);
   --color-secondary: rgb(var(--dark-grey));
   --color-accent: var(--grey);
-  --font-color: #fbfbfb;
+  --font-color: var(--white);
   --body-font: 400;
-   --purple-button:var(--purple-nav-dark);
+  --icons: invert(1);
+  --border: var(--light-grey);
+  --disabled: rgb(var(--dark-grey));
 }
 
 
@@ -44,29 +47,32 @@
 
 *,
 *::before,
-*::after {
+*::after, 
+*:focus {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  color: var(--font-color);
+  color: rgb(var(--font-color));
 }
 
 html {
   font-family: var(--current-body-font);
   font-weight: var(--body-font);
+  font-size: 62.5%;
 }
 
 body {
   display: flex;
-  background-color: var(--color-primary);
-}
-
-h2 {
-  font-size: 1.7rem;
+  background-color: rgb(var(--color-primary));
 }
 
 *:focus {
   outline: 2px solid rgba(var(--primary-purple), 1);
+}
+
+
+*::placeholder {
+  color: rgba(var(--font-color), .5);
 }
 
 /* -------------  BASIC SETTINGS END ------------- */
@@ -75,34 +81,43 @@ h2 {
 
 .heading-primary {
   font-family: var(--current-header-font);
-  font-size: 3rem;
+  font-size: 3.5rem;
 
   color: var(--purple-text);
 }
+
+.heading-secondary {
+ font-family: var(--current-header-font);
+ font-size: 2.7rem;
+}
+
 .heading-tertiary{
   font-weight: 400;
   font-size: 2rem;
-  color: var(--font-color);
+  color: rgb(var(--font-color));
 }
 .heading-quaternary{
- color: var(--font-color);
+  color: rgb(var(--font-color));
   padding-bottom: .5rem;
-    font-weight: normal;
-    font-size: 1.2rem;
-    text-transform: uppercase;
+  font-weight: normal;
+  font-size: 1.2rem;
+  text-transform: uppercase;
 }
+
 .paragraph{
   font-size: 1.3rem;
 }
+
 .paragraph-date{
   font-size: 1.2rem;
   margin-bottom: 1rem;
   color: var(--dark-grey)
 }
+
 .paragraph-lead {
   font-family: inherit;
   font-size: 1.7rem;
-  color: var(--font-color);
+  color: rgb(var(--font-color));
 }
 
 /* -------------  TYPOGRAPHY END -------------*/
@@ -200,7 +215,7 @@ h2 {
   top: 0;
   position: fixed;
   z-index: 3;
-  background-color: var(--color-accent);
+  background-color: var(--color-secondary);
 
   width: 100%;
   padding: 1rem 15rem !important;
@@ -214,7 +229,7 @@ h2 {
 .editor-section__title {
   font-family: var(--current-header-font);
   font-size: 3rem;
-  color: var(--font-color);
+  color: rgb(var(--font-color));
   background-color: var(--color-primary);
   padding: .5rem 15px;
   margin: 15rem 15rem 1rem 15rem;
@@ -247,8 +262,6 @@ h2 {
       flex-direction: row; 
     }
 
-
-
 .font-option {
   position: relative;
   width: 20rem;
@@ -279,10 +292,11 @@ h2 {
 
 .editor-section__toolbar-icon {
   -webkit-appearance: none;
+  fill: rgb(var(--font-color));
 }
 
 .editor-section__toolbar-icon:hover {
-  fill: rgb(var(--primary-purple));
+  fill: var(--purple-text);
 }
 
 .saved-notification {
@@ -346,7 +360,6 @@ h2 {
 
 .settings__inner {
   margin-bottom: 4rem;
-
 }
 .settings__title{
   margin-left: 3rem;
@@ -380,13 +393,13 @@ h2 {
 }
 
 .font-list-option:not(:last-child) {
-  border-bottom: 1px solid var(--black)
+  border-bottom: 1px solid var(--border);
 }
 .span-font-status{
   font-size: 1.6rem;
 }
 .switch {
-  margin-left: 2rem;
+  margin-right: 1rem;
   position: relative;
   display: block;
   width: 3rem;
@@ -466,60 +479,6 @@ input:checked+.slider:before {
 }
 }
 
-/* ------------- NAVBAR DESIGN ENDS -------------*/
-
-/* ------------- MODAL DESIGN ENDS -------------*/
-
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-content {
-  background-color: var(--light-grey);
-  margin: auto;
-  color: var(--black);
-  padding: 2rem; 
-  height: 100%;
-  margin-left: 8rem;
-  width: 25rem;
-}
-.modal-content h1{
-  font-size: 2.5rem;
-}
-
-.close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: var(--black);
-  text-decoration: none;
-  cursor: pointer;
-}
-#note-list div{
-  padding: 20px;
-}
-#note-list div h3{
-  font-size: 30px;
-}
-#note-list div p{
-  font-size: 15px;
-}
-
-/* ------------- MODAL DESIGN ENDS -------------*/
 
 /* ------------- Notes Navigation Design -------------*/
 
@@ -547,81 +506,17 @@ input:checked+.slider:before {
   overflow: hidden;
 }
 
-.aside__note-list {
-  list-style: none;
-  position: relative;
-  overflow: hidden;
-}
-
-.aside__note-list li {
-  display: flex;
-  flex-direction: row;
-  padding: 2rem;
-  height: auto;
-  cursor: pointer;
-  background-color: var(--light-grey);
-  border-bottom: 1px solid var(--black);
-  width: 100%;
-}
-.aside__note-list li section:first-child{
-  width:80%;
-}
-.aside__note-list li .section-right{
-  width:10%;
-  display: flex;
-  flex-direction: column;
-  align-self: center;
-}
-
-.aside__note-list li section{
-  height: 100%;
-}
-.aside__note-list li .section-right div{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-
-}
-.aside__note-list li {
-  background-color: var(--color-secondary)
-}
-
-.aside__note-list h2 {
-  font-size: 2rem;
-}
-
 
 .preview-highlight {
   background-color: lime;
 }
-
-.aside__note-list li > * {
-  margin-bottom: 0.5rem;
-}
-
-.aside__note-list li:hover {
-  background-color: var(--color-list);
-}
-
-
-.aside__note-list li section h2{
-font-size: 3.3rem;
-font-weight: normal;
-}
-
-.aside__note-list li:after {
-  width: 5rem;
-  height: .5rem;
-  background-color: var(--black);
-}
-
 
 
 .note-button-group {
   cursor: pointer;
   outline: 0;
   position: absolute;
-  border: .1rem solid var(--black);
+  border: .1rem solid var(--border);
   right: 0;
   margin-right: 1.5rem;
   background-color: transparent;
@@ -639,7 +534,7 @@ font-weight: normal;
   -webkit-transform: translateX(-14rem);
   transition: all 0.5s ease;
 }
-.group-button-menue{
+.group-button-menu{
 transform: translateX(-16rem);
   -ms-transform: translateX(-16rem);
   -webkit-transform: translateX(-16rem);
@@ -670,7 +565,6 @@ transform: translateX(-16rem);
   overflow: hidden;
   width: 30rem;
 }
-
 .note-container:hover{
   background-color: var(--color-list);
 }
@@ -678,7 +572,7 @@ transform: translateX(-16rem);
   width: 24rem;
   margin:0 3rem;
   padding: 2rem 0;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid var(--border);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -686,24 +580,29 @@ transform: translateX(-16rem);
   flex-shrink: 0;
   transition: all 0.5s ease;
 }
-.note-top-menue{
-    width: 100%;
-    margin: 0 2rem;
-    padding: 2rem 0;
-    display: flex;
-    flex-direction: row;
-}
-.menue-icon{
-  height: 3rem;
-  margin: 0 1rem;
-}
-.menue-item{
+.note-top-menu{
+  width: 100%;
+  padding: 2rem 3rem;
   display: flex;
-    justify-content: center;
-    align-items: center;
+  flex-direction: row
+}
+.menu-item__icon{
+  height: 3rem;
+  filter: var(--icons);
+}
+.menu-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.menu-item:not(:first-child){
+  margin-left: 1.5rem;
 }
 
 .note-container__text-content{
+  width: 80%;
   display: flex;
   cursor: pointer;
   flex-direction: column;
@@ -713,6 +612,7 @@ transform: translateX(-16rem);
   align-self: center;
   padding-left: 2rem;
   height: fit-content;
+  filter: var(--icons);
 }
 
 .note-container__drag-indicator img{
@@ -720,7 +620,7 @@ transform: translateX(-16rem);
   cursor: pointer;
 }
 
-.note-container__menue{
+.note-container__menu{
   width: 30rem;
   display: flex;
   flex-direction: row;
@@ -729,34 +629,28 @@ transform: translateX(-16rem);
   margin: 2rem;
   transition: all 0.5s ease;
 }
-.note-container__menue-item{
-      display: flex;
-    justify-content: center;
-    align-items: center;
-  border-left: 1px solid black;
+.note-container__menu-item{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-left: 1px solid var(--border);
 }
 .note-container__icon{
   height: 3rem;
   margin: 0 2rem;
   transition: all 0.5s ease;
   cursor: pointer;
+  filter: var(--icons);
 }
-@media only screen and (max-width:768px){
-.note-container{
-  width: 100%;
-}
-.note-container__inner{
-  width: 90vw;
-}
-}
+
 /* ------------- Notes Navigation Design Ends -------------*/
 
 /* ------------- Search Input Field Design -------------*/
 #note-search-list{
-  margin: 0 2rem;
-  padding: 2rem 0;
-transform: all 0.5s ease;
+  padding: 2rem 3rem;
+  background-color: var(--color-list);
 }
+
 .hide-search{
   display: none;
 }
@@ -767,7 +661,15 @@ transform: all 0.5s ease;
 #search {
   width: 100%;
   height: 3rem;
-  color: var(--black);
+  color: rgb(var(--font-color));
+  -webkit-appearance: none;
+  border: none;
+  background-color: var(--color-list);
+}
+
+#search:focus{
+  outline: none;
+  border-bottom: 1px solid var(--border);
 }
 
 
@@ -782,16 +684,14 @@ transform: all 0.5s ease;
   background-color: var(--color-accent);
 }
 
-.ql-snow.ql-toolbar button:hover, .ql-snow .ql-toolbar button:hover, .ql-snow.ql-toolbar button:focus, .ql-snow .ql-toolbar button:focus, .ql-snow.ql-toolbar button.ql-active, .ql-snow .ql-toolbar button.ql-active, .ql-snow.ql-toolbar .ql-picker-label:hover, .ql-snow .ql-toolbar .ql-picker-label:hover, .ql-snow.ql-toolbar .ql-picker-label.ql-active, .ql-snow .ql-toolbar .ql-picker-label.ql-active, .ql-snow.ql-toolbar .ql-picker-item:hover, .ql-snow .ql-toolbar .ql-picker-item:hover, .ql-snow.ql-toolbar .ql-picker-item.ql-selected, .ql-snow .ql-toolbar .ql-picker-item.ql-selected {
-  color: #7A6CB1 !important;
-}
-
 #editor-code {
   border: 0;
 }
-/* .ql-toolbar {
-  border: none !important;
-} */
+
+#editor-code .ql-editor:focus {
+  border: none;
+  outline: none !important;
+}
 
 .ql-toolbar--hidden {
   visibility: hidden;
@@ -800,6 +700,22 @@ transform: all 0.5s ease;
 
 .ql-container--hidden {
   border: none !important;
+}
+
+.ql-stroke {
+  stroke: rgb(var(--font-color)) !important;
+}
+
+.ql-toolbar button:hover .ql-stroke{
+  stroke: var(--purple-text) !important;
+}
+
+.ql-fill {
+  fill: rgb(var(--font-color)) !important;
+}
+
+.ql-toolbar button:hover .ql-fill {
+  fill: var(--purple-text) !important;
 }
 
 #editor-menu-item-save {
@@ -812,7 +728,6 @@ transform: all 0.5s ease;
   visibility: hidden;
 }
 
-/* ------------- END OVERRIDE QUILL DESIGN ------------- */
 .ql-editor p, .ql-editor ol, .ql-editor ul, .ql-editor pre {
   font-family: var(--current-body-font);
 }
@@ -821,9 +736,12 @@ transform: all 0.5s ease;
   font-family: var(--current-header-font);
 }
 
-/* END OVERRIDE QUILL DESIGN */
+.ql-editor.ql-blank::before {
+    color: rgba(var(--font-color), .5) !important;
+    font-style: normal;
+}
 
-/* ------------- Notes Navigation Design Ends -------------*/
+/* ------------- END OVERRIDE QUILL DESIGN ------------- */
 
 /* ------------- MAIN PAGE CONTENT -------------*/
 
@@ -831,8 +749,6 @@ transform: all 0.5s ease;
   width: 100%;
   margin-left: 8rem;
 }
-
-
 
 /* ------------- MAIN PAGE CONTENT END -------------*/
 
@@ -847,13 +763,11 @@ transform: all 0.5s ease;
   height: 100vh;
 }
 
-.landing-page__heading {
-  font-family: var(--current-header-font);
-  font-size: 3rem;
+.landing-page__heading--secondary {
   margin-top: -8rem;
 
   color: var(--purple-text);
-  border-bottom: 1px solid var(--grey);
+  border-bottom: 1px solid var(--border);
 
   padding-left: 1rem;
 }
@@ -908,7 +822,7 @@ transform: all 0.5s ease;
 .landing-page__button {
   border: none;
   border-radius: 1rem;
-  background-color: var(--purple-button);
+  background-color: rgb(var(--primary-purple));
 
   cursor: pointer;
 
@@ -969,13 +883,13 @@ transform: all 0.5s ease;
 
 .notes__lastChanged {
   font-size: 1.3rem;
-  color: var(--font-color);
+  color: rgb(var(--font-color));
   margin-bottom: 1rem;
 }
 
 .notes__content {
   font-size: 1.3rem;
-  color: var(--font-color);
+  color: rgb(var(--font-color));
   max-height: 10rem;
   overflow: hidden;
   white-space: wrap;

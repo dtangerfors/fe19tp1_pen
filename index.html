@@ -64,90 +64,75 @@
       </li>
     </ul>
   </nav>
-  <aside class="sidebar"
-      id="sidebar-notes">
-     
-      <div class="note-top-menue">
-        <div class="menue-item">
-          <img id="favorite-icon" class="favorite-top-icon menue-icon" src="assets/icons/star-outlined.svg" alt="Sort by favorite notes">
-        </div>
-        <div class="menue-item">
-          <img id="sort-icon" class="sort-top-icon menue-icon" src="assets/icons/sort.svg" alt="Sort notes">
-        </div>
-        <div class="menue-item">
-          <img class="search-top-icon menue-icon" id="search-icon" src="assets/icons/search.svg">
-        </div>
-      </div>
-      <div id="note-search-list"
-        class="hide-search">
-        <input type="text"
-          name="search"
-          id="search"
-          placeholder="Search...">
-      </div>
-      <div id="note-list-sidebar">
+  <aside class="sidebar" id="sidebar-notes">
 
+    <div class="note-top-menu">
+      <div class="menu-item">
+        <img id="favorite-icon" class="favorite-top-icon menu-item__icon" src="assets/icons/star-outlined.svg"
+          alt="Sort by favorite notes">
       </div>
-    </aside>
-    <aside class="sidebar"
-      id="sidebar-settings">
-      <div class="settings">
-        <h3 class="heading-tertiary settings__heading">Settings</h3>
-        <div class="settings__inner">
-          <h4 class="heading-quaternary settings__title">GENERAL</h4>
-          <div class="settings__options">
-            <label class="settings__title-secondary"
-              for="auto-save">Save automatically</label>
-            <label class="switch">
-              <input id="auto-save"
-                type="checkbox"
-                name="auto-save">
-              <span class="slider round"></span>
-            </label>
-          </div>
-        </div>
-        <div class="settings__inner">
-          <h4 class="heading-quaternary settings__title">APPEARANCE</h4>
-          <div class="settings__options">
-            <label class="settings__title-secondary"
-              for="theme">Darkmode</label>
-            <label class="switch">
-              <input id="theme"
-                type="checkbox"
-                name="theme">
-              <span class="slider round"></span>
-            </label>
-          </div>
-        </div>
-        <div class="settings__inner">
-          <h4 class="heading-quaternary settings__title">Font theme</h4>
-          <ul class="settings__font-list"
-            id="font-list">
-            <li id="noto-switch"
-              class="font-list-option">
-              <p class="settings__title-secondary">
-                Noto
-              </p>
-              <span class="span-font-status">Not in use</span>
-            </li>
-            <li id="poppin-switch"
-              class="font-list-option">
-              <p class="settings__title-secondary">
-                Poppins
-              </p>
-              <span class="span-font-status">Not in use</span>
-            </li>
-            <li id="quire-switch"
-              class="font-list-option">
-              <p class="settings__title-secondary">
-                Quire
-              </p>
-              <span class="span-font-status">Not in use</span>
-            </li>
-          </ul>
+      <div class="menu-item">
+        <img id="sort-icon" class="sort-top-icon menu-item__icon" src="assets/icons/sort.svg" alt="Sort notes">
+      </div>
+      <div class="menu-item">
+        <img class="search-top-icon menu-item__icon" id="search-icon" src="assets/icons/search.svg">
+      </div>
+    </div>
+    <div id="note-search-list" class="hide-search">
+      <input type="text" name="search" id="search" placeholder="Are you looking for something …?">
+    </div>
+    <div id="note-list-sidebar">
+
+    </div>
+  </aside>
+  <aside class="sidebar" id="sidebar-settings">
+    <div class="settings">
+      <h3 class="heading-tertiary settings__heading">Settings</h3>
+      <div class="settings__inner">
+        <h4 class="heading-quaternary settings__title">General</h4>
+        <div class="settings__options">
+          <label class="settings__title-secondary" for="auto-save">Auto save</label>
+          <label class="switch">
+            <input id="auto-save" type="checkbox" name="auto-save">
+            <span class="slider round"></span>
+          </label>
         </div>
       </div>
-    </aside>
+      <div class="settings__inner">
+        <h4 class="heading-quaternary settings__title">Appearance</h4>
+        <div class="settings__options">
+          <label class="settings__title-secondary" for="theme">Dark Mode</label>
+          <label class="switch">
+            <input id="theme" type="checkbox" name="theme">
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+      <div class="settings__inner">
+        <h4 class="heading-quaternary settings__title">Font theme</h4>
+        <ul class="settings__font-list" id="font-list">
+          <li id="noto-switch" class="font-list-option">
+            <p class="settings__title-secondary">
+              Noto
+            </p>
+            <span class="span-font-status">Not in use</span>
+          </li>
+          <li id="poppin-switch" class="font-list-option">
+            <p class="settings__title-secondary">
+              Poppins
+            </p>
+            <span class="span-font-status">Not in use</span>
+          </li>
+          <li id="quire-switch" class="font-list-option">
+            <p class="settings__title-secondary">
+              Quire
+            </p>
+            <span class="span-font-status">Not in use</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
   <main id="main-page-content">
     <section class="landing-page">
       <div class="landing-page__start">
@@ -171,7 +156,7 @@
         </div>
       </div>
       <div class="landing-page__latest-notes">
-        <h2 class="heading-secondary landing-page__heading">Latest notes</h2>
+        <h2 class="heading-secondary landing-page__heading--secondary">Latest notes</h2>
         <div id="landing-page__note-list"></div>
       </div>
     </section>
@@ -263,7 +248,7 @@
                       	s1,0.4,1,1S19.5,12,19,12z M18,3H6v4h12V3z" />
             </svg>
           </button>
-          <button id="new-document" class="editor-section__button">
+          <button id="new-document" class="editor-section__button editor-section__toolbar-icon">
             <svg viewBox="0 0 24 24">
               <path d="M17,19.2H5V7h7V5H5C3.9,5,3,5.9,3,7v12c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2v-7h-2V19.2z M19,2h-2v3h-3v2h3v3h2V7h3V5h-3V2z
             	 M7,9h8v2H7V9z M7,12v2h8v-2h-3H7z M7,15h8v2H7V15z" />
@@ -279,8 +264,8 @@
 
         </div>
       </div>
-      <input type="text" name="editorTitle" id="editorTitle" maxlength="20" class="editor-section__title" placeholder="New document"
-        spellcheck="false" autocomplete="off">
+      <input type="text" name="editorTitle" id="editorTitle" maxlength="20" class="editor-section__title"
+        placeholder="New document" spellcheck="false" autocomplete="off">
       <div id="editor-main" class="editor-section__editor">
         <div id="editor-code"></div>
       </div>

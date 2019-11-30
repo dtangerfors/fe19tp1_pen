@@ -45,8 +45,6 @@ import { showEditorOptions, hideEditorOptions } from './modules/notes/edit.js';
 /**
  * Quill Editor
  */
-
-
 const editor = new Quill('#editor-code', quillSettings);
 
 editor.on('text-change', (_1, _2, source) => {
@@ -110,7 +108,7 @@ function makeAndStoreContent() {
       h3TitleElement.innerHTML = note.title;
       previewTextElement.innerHTML = getPreviewTextFromNote(note, 0, 50);
     }
-    if(noteExists) return;
+    if (noteExists) return;
   });
 
   if (!noteExists) {
@@ -169,20 +167,20 @@ function setFavoriteNoteEventHandler(event) {
 function button3DotEventHandler(event) {
   if (!(event.target.getAttribute('class'))) {
     const classID = event.target.parentNode.parentNode.getAttribute('note-id');
-    
+
     const textContent = document.querySelector(`.note-class_${classID} .note-container__text-content`);
     const indicator = document.querySelector(`.note-class_${classID} .note-container__drag-indicator`);
-    const indicatorChildren = document.querySelector(`.note-container__menue.note-class_${classID}`);
+    const indicatorChildren = document.querySelector(`.note-container__menu.note-class_${classID}`);
 
     textContent.classList.toggle('group-button-show-inner');
     indicator.classList.toggle('group-button-show-inner');
-    indicatorChildren.classList.toggle('group-button-menue');
+    indicatorChildren.classList.toggle('group-button-menu');
   }
 }
 
 function populateEditor(noteId) {
   const index = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteId));
-  if(index !== -1) {
+  if (index !== -1) {
     const note = getNote(index);
     const editorTitle = document.getElementById('editorTitle');
     editor.setContents(note.content);
@@ -206,11 +204,11 @@ function noteOnClickEventHandler(event) {
     populateEditor(noteIdToEdit);
     showEditor();
     setState(STATES.EDITOR);
-  } else if(event.target.classList.contains('note-container__drag-indicator') || event.target.parentNode.classList.contains('note-container__drag-indicator')) {
+  } else if (event.target.classList.contains('note-container__drag-indicator') || event.target.parentNode.classList.contains('note-container__drag-indicator')) {
     button3DotEventHandler(event);
-  } else if(event.target.classList.contains('note-favorite')) {
+  } else if (event.target.classList.contains('note-favorite')) {
     setFavoriteNoteEventHandler(event);
-  } else if(event.target.classList.contains('note-delete')){
+  } else if (event.target.classList.contains('note-delete')) {
     removeNoteEventHandler(event);
   }
 }
@@ -271,10 +269,10 @@ function saveFunction() {
 }
 
 function createNewDocument() {
-    //Reset edit id, clear editor content and its title
-    saveEditID(0);
-    clearContents();
-    document.getElementById('editorTitle').value = '';
+  //Reset edit id, clear editor content and its title
+  saveEditID(0);
+  clearContents();
+  document.getElementById('editorTitle').value = '';
 }
 
 function editorLoad() {
@@ -353,7 +351,7 @@ document.querySelector("#quire-logo").addEventListener("click", () => {
 function addEventhandler() {
   const latestNotes = document.querySelector("#landing-page__note-list");
   const editTextList = document.querySelector("#note-list-sidebar");
-  
+
   latestNotes.addEventListener('click', noteOnClickEventHandler);
   editTextList.addEventListener('click', noteOnClickEventHandler);
 }
@@ -367,17 +365,17 @@ function main() {
   showEditButton(editOpenedNoteButton);
   addEventhandler();
 
-  switch(getCurrentState()) {
+  switch (getCurrentState()) {
 
     case STATES.LANDING_PAGE:
 
-    break;
+      break;
 
     case STATES.EDITOR:
-        populateEditor(loadEditID());
-        showEditor(false);
-        showEditorOptions();
-    break;
+      populateEditor(loadEditID());
+      showEditor(false);
+      showEditorOptions();
+      break;
   }
 }
 
@@ -410,9 +408,9 @@ document.querySelector('#search-icon').addEventListener('click', function () {
 });
 
 let sortByFavoriteActive = false;
-let sortFromNewest = false; 
+let sortFromNewest = false;
 
-document.querySelector('#sort-icon').addEventListener('click', function() {
+document.querySelector('#sort-icon').addEventListener('click', function () {
   sortFromNewest = !sortFromNewest;
 
   let notes = getAllNotes();
@@ -433,7 +431,7 @@ document.querySelector('#sort-icon').addEventListener('click', function() {
 document.querySelector('#favorite-icon').addEventListener('click', function () {
   const getFavoriteIcon = document.querySelector('#favorite-icon');
   sortByFavoriteActive = !sortByFavoriteActive;
-  if(sortByFavoriteActive) {
+  if (sortByFavoriteActive) {
     displayListNotes(getFavorites());
   } else {
     displayListNotes(getAllNotes());
