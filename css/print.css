@@ -4,6 +4,12 @@
     display: none;
   }
 
+  #editorTitle {
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+
   #editor-code {
     border: 0;
     overflow: hidden;
