@@ -7,7 +7,7 @@
   --light-grey: #F8F8F8;
   --grey: #888;
   --dark-grey: 87, 87, 87;
-  --white: 248, 248, 248;
+  --white: 255, 255, 255;
   --black: 23, 23, 23;
   --green : #A6C48A;
   --current-body-font: '';
@@ -17,7 +17,7 @@
 .theme-light {
   --purple-text:rgb(var(--primary-purple));
   --color-list:#fff;
-  --color-primary: #fff;
+  --color-primary: var(--white);
   --color-secondary: var(--light-grey);
   --color-accent: var(--light-grey);
   --font-color: var(--black);
@@ -47,8 +47,7 @@
 
 *,
 *::before,
-*::after, 
-*:focus {
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -62,7 +61,6 @@ html {
 }
 
 body {
-  display: flex;
   background-color: rgb(var(--color-primary));
 }
 
@@ -96,6 +94,7 @@ body {
   font-size: 2rem;
   color: rgb(var(--font-color));
 }
+
 .heading-quaternary{
   color: rgb(var(--font-color));
   padding-bottom: .5rem;
@@ -104,7 +103,7 @@ body {
   text-transform: uppercase;
 }
 
-.paragraph{
+.paragraph {
   font-size: 1.3rem;
 }
 
@@ -123,18 +122,6 @@ body {
 /* -------------  TYPOGRAPHY END -------------*/
 
 /* -------------  ANIMATIONS ------------- */
-
-@keyframes navLinkFade {
-  from {
-    opacity: 0;
-    transform: translateX(.5rem);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
 
 @keyframes slideDown {
   0%    {opacity: 1; transform: translateY(0);}
@@ -213,7 +200,7 @@ body {
   box-shadow: 0 .3rem 0 0 rgba(var(--dark-grey), .1);
   
   top: 0;
-  position: fixed;
+  position: sticky;
   z-index: 3;
   background-color: var(--color-secondary);
 
@@ -225,16 +212,18 @@ body {
   justify-content: space-between;
 }
 
-
 .editor-section__title {
   font-family: var(--current-header-font);
   font-size: 3rem;
+
   color: rgb(var(--font-color));
-  background-color: var(--color-primary);
+  background-color: rgb(var(--color-primary));
+
   padding: .5rem 15px;
-  margin: 15rem 15rem 1rem 15rem;
+  margin: 5rem 15rem 1rem 15rem;
+
   -webkit-appearance: none;
-  border: 2px solid var(--color-primary);
+  border: 2px solid rgb(var(--color-primary));
 }
 
 .editor-section__title:focus {
@@ -244,7 +233,7 @@ body {
 
 .editor-section__editor {
   width: inherit;
-  margin: 5rem 15rem;
+  margin: 0 15rem;
 }
 
 .editor-section__menu {
@@ -255,40 +244,12 @@ body {
   -webkit-appearance: none;
 }
 
- .editor-options-menu {
+.editor-options-menu {
       order: 2;
       width: 100%;
       display: flex;
       flex-direction: row; 
-    }
-
-.font-option {
-  position: relative;
-  width: 20rem;
-  display: block;
-  height: 1.7rem;
 }
-
-.font-option p {
-  margin-left: 2rem;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: gray;
-  margin-top: 2rem;
-}
-
-
-.font-option ul li
-
-.font-option ul li {
-  padding: 1rem;
-  font-weight: 500;
-  font-size: 1.75rem;
-  margin-left: 1rem;
-}
-
-
-
 
 .editor-section__toolbar-icon {
   -webkit-appearance: none;
@@ -321,7 +282,6 @@ body {
   animation: savedAnimation 5s ease infinite;
 }
 
-
 .saved-notification__text {
   font-size: 1.4rem;
   font-weight: 400;
@@ -346,29 +306,22 @@ body {
 
 /* ------------- EDITOR SECTION END -------------*/
 
-
-
-.nav-active {
-  transform: translateX(0%)
-}
-
-
-/* ------------- NAVBAR DESIGN ENDS -------------*/
-
-
 /* ------------- SETTINGS DESIGN -------------*/
 
 .settings__inner {
   margin-bottom: 4rem;
 }
+
 .settings__title{
   margin-left: 3rem;
 }
+
 .settings__font-list{
   background-color: var(--color-list);
   padding: 1rem 3rem;
   list-style: none;
 }
+
 .settings__options{
   background-color: var(--color-list);
   padding: 1rem 3rem;
@@ -376,13 +329,19 @@ body {
   flex-direction: row;
   justify-content: space-between;
 }
+
 .settings__title-secondary{
   font-size: 1.6rem;
 }
+
 .settings__heading{
   padding: 4rem 3rem;
   font-size: 2rem;
 }
+
+/* ------------- SETTINGS DESIGN END -------------*/
+
+/* ------------- FONT THEME -------------*/
 
 .font-list-option {
   padding: 1rem 0;
@@ -395,9 +354,13 @@ body {
 .font-list-option:not(:last-child) {
   border-bottom: 1px solid var(--border);
 }
+
 .span-font-status{
   font-size: 1.6rem;
 }
+
+/* ------------- FONT THEME END -------------*/
+
 .switch {
   margin-right: 1rem;
   position: relative;
@@ -405,6 +368,7 @@ body {
   width: 3rem;
   height: 1.7rem;
 }
+
 .switch:nth-of-type(3){
  margin-top:2rem;
 }
@@ -418,7 +382,6 @@ body {
   width: 0;
   height: 0;
 }
-
 
 .slider {
   position: absolute;
@@ -444,9 +407,11 @@ body {
   -webkit-transition: .4s;
   transition: .4s;
 }
+
 input:checked+.slider {
   background-color: var(--dark-grey);
 }
+
 input:checked+.slider{
   background-color: var(--green);
 }
@@ -468,7 +433,6 @@ input:checked+.slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
-
 
 @media screen and (max-width:768px) {
   #sidebar-settings{
@@ -493,24 +457,18 @@ input:checked+.slider:before {
   overflow-wrap: break-word;
   opacity: 0;
   box-shadow: .7rem 0 0 0 rgba(0,0,0,.1);
-  transition: width .3s ease, opacity .3s ease;
+  transition: all .7s ease, opacity .3s ease;
 }
 
 .sidebar-show {
   width: 30rem;
   opacity: 1;
-  transition: all .3s ease;
+  transition: all .7s ease, opacity .3s ease;
 }
 
 #sidebar-notes {
   overflow: hidden;
 }
-
-
-.preview-highlight {
-  background-color: lime;
-}
-
 
 .note-button-group {
   cursor: pointer;
@@ -534,25 +492,27 @@ input:checked+.slider:before {
   -webkit-transform: translateX(-14rem);
   transition: all 0.5s ease;
 }
+
 .group-button-menu{
 transform: translateX(-16rem);
   -ms-transform: translateX(-16rem);
   -webkit-transform: translateX(-16rem);
   transition: all 0.5s ease;
 }
+
 .group-button-show {
   transform: translateX(-8rem);
   -ms-transform: translateX(-8rem);
   -webkit-transform: translateX(-8rem);
   transition: all 0.5s ease;
 }
+
 .group-button-show-section{
   transform: translateX(-22rem);
   -ms-transform: translateX(-22rem);
   -webkit-transform: translateX(-22rem);
   transition: all 0.5s ease;
 }
-
 
 .group-button-show div{
    transition: all 0.5s ease;
@@ -677,11 +637,11 @@ transform: translateX(-16rem);
 
 /* ------------- OVERRIDE QUILL DESIGN ------------- */
 #ql-picker-options-0 {
-  background-color: var(--color-primary);
+  background-color: rgb(var(--color-primary));
 }
 
 .ql-picker-item:hover {
-  background-color: var(--color-accent);
+  background-color: rgb(var(--color-primary));
 }
 
 #editor-code {
@@ -746,7 +706,7 @@ transform: translateX(-16rem);
 /* ------------- MAIN PAGE CONTENT -------------*/
 
 #main-page-content {
-  width: 100%;
+  width: calc(100% - 8rem);
   margin-left: 8rem;
 }
 
@@ -773,16 +733,14 @@ transform: translateX(-16rem);
 }
 
 .landing-page__heading--primary {
-  margin-top: 2rem;
+  margin-top: -2rem;
 }
-
-
 
 /* Landing Page Sections */
 
 .landing-page__start {
   width: 50%;
-  padding-right: 1rem;
+  padding-right: 3rem;
   padding-bottom: 5rem;
   display: flex;
   flex-direction: column;
@@ -792,20 +750,17 @@ transform: translateX(-16rem);
 .landing-page__latest-notes {
   width: 50%;
   height: 100%;
-  padding-left: 0;
+  padding-left: 3rem;
   padding-top: 10rem;
   padding-bottom: 5rem;
 }
-
-
 
 /* Landing Page Start Section */
 
 .landing-page__img-note{
   margin-top: 3rem;
-  margin-left: 2rem;
   margin-right: auto;
-  width: 83%;
+  width: 100%;
 }
 
 .landing-page__intro {
@@ -854,7 +809,6 @@ transform: translateX(-16rem);
   background-color: rgb(var(--secondary-purple));
 }
 
-
 /* ------------- LANDING PAGE END -------------*/
 
 /* ------------- LANDING PAGE NOTES -------------*/
@@ -890,7 +844,6 @@ transform: translateX(-16rem);
 .notes__content {
   font-size: 1.3rem;
   color: rgb(var(--font-color));
-  max-height: 10rem;
   overflow: hidden;
   white-space: wrap;
   text-overflow: ellipsis;
@@ -905,51 +858,7 @@ transform: translateX(-16rem);
 /* ------------- LANDING PAGE NOTES END -------------*/
 
 #quire-footer {
-  display: none;
+  display: flex;
+  height: 5rem;
 }
 
-@media print {
-
-  .nav, #note-list, .ql-toolbar, .editor-section__toolbar, button, .sidebar, .sidebar-show, .sidebar::-webkit-scrollbar {
-    display: none;
-  }
-
-  #editor-code {
-    border: 0;
-    overflow: hidden;
-    height: auto;
-  }
-
-  .editor-section__title {
-    margin: 0;
-    text-align: center;
-  }
-
-  .editor-section__editor {
-    margin: 0;
-  }
-
-  .editor-section {
-    margin: 0;
-  }
-
-
-  #main-page-content {
-    margin: 0;
-    padding: 0;
-  }
-
-  .editor-section__menu {
-    border: 0;
-  }
-
-  .ql-snow .ql-editor {
-    margin: 0;
-    padding: 0;
-  }
-
-  @page {
-    size: auto;
-    margin: 2cm;
-  }
-}
