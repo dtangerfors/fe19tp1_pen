@@ -22,6 +22,7 @@ import {
   settings as userSettings,
   getCurrentState,
   setState,
+  isCurrentState,
   STATES
 } from './modules/settings/user-settings.js';
 
@@ -56,6 +57,8 @@ editor.on('text-change', (_1, _2, source) => {
 });
 
 let searchPreviewLength = 20;
+let sortByFavoriteActive = false;
+let sortFromNewest = false;
 
 /*
   Initialize localStorage keys before usage.
@@ -123,6 +126,46 @@ function makeAndStoreContent() {
   displayListNotes(getAllNotes());
 }
 
+function populateEditor(noteId) {
+  const index = getAllNotes().findIndex(data => data.dateOfCreation === noteId);
+  if (index !== -1) {
+    const note = getNote(index);
+    const editorTitle = document.getElementById('editorTitle');
+    editor.setContents(note.content);
+    editorTitle.value = note.title;
+    hideEditorOptions();
+    document.querySelector("#sidebar-notes").classList.remove("sidebar-show")
+    saveEditID(noteId);
+    storeContent();
+  }
+}
+
+function saveEventAnimation() {
+  const saveNotification = document.querySelector("#saved-notification");
+
+  setTimeout(() => {
+    saveNotification.classList.add("saved-notification--show");
+  }, 1000);
+
+  setTimeout(() => {
+    saveNotification.classList.remove("saved-notification--show");
+  }, 6000);
+}
+
+function searchText(text, word) {
+  text = text.toLowerCase();
+  word = word.toLowerCase().replace(/([()[{*+.$^\\|?])/g, '\\$1');
+
+  const index = text.search(word);
+
+  if (index !== -1) {
+    let start = index - searchPreviewLength < 0 ? 0 : index - searchPreviewLength;
+    let end = start === 0 ? index : searchPreviewLength;
+    return { start, end, index };
+  }
+
+  return false;
+}
 
 /////////////////// EVENT HANDLERS ///////////////////
 
@@ -178,17 +221,49 @@ function button3DotEventHandler(event) {
   }
 }
 
-function populateEditor(noteId) {
-  const index = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteId));
-  if (index !== -1) {
-    const note = getNote(index);
-    const editorTitle = document.getElementById('editorTitle');
-    editor.setContents(note.content);
-    editorTitle.value = note.title;
-    hideEditorOptions();
-    setTimeout(() => document.querySelector("#sidebar-notes").classList.remove("sidebar-show"), 1000);
-    saveEditID(noteId);
-    storeContent();
+function sortEventHandler() {
+  sortFromNewest = !sortFromNewest;
+
+  let notes = getAllNotes();
+  if (sortByFavoriteActive) {
+    notes = getFavorites();
+  }
+
+  if (sortFromNewest) {
+    notes = getNotesFromNewestToOldest(notes);
+  } else {
+    notes = getNotesFromOldestToNewest(notes);
+  }
+
+  displayListNotes(notes);
+}
+
+function favoriteEventHandler() {
+  const getFavoriteIcon = document.querySelector('#favorite-icon');
+  sortByFavoriteActive = !sortByFavoriteActive;
+  if (sortByFavoriteActive) {
+    displayListNotes(getFavorites());
+  } else {
+    displayListNotes(getAllNotes());
+  }
+  getFavoriteIcon.setAttribute('src', `assets/icons/star-${sortByFavoriteActive ? 'filled' : 'outlined'}.svg`);
+}
+
+function searchEventHandler() {
+  let notes = getAllNotes();
+
+  if (sortByFavoriteActive) {
+    notes = getFavorites();
+  }
+
+  if (notes.length > 0) {
+    clearAllChildren(document.querySelector('#note-list-sidebar'));
+
+    const foundNotes = notes.filter((note, index) => {
+      return searchText(getTextFromContent(note.content.ops), this.value) || searchText(note.title, this.value);
+    });
+
+    displayListNotes(foundNotes);
   }
 }
 
@@ -200,9 +275,17 @@ function noteOnClickEventHandler(event) {
   let filterTarget = event.target.getAttribute('class');
   let buttonGroup = event.target.nodeName;
   if (filterTarget !== 'note-button-group group-button-show' && filterTarget !== 'note-button-group' && buttonGroup.toLowerCase() !== 'img') {
-    const noteIdToEdit = event.target.getAttribute('note-id');
+    const noteIdToEdit = Number(event.target.getAttribute('note-id'));
+    let animate = true;
+    if(isCurrentState(STATES.EDITOR)) {
+      if(noteIdToEdit === loadEditID()) {
+        document.querySelector("#sidebar-notes").classList.remove("sidebar-show");
+        return
+      }
+      animate = false;
+    }
     populateEditor(noteIdToEdit);
-    showEditor();
+    showEditor(animate);
     setState(STATES.EDITOR);
   } else if (event.target.classList.contains('note-container__drag-indicator') || event.target.parentNode.classList.contains('note-container__drag-indicator')) {
     button3DotEventHandler(event);
@@ -211,6 +294,101 @@ function noteOnClickEventHandler(event) {
   } else if (event.target.classList.contains('note-delete')) {
     removeNoteEventHandler(event);
   }
+}
+
+function printEventHandler() {
+  window.print();
+}
+
+function mobileToolbarExtensionEventHandler() {
+  const editorOptions = document.querySelector('#editor-menu-item-options');
+  editorOptions.classList.toggle('editor-options-menu-show');
+
+  document.querySelector('.editor-section__menu').classList.toggle('editor-section__menu-opened');
+}
+
+function searchIconEventHandler() {
+  const searchBar = document.querySelector('#note-search-list');
+  const classConditon = searchBar.classList.contains('hide-search');
+  if (classConditon) {
+    searchBar.classList.remove('hide-search');
+    searchBar.classList.add('show-search');
+  } else {
+    searchBar.classList.remove('show-search');
+    searchBar.classList.add('hide-search');
+  }
+}
+
+function newNoteButtonEventHandler() {
+  createNewNote();
+  showEditor();
+}
+
+function quireLogoEventHandler() {
+  if(!isCurrentState(STATES.LANDING_PAGE)) {
+    showLandingPage(editOpenedNoteButton);
+    displayLatestNoteList();
+    setState(STATES.LANDING_PAGE);
+  }
+}
+
+function mainPageClickEventHandler(event) {
+  const settingsList = document.querySelector('#sidebar-settings');
+  const navLinkSettings = document.querySelector("#nav-link-settings");
+  const noteList = document.querySelector('#sidebar-notes');
+  const navLinkNote = document.querySelector("#nav-link-note");
+
+  const targetName = event.target.id;
+
+  if ((targetName !== "sidebar-notes") && (targetName !== "nav-note")) {
+    noteList.classList.remove("sidebar-show");
+    navLinkNote.classList.remove('nav__link--active');
+    navLinkSettings.classList.remove('nav__link--active');
+  }
+  if ((targetName !== "sidebar-settings") && (targetName !== "nav-settings")) {
+    settingsList.classList.remove("sidebar-show");
+    navLinkNote.classList.remove('nav__link--active');
+    navLinkSettings.classList.remove('nav__link--active');
+  }
+}
+
+function saveButtonEventHandler() {
+  saveEventAnimation();
+  makeAndStoreContent();
+}
+
+/**
+ * Adds all necessary event listeners
+ */
+function addEventListeners() {
+  //Latest Notes - On Click
+  document.querySelector("#landing-page__note-list").addEventListener('click', noteOnClickEventHandler);
+  //Notes list - On Click
+  document.querySelector("#note-list-sidebar").addEventListener('click', noteOnClickEventHandler);
+  //Note list - Search Icon - On Click
+  document.querySelector('#search-icon').addEventListener('click', searchIconEventHandler);
+  //Note list - Sorting Icon - On Click
+  document.querySelector('#sort-icon').addEventListener('click', sortEventHandler);
+  //Note list - Favorite icon - On Click
+  document.querySelector('#favorite-icon').addEventListener('click', favoriteEventHandler);
+  //Note list - Search Field - On Text Input 
+  document.querySelector('#search').addEventListener('input', searchEventHandler);
+  //Note - Edit Note - On Click
+  document.querySelector("#button-editNote").addEventListener("click", showEditorOptions);
+  //Note - Printer Icon - On Click
+  document.querySelector('#printerButton').addEventListener('click', printEventHandler);
+  //Note - Save Icon - On Click
+  document.querySelector('#save-btn').addEventListener('click', saveButtonEventHandler);
+  //Note - Expand Toolbar on mobile view - On Click
+  document.querySelector('#editor-menu-item-show').addEventListener('click', mobileToolbarExtensionEventHandler);
+  //Main Page - On Click
+  document.querySelector('#main-page-content').addEventListener("click", mainPageClickEventHandler);
+  //Note - New Document - On Click
+  document.querySelector('#new-document').addEventListener('click', createNewNote);
+  //Landing Page - New Note - On Click
+  document.querySelector("#add-new-note-button").addEventListener("click", newNoteButtonEventHandler);
+  //Navbar - Quire Logo - On Click
+  document.querySelector("#quire-logo").addEventListener("click", quireLogoEventHandler);
 }
 
 /////////////////// END EVENT HANDLERS ///////////////////
@@ -244,35 +422,12 @@ function clearAllChildren(node) {
   }
 }
 
-//save button
-document.querySelector('#save-btn').addEventListener('click', saveFunction);
-
-//Create a new document button
-document.querySelector('#new-document').addEventListener('click', createNewDocument);
-
-function saveEventAnimation() {
-  const saveNotification = document.querySelector("#saved-notification");
-
-  setTimeout(() => {
-    saveNotification.classList.add("saved-notification--show");
-  }, 1000);
-
-  setTimeout(() => {
-    saveNotification.classList.remove("saved-notification--show");
-  }, 6000);
-}
-
-
-function saveFunction() {
-  saveEventAnimation();
-  makeAndStoreContent();
-}
-
-function createNewDocument() {
+function createNewNote() {
   //Reset edit id, clear editor content and its title
   saveEditID(0);
   clearContents();
   document.getElementById('editorTitle').value = '';
+  setState(STATES.EDITOR);
 }
 
 function editorLoad() {
@@ -291,27 +446,6 @@ function clearContents() {
 function storeContent() {
   localStorage.setItem('save-notes', JSON.stringify(getAllNotes()));
 }
-
-
-document.getElementById('main-page-content').addEventListener("click", (event) => {
-  const settingsList = document.querySelector('#sidebar-settings');
-  const navLinkSettings = document.querySelector("#nav-link-settings");
-  const noteList = document.querySelector('#sidebar-notes');
-  const navLinkNote = document.querySelector("#nav-link-note");
-
-  const targetName = event.target.id;
-
-  if ((targetName !== "sidebar-notes") && (targetName !== "nav-note")) {
-    noteList.classList.remove("sidebar-show");
-    navLinkNote.classList.remove('nav__link--active');
-    navLinkSettings.classList.remove('nav__link--active');
-  }
-  if ((targetName !== "sidebar-settings") && (targetName !== "nav-settings")) {
-    settingsList.classList.remove("sidebar-show");
-    navLinkNote.classList.remove('nav__link--active');
-    navLinkSettings.classList.remove('nav__link--active');
-  }
-});
 
 /**
  * Sort saved notes by latest edited note
@@ -337,25 +471,6 @@ function displayLatestNoteList() {
   }
 }
 
-document.querySelector("#add-new-note-button").addEventListener("click", () => {
-  createNewDocument();
-  showEditor();
-});
-
-document.querySelector("#quire-logo").addEventListener("click", () => {
-  showLandingPage(editOpenedNoteButton);
-  displayLatestNoteList();
-  setState(STATES.LANDING_PAGE);
-});
-
-function addEventhandler() {
-  const latestNotes = document.querySelector("#landing-page__note-list");
-  const editTextList = document.querySelector("#note-list-sidebar");
-
-  latestNotes.addEventListener('click', noteOnClickEventHandler);
-  editTextList.addEventListener('click', noteOnClickEventHandler);
-}
-
 function main() {
   initializeLocalStorage();
   noteListSlide();
@@ -363,14 +478,12 @@ function main() {
   displayLatestNoteList();
   displayListNotes(getAllNotes());
   showEditButton(editOpenedNoteButton);
-  addEventhandler();
+  addEventListeners();
 
   switch (getCurrentState()) {
 
     case STATES.LANDING_PAGE:
-
       break;
-
     case STATES.EDITOR:
       populateEditor(loadEditID());
       showEditor(false);
@@ -378,99 +491,5 @@ function main() {
       break;
   }
 }
-
-
-function searchText(text, word) {
-  text = text.toLowerCase();
-  word = word.toLowerCase().replace(/([()[{*+.$^\\|?])/g, '\\$1');
-
-  const index = text.search(word);
-
-  if (index !== -1) {
-    let start = index - searchPreviewLength < 0 ? 0 : index - searchPreviewLength;
-    let end = start === 0 ? index : searchPreviewLength;
-    return { start, end, index };
-  }
-
-  return false;
-}
-
-document.querySelector('#search-icon').addEventListener('click', function () {
-  const searchBar = document.querySelector('#note-search-list');
-  const classConditon = searchBar.classList.contains('hide-search');
-  if (classConditon) {
-    searchBar.classList.remove('hide-search');
-    searchBar.classList.add('show-search');
-  } else {
-    searchBar.classList.remove('show-search');
-    searchBar.classList.add('hide-search');
-  }
-});
-
-let sortByFavoriteActive = false;
-let sortFromNewest = false;
-
-document.querySelector('#sort-icon').addEventListener('click', function () {
-  sortFromNewest = !sortFromNewest;
-
-  let notes = getAllNotes();
-  if (sortByFavoriteActive) {
-    notes = getFavorites();
-  }
-
-  if (sortFromNewest) {
-    notes = getNotesFromNewestToOldest(notes);
-  } else {
-    notes = getNotesFromOldestToNewest(notes);
-  }
-
-  displayListNotes(notes);
-
-});
-
-document.querySelector('#favorite-icon').addEventListener('click', function () {
-  const getFavoriteIcon = document.querySelector('#favorite-icon');
-  sortByFavoriteActive = !sortByFavoriteActive;
-  if (sortByFavoriteActive) {
-    displayListNotes(getFavorites());
-  } else {
-    displayListNotes(getAllNotes());
-  }
-  getFavoriteIcon.setAttribute('src', `assets/icons/star-${sortByFavoriteActive ? 'filled' : 'outlined'}.svg`);
-});
-
-document.getElementById('search').addEventListener('input', function () {
-  let notes = getAllNotes();
-
-  if (sortByFavoriteActive) {
-    notes = getFavorites();
-  }
-
-  if (notes.length > 0) {
-    clearAllChildren(document.querySelector('#note-list-sidebar'));
-
-    const foundNotes = notes.filter((note, index) => {
-      return searchText(getTextFromContent(note.content.ops), this.value) || searchText(note.title, this.value);
-    });
-
-    displayListNotes(foundNotes);
-  }
-});
-
-document.querySelector("#button-editNote").addEventListener("click", showEditorOptions);
-
-/**
- * Print button
- */
-document.getElementById('printerButton').addEventListener('click', function () {
-  window.print();
-});
-
-document.querySelector('#editor-menu-item-show').addEventListener('click', () => {
-  const editorOptions = document.querySelector('#editor-menu-item-options');
-  editorOptions.classList.toggle('editor-options-menu-show');
-
-  document.querySelector('.editor-section__menu').classList.toggle('editor-section__menu-opened');
-})
 
 window.addEventListener("load", main);

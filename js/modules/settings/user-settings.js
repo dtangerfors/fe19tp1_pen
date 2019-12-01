@@ -71,6 +71,10 @@ export function setState(state) {
   saveUserSettings();
 }
 
+export function isCurrentState(state) {
+  return getCurrentState() === state
+}
+
 export function getCurrentState() {
   return settings.state;
 }
