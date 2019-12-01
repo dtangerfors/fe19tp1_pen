@@ -9,13 +9,11 @@
   <link rel="stylesheet" href="css/navbar.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/mobile-style.css">
+  <link rel="stylesheet" href="css/print.css">
 
   <link rel="shortcut icon" href="assets/quire-logo-purple.ico" type="image/x-icon">
 
   <!-- IMPORT FONTS -->
-  <link
-    href="https://fonts.googleapis.com/css?family=Playfair+Display:700|Roboto:300,300i,400,400i,700,700i&display=swap"
-    rel="stylesheet">
 
   <!-- Playfair - HEADER -->
   <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700&display=swap" rel="stylesheet">
@@ -57,7 +55,7 @@
     </div>
     <ul class="nav__link-group">
       <li class="nav__link" id="nav-link-note">
-        <img class="nav__icon" src="assets/icons/stacked-notes-outlined.svg" id="nav-note" alt="Show notes" />
+        <img class="nav__icon" src="assets/icons/stacked-notes.svg" id="nav-note" alt="Show notes" />
       </li>
       <li class="nav__link" id="nav-link-settings">
         <img class="nav__icon" src="assets/icons/settings.svg" id="nav-settings" alt="View settings" />
@@ -75,7 +73,7 @@
         <img id="sort-icon" class="sort-top-icon menu-item__icon" src="assets/icons/sort.svg" alt="Sort notes">
       </div>
       <div class="menu-item">
-        <img class="search-top-icon menu-item__icon" id="search-icon" src="assets/icons/search.svg">
+        <img class="search-top-icon menu-item__icon" alt="Search notes" id="search-icon" src="assets/icons/search.svg">
       </div>
     </div>
     <div id="note-search-list" class="hide-search">
@@ -264,7 +262,7 @@
 
         </div>
       </div>
-      <input type="text" name="editorTitle" id="editorTitle" maxlength="20" class="editor-section__title"
+      <input type="text" name="editorTitle" id="editorTitle" maxlength="30" class="editor-section__title"
         placeholder="New document" spellcheck="false" autocomplete="off">
       <div id="editor-main" class="editor-section__editor">
         <div id="editor-code"></div>
