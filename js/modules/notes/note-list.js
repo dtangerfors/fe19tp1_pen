@@ -52,7 +52,7 @@ export function getFavorites() {
 }
 
 export function getNotesFromNewestToOldest(notes = getAllNotes()) {
-    return notes.sort((noteA,noteB) => noteB.lastChanged - noteA.lastChanged);
+    return notes.sort((noteA, noteB) => noteB.lastChanged - noteA.lastChanged);
 }
 
 export function getNotesFromOldestToNewest(notes = getAllNotes()) {
@@ -81,10 +81,10 @@ export function setPredefinedNotes(notes) {
 }
 
 
-export function dateHowLongAgo(milliseconds) {
+export function dateHowLongAgo(created, edited) {
     const timeNow = Date.now();
-    const dateReturn = new Date(milliseconds);
-    const howOld = timeNow - milliseconds;
+    const dateReturn = new Date(edited);
+    const howOld = timeNow - edited;
 
     const secondsDecimal = howOld / 1000;
     const seconds = secondsDecimal.toFixed(0);
@@ -106,23 +106,31 @@ export function dateHowLongAgo(milliseconds) {
 
     const monthsArr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
+    let dateMsg;
+
+    if (created === edited) {
+        dateMsg = "Created "
+    } else {
+        dateMsg = "Last edited "
+    }
+
     if (days > 0 || months > 0 || years < 0) {
-        return monthsArr[dateReturn.getMonth()] + " " + dateReturn.getDate() + ", " + dateReturn.getFullYear()
+        return dateMsg + monthsArr[dateReturn.getMonth()] + " " + dateReturn.getDate() + ", " + dateReturn.getFullYear()
     } else if (hours > 0) {
         if (hours == 1) {
-            return  "about " + hours + " hour ago";
+            return dateMsg + "about " + hours + " hour ago";
         } else {
-            return "about " + hours + " hours ago";
+            return dateMsg + "about " + hours + " hours ago";
         }
     }
     else if (minutes > 0) {
         if (minutes == 1) {
-            return minutes + " minute ago";
+            return dateMsg + minutes + " minute ago";
         } else {
-            return minutes + " minutes ago";
+            return dateMsg + minutes + " minutes ago";
         }
     } else {
-        return seconds + " seconds ago";
+        return dateMsg + seconds + " seconds ago";
     }
 }
 /**

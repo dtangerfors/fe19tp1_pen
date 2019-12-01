@@ -1,4 +1,4 @@
-import {hideEditorOptions, showEditorOptions} from '../notes/edit.js'
+import { hideEditorOptions, showEditorOptions } from '../notes/edit.js'
 
 const editButton = document.querySelector("#edit-opened-note-button")
 const editDocumentButton = document.getElementById('button-editNote');
@@ -38,7 +38,7 @@ export function showEditor(animateDelay = true) {
         setTimeout(function () { editorSection.classList.remove("fadeIn") }, 1000)
     }
 
-    if(animateDelay) {
+    if (animateDelay) {
         setTimeout(function () {
             fadeEditor();
         }, 1000);
@@ -58,4 +58,6 @@ export function showLandingPage(func) {
     }, 1000);
     showEditButton(func);
     document.querySelector("#landing-page__note-list").innerHTML = " ";
+    document.querySelector("#sidebar-notes").classList.remove("sidebar-show")
+    document.querySelector("#sidebar-settings").classList.remove("sidebar-show")
 }

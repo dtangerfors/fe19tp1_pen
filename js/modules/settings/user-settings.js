@@ -130,7 +130,7 @@ function resetFontStatus() {
     const elem = document.querySelector(`#${key} .span-font-status`);
     elem.innerText = 'Not in use';
     fontStatus[key].status = false;
-    elem.style.setProperty('color', 'var(--font-color)');
+    elem.style.setProperty('color', 'var(--disabled)');
   }
 }
 
@@ -141,7 +141,7 @@ function setFont(font) {
   fontStatus[font].status = true
   root.style.setProperty('--current-header-font', fontStatus[font].fontFamily.header);
   root.style.setProperty('--current-body-font', fontStatus[font].fontFamily.body);
-  elem.style.setProperty('color', 'lime');
+  elem.style.setProperty('color', 'var(--font-color)');
 }
 
 let fontList = document.getElementById('font-list');

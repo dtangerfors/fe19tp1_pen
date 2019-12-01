@@ -1,0 +1,46 @@
+@media print {
+
+  .nav, #note-list, .ql-toolbar, .editor-section__toolbar, button, .sidebar, .sidebar-show, .sidebar::-webkit-scrollbar {
+    display: none;
+  }
+
+  #editor-code {
+    border: 0;
+    overflow: hidden;
+    height: auto;
+  }
+
+  .editor-section__title {
+    margin: 0;
+    padding: .5rem 0;
+    text-align: left;
+  }
+
+  .editor-section__editor {
+    margin: 0;
+  }
+
+  .editor-section {
+    margin: 0;
+  }
+
+
+  #main-page-content {
+    margin: 0;
+    padding: 0;
+  }
+
+  .editor-section__menu {
+    border: 0;
+  }
+
+  .ql-snow .ql-editor {
+    margin: 0;
+    padding: 0;
+  }
+
+  @page {
+    size: auto;
+    margin: 3cm 3cm 3cm 4cm;
+  }
+}

@@ -12,7 +12,7 @@ function notesTemplate(note) {
     return `
         <div class="notes" note-id="${note.dateOfCreation}">
             <h3 class="heading-tertiary notes__title" note-id="${note.dateOfCreation}">${note.title}</h3>
-            <p class="notes__lastChanged" note-id="${note.dateOfCreation}">Last edited ${dateHowLongAgo(note.lastChanged)}</p>
+            <p class="notes__lastChanged" note-id="${note.dateOfCreation}">${dateHowLongAgo(note.dateOfCreation, note.lastChanged)}</p>
             <p class="notes__content" note-id="${note.dateOfCreation}">${preview}</p>
         </div>
     `
@@ -32,17 +32,17 @@ function listNoteTemplate(note) {
         <div class="note-container">
             <div class="note-container__inner note-class_${note.dateOfCreation}" note-id="${note.dateOfCreation}">
                 <div class="note-container__text-content">
-                    <h3 class="heading-tertiary" note-id="${note.dateOfCreation}">${note.title}</h3>
-                    <p class="paragraph-date" note-id="${note.dateOfCreation}">${dateHowLongAgo(note.lastChanged)}</p>
+                    <h3 class="heading-tertiary notes__title" note-id="${note.dateOfCreation}">${note.title}</h3>
+                    <p class="paragraph-date" note-id="${note.dateOfCreation}">${dateHowLongAgo(note.dateOfCreation, note.lastChanged)}</p>
                     <p class="paragraph" note-id="${note.dateOfCreation}">${preview}</p>
                 </div>
             <div class="note-container__drag-indicator">
-                <img src="assets/icons/drag-indicator.svg" alt="open sidemenue">
+                <img src="assets/icons/drag-indicator.svg" alt="open sidemenu">
             </div>
         </div>
-        <div class="note-container__menue note-class_${note.dateOfCreation}">
-            <div note-id="${note.dateOfCreation}" class="note-container__menue-item"><img src="${imgSource}" alt="favorite note" class="note-container__icon note-favorite"></div>
-            <div note-id="${note.dateOfCreation}" class="note-container__menue-item"><img src="assets/icons/delete.svg" alt="delete note" class="note-container__icon note-delete"></div>
+        <div class="note-container__menu note-class_${note.dateOfCreation}">
+            <div note-id="${note.dateOfCreation}" class="note-container__menu-item"><img src="${imgSource}" alt="favorite note" class="note-container__icon note-favorite"></div>
+            <div note-id="${note.dateOfCreation}" class="note-container__menu-item"><img src="assets/icons/delete.svg" alt="delete note" class="note-container__icon note-delete"></div>
         </div>
     </div>
     `

@@ -1,13 +1,6 @@
 
-html {
-    font-size: 62.5%;
-}
-.theme-light{
---nav-color :var(--purple-nav-light);
-}
-.theme-dark{
---nav-color :var(--purple-nav-dark); 
-}
+
+
 *,
 *::before,
 *::after {
@@ -23,7 +16,7 @@ html {
     flex-direction: column;
     position: fixed;
 
-    background-color: var(--nav-color);
+    background-color: rgb(var(--primary-purple));
     box-shadow: .7rem 0 0 0 rgba(0,0,0,.1);
 
     z-index: 5;
