@@ -1,0 +1,54 @@
+#ql-picker-options-0 {
+  background-color: rgb(var(--color-primary));
+}
+
+.ql-picker-item:hover {
+  background-color: rgb(var(--color-primary));
+}
+
+#editor-code {
+  border: 0;
+}
+
+#editor-code .ql-editor:focus {
+  border: none;
+  outline: none !important;
+}
+
+.ql-toolbar--hidden {
+  visibility: hidden;
+  padding: 0 !important;
+}
+
+.ql-container--hidden {
+  border: none !important;
+}
+
+.ql-stroke {
+  stroke: rgb(var(--font-color)) !important;
+}
+
+.ql-toolbar button:hover .ql-stroke{
+  stroke: rgb(var(--purple-text)) !important;
+}
+
+.ql-fill {
+  fill: rgb(var(--font-color)) !important;
+}
+
+.ql-toolbar button:hover .ql-fill {
+  fill: rgb(var(--purple-text)) !important;
+}
+
+.ql-editor p, .ql-editor ol, .ql-editor ul, .ql-editor pre {
+  font-family: var(--current-body-font);
+}
+
+.ql-editor h1, .ql-editor h2, .ql-editor h3, .ql-editor h4, .ql-editor h5, .ql-editor h6 {
+  font-family: var(--current-header-font);
+}
+
+.ql-editor.ql-blank::before {
+    color: rgba(var(--font-color), .5) !important;
+    font-style: normal;
+}
