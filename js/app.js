@@ -51,7 +51,7 @@ const editor = new Quill('#editor-code', quillSettings);
 editor.on('text-change', (_1, _2, source) => {
   if (source === 'user') {
     if (userSettings.autoSave && +loadEditID() !== 0) {
-      makeAndStoreContent();
+      storeAndDisplayContent();
     }
   }
 });
@@ -94,14 +94,17 @@ function loadEditID() {
   }
   return parseInt(id);
 }
-
-function makeAndStoreContent() {
+/**
+ * This function stores content from editor and if it is not edited stores
+ * a new content and display in note-list
+ */
+function storeAndDisplayContent() {
   const allNotes = getAllNotes();
-  const loadID = Number(loadEditID());
+  const loadID = Number(loadEditID()); //editor note id
   let noteExists = false;
 
   allNotes.forEach(function (note) {
-    if (note.dateOfCreation === loadID) {
+    if (note.dateOfCreation === loadID) { //saving current edited content
       note.content = editor.getContents();
       noteExists = true;
       note.lastChanged = Date.now();
@@ -114,7 +117,7 @@ function makeAndStoreContent() {
     if (noteExists) return;
   });
 
-  if (!noteExists) {
+  if (!noteExists) { //saves a new content in local storage
     const newNote = new Note({
       title: document.getElementById('editorTitle').value,
       content: editor.getContents()
@@ -354,7 +357,7 @@ function mainPageClickEventHandler(event) {
 
 function saveButtonEventHandler() {
   saveEventAnimation();
-  makeAndStoreContent();
+  storeAndDisplayContent();
 }
 
 /**
