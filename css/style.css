@@ -501,6 +501,15 @@ input:checked+.slider:before {
   transition: all .7s ease, opacity .3s ease;
 }
 
+#sidebar-notes {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.sidebar::-webkit-scrollbar {
+  display: none;
+}
+
 /* ------------- SIDEBAR DESIGN END-------------*/
 
 /* ------------- NOTE LIST DESIGN -------------*/
