@@ -134,7 +134,7 @@ function resetFontStatus() {
     const elem = document.querySelector(`#${key} .span-font-status`);
     elem.innerText = 'Not in use';
     fontStatus[key].status = false;
-    elem.style.setProperty('color', 'var(--disabled)');
+    elem.style.setProperty('color', 'rgb(var(--disabled))');
   }
 }
 
