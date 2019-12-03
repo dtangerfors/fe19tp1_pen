@@ -28,7 +28,7 @@ import {
 
 import {
   displayNotes,
-  displayListNotes
+  displayListNoteItem
 } from './modules/page/loadnotes.js';
 
 import {
@@ -81,6 +81,7 @@ function initializeLocalStorage() {
  * @param {number} id 
  */
 function saveEditID(id) {
+  //saving id from saved content
   localStorage.setItem('edit-id', JSON.stringify(id));
 }
 
@@ -100,11 +101,12 @@ function loadEditID() {
  */
 function storeAndDisplayContent() {
   const allNotes = getAllNotes();
-  const loadID = Number(loadEditID()); //editor note id
+  const loadID = Number(loadEditID()); //loading editor note id
   let noteExists = false;
 
   allNotes.forEach(function (note) {
-    if (note.dateOfCreation === loadID) { //saving current edited content
+    if (note.dateOfCreation === loadID) { 
+      //saving current edited content if id are same
       note.content = editor.getContents();
       noteExists = true;
       note.lastChanged = Date.now();
@@ -117,7 +119,8 @@ function storeAndDisplayContent() {
     if (noteExists) return;
   });
 
-  if (!noteExists) { //saves a new content in local storage
+  if (!noteExists) { 
+    //saves a new content in local storage
     const newNote = new Note({
       title: document.getElementById('editorTitle').value,
       content: editor.getContents()
@@ -126,7 +129,7 @@ function storeAndDisplayContent() {
     saveEditID(newNote.dateOfCreation);
   }
   storeContent();
-  displayListNotes(getAllNotes());
+  displayListNoteItem(getAllNotes());
 }
 
 function populateEditor(noteId) {
@@ -177,6 +180,9 @@ function searchText(text, word) {
  * @param {MouseEvent} event
  */
 function removeNoteEventHandler(event) {
+/**
+* This function removes item from localstorage and displaying from notelist based on id
+*/
   const noteIdToRemove = event.target.parentNode.getAttribute('note-id');
   const indexToRemove = getAllNotes().findIndex(data => data.dateOfCreation === Number(noteIdToRemove));
 
@@ -198,6 +204,9 @@ function removeNoteEventHandler(event) {
  * @param {MouseEvent} event
  */
 function setFavoriteNoteEventHandler(event) {
+/**
+* This function sets favorite or remove favorite on notes and sets it top local storage
+*/
   const favoriteNote = event.target.parentNode.getAttribute('note-id');
   const index = getAllNotes().findIndex(note => note.dateOfCreation === Number(favoriteNote));
   const note = getNote(index);
@@ -238,16 +247,16 @@ function sortEventHandler() {
     notes = getNotesFromOldestToNewest(notes);
   }
 
-  displayListNotes(notes);
+  displayListNoteItem(notes);
 }
 
 function favoriteEventHandler() {
   const getFavoriteIcon = document.querySelector('#favorite-icon');
   sortByFavoriteActive = !sortByFavoriteActive;
   if (sortByFavoriteActive) {
-    displayListNotes(getFavorites());
+    displayListNoteItem(getFavorites());
   } else {
-    displayListNotes(getAllNotes());
+    displayListNoteItem(getAllNotes());
   }
   getFavoriteIcon.setAttribute('src', `assets/icons/star-${sortByFavoriteActive ? 'filled' : 'outlined'}.svg`);
 }
@@ -266,7 +275,7 @@ function searchEventHandler() {
       return searchText(getTextFromContent(note.content.ops), this.value) || searchText(note.title, this.value);
     });
 
-    displayListNotes(foundNotes);
+    displayListNoteItem(foundNotes);
   }
 }
 
@@ -473,13 +482,15 @@ function displayLatestNoteList() {
     displayNotes(sortedNotesByLastEdit.slice(0, 3));
   }
 }
-
+/**
+ * this fucntion load all content en window is loaded
+ */
 function main() {
   initializeLocalStorage();
   noteListSlide();
   editorLoad();
   displayLatestNoteList();
-  displayListNotes(getAllNotes());
+  displayListNoteItem(getAllNotes());
   showEditButton(editOpenedNoteButton);
   addEventListeners();
 

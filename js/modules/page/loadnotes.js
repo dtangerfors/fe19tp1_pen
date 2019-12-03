@@ -22,7 +22,10 @@ export function displayNotes(note) {
     return document.querySelector("#landing-page__note-list").innerHTML = note.map(notesTemplate).join("");
 }
 
-function listNoteTemplate(note) {
+/**
+ * This functions displays note, content and time of edited in note-list sidebar
+ */
+function createNoteListItems(note) {
     let preview = getTextFromContent(note.content.ops);
     const imgSource = note.isFavorite ? './assets/icons/star-filled.svg' : './assets/icons/star-outlined.svg';
     if (preview.length > 50) {
@@ -48,6 +51,6 @@ function listNoteTemplate(note) {
     `
 }
 
-export function displayListNotes(note) {
-    return document.querySelector('#note-list-sidebar').innerHTML = note.map(listNoteTemplate).join('');
+export function displayListNoteItem(note) {
+    return document.querySelector('#note-list-sidebar').innerHTML = note.map(createNoteListItems).join('');
 }

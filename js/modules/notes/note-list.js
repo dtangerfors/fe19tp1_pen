@@ -80,7 +80,9 @@ export function setPredefinedNotes(notes) {
     });
 }
 
-
+/*
+* This functions takes two dates and prints in date and time from notelist
+*/
 export function dateHowLongAgo(created, edited) {
     const timeNow = Date.now();
     const dateReturn = new Date(edited);
