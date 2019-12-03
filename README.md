@@ -5,7 +5,7 @@ With Quire you are able to take notes. But that’s not everything! Make them as
 ## Trello
 https://trello.com/b/Tjv4xRqW/fe19tp1pen
 
-## Utvecklarna
+## Developers
 
  - Volkan Güven
  - Ismail Güven
