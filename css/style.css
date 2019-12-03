@@ -505,10 +505,6 @@ input:checked+.slider:before {
 
 /* ------------- NOTE LIST DESIGN -------------*/
 
-#sidebar-notes {
-  overflow: hidden;
-}
-
 .note-button-group {
   cursor: pointer;
   outline: 0;
