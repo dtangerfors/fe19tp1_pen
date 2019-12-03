@@ -1,5 +1,5 @@
 /**
- * End user settings
+ * User settings
  */
 
 export const STATES = {
@@ -37,7 +37,6 @@ export const settings = {
   activeFont: 'noto-switch',
   state: STATES.LANDING_PAGE
 };
-
 /**
  * Load settings from localstorage if it's saved.
  */
@@ -53,12 +52,15 @@ if (localSettings) {
 resetFontStatus();
 setFont(settings.activeFont);
 
+/**
+ * Saves user settings to localStorage
+ */
 export function saveUserSettings() {
   localStorage.setItem('user-settings', JSON.stringify(settings));
 }
 
 /**
- * 
+ * Set the current theme
  * @param {String} theme 
  */
 export function setTheme(theme) {
@@ -66,38 +68,37 @@ export function setTheme(theme) {
   document.documentElement.className = `theme-${settings.activeTheme}`;
 }
 
+if (settings.activeTheme === 'dark') {
+  setTheme('dark');
+} else {
+  setTheme('light');
+}
+
+/**
+ * Sets state
+ * @param {STATES} state 
+ */
 export function setState(state) {
   settings.state = state;
   saveUserSettings();
 }
 
+/**
+ * Check the current state
+ * @param {STATES} state
+ * @returns Boolean
+ */
 export function isCurrentState(state) {
   return getCurrentState() === state
 }
 
+/**
+ * Get the current state
+ * @returns STATES
+ */
 export function getCurrentState() {
   return settings.state;
 }
-
-/**
- * 
- */
-function toggleTheme() {
-  if (settings.activeTheme === 'dark') {
-    setTheme('light');
-    return 'light';
-  }
-  setTheme('dark');
-  return 'dark';
-}
-
-(function () {
-  if (settings.activeTheme === 'dark') {
-    setTheme('dark');
-  } else {
-    setTheme('light');
-  }
-})();
 
 /**
  * Save Checkbox Element in the DOM
@@ -123,9 +124,8 @@ theme_checkbox.addEventListener('change', function () {
 });
 
 /**
- * Font change
+ * Resets the font status color and text in the sidebar
  */
-
 function resetFontStatus() {
   const root = document.documentElement;
   root.style.setProperty('--current-header-font', '');
@@ -138,6 +138,10 @@ function resetFontStatus() {
   }
 }
 
+/**
+ * Set the current font
+ * @param {String} font 
+ */
 function setFont(font) {
   const root = document.documentElement;
   const elem = document.querySelector(`#${font} .span-font-status`);
@@ -162,12 +166,9 @@ fontList.addEventListener('click', function (e) {
     } else {
       return;
     }
-
   }
-
   resetFontStatus();
   setFont(target);
-
   settings.activeFont = target;
   saveUserSettings();
 });

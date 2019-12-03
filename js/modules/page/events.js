@@ -34,7 +34,7 @@ import {
   clearContents,
   editOpenedNoteButton,
   resetEditor
-} from './handler.js';
+} from '../function/functions.js';
 
 
 /**
