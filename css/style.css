@@ -807,7 +807,9 @@ input:checked+.slider:before {
 }
 
 .notes__title {
-
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   margin-bottom: .2rem;
 }
 
