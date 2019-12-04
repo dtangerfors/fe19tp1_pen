@@ -578,13 +578,16 @@ input:checked+.slider:before {
   width: 24rem;
   margin: 0 3rem;
   padding: 2rem 0;
-  border-bottom: 1px solid rgb(var(--border));
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   flex-grow: 1;
   flex-shrink: 0;
   transition: all 0.5s ease;
+}
+
+.note-container:not(:last-child) .note-container__inner {
+  border-bottom: 1px solid rgb(var(--border));
 }
 
 .menu-item:not(:first-child) {
@@ -804,7 +807,9 @@ input:checked+.slider:before {
 }
 
 .notes__title {
-
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   margin-bottom: .2rem;
 }
 
