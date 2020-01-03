@@ -1,5 +1,6 @@
 let qlEditorToolbar, qlEditor, qlEditorInner, qlEditorMenubar, editButton;
 
+//Loading the CSS selectors upon DOM loading
 window.addEventListener('DOMContentLoaded', () => {
     qlEditorToolbar = document.querySelector(".ql-toolbar");
     qlEditor = document.querySelector(".ql-container");
@@ -8,7 +9,9 @@ window.addEventListener('DOMContentLoaded', () => {
     editButton = document.querySelector("#button-editNote");
 });
 
-
+/**
+ * Upon calling, hides editor-related menu and displays the edit button
+ */
 export function hideEditorOptions() {
 
     if (JSON.parse(localStorage.getItem("edit-id")) !== "0") {
@@ -23,6 +26,9 @@ export function hideEditorOptions() {
     }
 }
 
+/**
+ * Upon calling, displays editor-related menu and hides the edit button
+ */
 export function showEditorOptions() {
     qlEditorToolbar.classList.remove("ql-toolbar--hidden")
     qlEditor.classList.remove("ql-container--hidden")
